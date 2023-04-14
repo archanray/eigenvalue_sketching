@@ -6,7 +6,7 @@ from numpy.linalg import qr
 from numpy.linalg import svd
 from tqdm import tqdm
 
-def block_krylov_iter(A, eps, k):
+def block_krylov_iter(A, eps, k, return_var="Q"):
     """
     Inputs:
     A -- n times d matrix
@@ -39,6 +39,9 @@ def block_krylov_iter(A, eps, k):
     # orthonormalizing columns of K to obtain K
     Q, R = qr(K)
 
+    if return_var == "Q":
+        return Q, matvecs
+
     # compute M
     M = Q.T @ AAT @ Q
 
@@ -47,9 +50,10 @@ def block_krylov_iter(A, eps, k):
     U, S, V = svd(M, full_matrices=True, compute_uv=True)
     Uk = U[:, :k]
 
-    return Q @ Uk, matvecs
+    if return_var != "Q":
+        return Q @ Uk, matvecs
 
 # test
 matvals = np.random.randn(100, 100)
-eigvec_approx, matvecs = block_krylov_iter(matvals, 1e-2, 10)
+eigvec_approx, matvecs = block_krylov_iter(matvals, 1e-2, 10, return_var="Z")
 
