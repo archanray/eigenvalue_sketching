@@ -15,6 +15,7 @@ def block_krylov_iter(A, eps, k, return_var="Q"):
 
     Outputs:
     Z -- n times k matrix
+    matvecs -- number of matrix vector products on A, the input matrix
     """
     matvecs = 0
     d = A.shape[1]
@@ -26,15 +27,15 @@ def block_krylov_iter(A, eps, k, return_var="Q"):
     Pi = Pi / np.linalg.norm(Pi, axis=0)
 
     APi = A @ Pi
-    AAT = A @ A.T
-    matvecs += 2
+    matvecs += k
 
-    S = deepcopy(AAT)
+    S = A @ (A.T @ APi)
     K = deepcopy(APi)
     # generating the Krylov Subspace
     for i in tqdm(range(1,q+1)):
-        K = np.concatenate((K, S @ APi), axis = 1)
-        S = S @ AAT
+        K = np.concatenate((K, S), axis = 1)
+        S = A @ (A.T @ S)
+        matvecs += 2*k
 
     # orthonormalizing columns of K to obtain K
     Q, R = qr(K)
@@ -43,7 +44,8 @@ def block_krylov_iter(A, eps, k, return_var="Q"):
         return Q, matvecs
 
     # compute M
-    M = Q.T @ AAT @ Q
+    M = (Q.T @ A) @ (A.T @ Q)
+    matvecs += Q.shape[1]
 
 
     # compute SVD of M
