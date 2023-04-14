@@ -1,6 +1,4 @@
 import numpy as np
-from numpy.linalg import matrix_power as mpow
-from numpy.linalg import eig
 from copy import deepcopy
 from numpy.linalg import qr
 from numpy.linalg import svd
