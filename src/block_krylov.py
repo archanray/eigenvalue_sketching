@@ -45,7 +45,6 @@ def block_krylov_iter(A, eps, k, return_var="Q"):
     M = (Q.T @ A) @ (A.T @ Q)
     matvecs += Q.shape[1]
 
-
     # compute SVD of M
     U, S, V = svd(M, full_matrices=True, compute_uv=True)
     Uk = U[:, :k]
