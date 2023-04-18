@@ -41,14 +41,16 @@ params = {"search_rank": search_rank, "trials": trials, \
 
 ################################### APPROXIMATION ####################################
 # Initialize the results
-results = {}
+approx_results = {}
+matvec_results = {}
 # Run approximation
 for mthd in approx_mthds:
     mv_method = mthd
     print(mv_method.__name__)
-    results[mv_method.__name__] = approximation(A, params, mv_method)
+    approx_results[mv_method.__name__], matvec_results[mv_method.__name__] = \
+            approximation(true_mat, params, mv_method)
 
 # Save the results
 with open("results/"+dataset_name+".pkl", "wb") as f:
-    pickle.dump(results, f)
+    pickle.dump([approx_results, matvec_results], f)
 ######################################################################################

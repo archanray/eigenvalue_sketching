@@ -12,7 +12,7 @@ def eigval_approx_bki_adaptive(A, eps, mode="Q"):
     alpha -- n sized array containing eigenvalue approximates
     """
     n = A.shape[0]
-    Z, matvecs = bki(A, 1, 1/eps**2, return_var=mode)
+    Z, matvecs = bki(A, 1, int(1/eps**2), return_var=mode)
 
     Atilde = Z.T @ (A @ Z)
     matvecs += Z.shape[1]
