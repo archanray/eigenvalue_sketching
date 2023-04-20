@@ -57,8 +57,6 @@ def eigval_approx_ortho_nonadaptive(A, k):
     Outputs:
     alpha -- k sized array containing eigenvalue approximates
     """
-    # this algorithm in its current state is incorrect and needs to be fixed
-    # fix: Btilde is not the correctly computed
 
     matvecs = 0
     S = np.random.randn(A.shape[0], k)
@@ -68,7 +66,7 @@ def eigval_approx_ortho_nonadaptive(A, k):
     matvecs += 2 * k
 
     Btilde = (np.lingalg.inv(AS.T @ T @ T.T @ AS)) @ AS.T @ T @ AT.T
-    Abar = AS @ Btilde
+    Abar = AS.T @ Btilde.T
     Atilde = (Abar + Abar.T) / 2
 
     alpha = np.linalg.eigvals(Atilde)
