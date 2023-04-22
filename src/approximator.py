@@ -1,7 +1,7 @@
 import numpy as np
 from src.block_krylov import block_krylov_iter as bki
 
-def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=True):
+def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=False, q=1, q_given=False):
     """
     Inputs:
     A -- n times n matrix
@@ -13,9 +13,14 @@ def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=
     """
     n = A.shape[0]
     if k_given == False:
-        Z, matvecs = bki(A, eps=epsilon, k=c1*int(1/epsilon**2), c=c2, return_var=mode)
+        k = c1*int(1/epsilon**2)
     else:
-        Z, matvecs = bki(A, eps=epsilon, k=c1*k, c=c2, return_var=mode)
+        k = c1*k
+    
+    if q_given == False:
+        Z, matvecs = bki(A, eps=epsilon, k=k, c=c2, return_var=mode)
+    else:
+        Z, matvecs = bki(A, eps=epsilon, k=k, c=c2, return_var=mode, q=q, q_given=True)
 
     Atilde = Z.T @ (A @ Z)
     matvecs += Z.shape[1]

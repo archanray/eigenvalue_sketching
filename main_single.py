@@ -37,28 +37,77 @@ print("search ranks:", search_rank)
 
 ################################### APPROXIMATION ####################################
 # Initialize the results
-c1s = np.logspace(0,8,num=8, base=10, endpoint=False) / 1e+05
-c2s = np.logspace(0,8,num=8, base=10, endpoint=False) / 1e+05
-
+qs = np.logspace(0,6,num=6, base=2, endpoint=False)
 ks = np.arange(50,90,5)
+k_given = True
+q_given = True
+mode = "Q"
 
-approx_results = np.zeros((len(c1s), len(c2s), len(ks), trials, len(search_rank)))
-matvec_results = np.zeros((len(c1s), len(c2s), len(ks), trials))
+approx_results = np.zeros((len(qs), len(ks), trials, len(search_rank)))
+matvec_results = np.zeros((len(qs), len(ks), trials))
 
-for i in tqdm(range(len(c1s))):
-    for j in range(len(c2s)):
-        c1l = c1s[i]
-        c2l = c2s[j]
-        for t in range(len(ks)):
-            for l in range(trials):
-                for mthd in approx_mthds:
-                    R = approx_mthds[0](true_mat, c1=c1l, c2=c2l, k=ks[t], k_given=True, mode="Q")
-                    approx_results[i,j,t,l,:] = (R[0])[search_rank]
-                    matvec_results[i,j,t,l] = R[1]
+for i in tqdm(range(len(qs))):
+    for j in range(len(ks)):
+        for l in range(trials):
+            for mthd in approx_mthds:
+                R = approx_mthds[0](true_mat, k=ks[j], k_given=k_given, q=qs[i], q_given=q_given, mode=mode)
+                approx_results[i,j,l,:] = (R[0])[search_rank]
+                matvec_results[i,j,l] = R[1]
 
-filename = dataset_name+"_"+approx_mthds[0].__name__+"_"+str(k_given)+"_"+mode
+filename = dataset_name+"_"+approx_mthds[0].__name__+"_"+str(k_given)+"_"+str(q_given)+"_"+mode
 
 # Save the results
 with open("single_results/"+filename+".pkl", "wb") as f:
-    pickle.dump([approx_results, matvec_results], f)
+    pickle.dump([true_spectrum[search_rank], approx_results, matvec_results, true_mat, ks, qs,\
+            dataset_name, approx_mthds, k_given, q_given, mode], f)
+######################################################################################
+
+############################## AGGREGATE RESULTS #####################################
+# Load the results
+with open("single_results/"+filename+".pkl", "rb") as f:
+    data = pickle.load(f)
+    true_spectrum = data[0]
+    approx_results = data[1]
+    matvec_results = data[2]
+    true_mat = data[3]
+    ks = data[4]
+    qs = data[5]
+    dataset_name = data[6]
+    approx_mthds = data[7]
+    k_given = data[8]
+    q_given = data[9]
+    mode = data[10]
+
+# Aggregate the results
+true_spectrum1 = np.expand_dims(true_spectrum, axis=0)
+true_spectrum1 = np.expand_dims(true_spectrum1, axis=0)
+true_spectrum1 = np.expand_dims(true_spectrum1, axis=0)
+error = np.abs(approx_results - true_spectrum1) / float(np.sqrt(np.count_nonzero(true_mat)))
+
+mean_approx_results = np.mean(error, axis=2)
+mean_matvec_results = np.mean(matvec_results, axis=2)
+
+std_approx_results = np.std(approx_results, axis=2)
+std_matvec_results = np.std(matvec_results, axis=2)
+######################################################################################
+
+################################## PLOTS #############################################
+import matplotlib.pyplot as plt
+# Plot the results
+
+for j in range(len(true_spectrum)):
+    filename = dataset_name+"_"+approx_mthds[0].__name__+"_"+str(k_given)+"_"+str(q_given)+"_"+mode+"_eigval"+str(j)
+    plt.gcf().clear()
+    fig, ax = plt.subplots(1,1, figsize=(10,10))
+    for i in range(len(qs)):
+        # plot approximation by 0
+        ax.plot(ks, np.zeros_like(mean_approx_results[i,:,0]) - true_spectrum[j], label="approx by 0")
+        # plot the mean errors
+        ax.plot(ks, mean_approx_results[i,:,0], label="q="+str(qs[i]))
+
+        ax.set_xlabel("k")
+        ax.set_ylabel("error")
+        ax.set_title("error vs k for different q")
+        ax.legend()
+    plt.savefig("figures/single_results/"+filename+"_"+str(j)+".pdf")
 ######################################################################################
