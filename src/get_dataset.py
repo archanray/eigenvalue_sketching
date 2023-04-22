@@ -7,9 +7,10 @@ import skimage.io
 from skimage import feature
 import numpy as np
 from sklearn.preprocessing import normalize
-#from src.display_codes import display_image
+from src.display_codes import display_image
 import matplotlib.pyplot as plt
 from random import sample
+from src.utils import hyperbolic_tangent, thin_plane_spline
 import os
 
 def get_distance(X, Y):
@@ -29,7 +30,7 @@ def get_distance(X, Y):
     return dists
 
 def get_data(name, eps=0.1, plot_mat=True, raise_eps=False):
-    if name == "kong":
+    if "kong" in name:
         imagedrawing = skimage.io.imread('donkeykong.tn768.png')
         display_image(imagedrawing)
         dataset_size = 5000
@@ -45,10 +46,18 @@ def get_data(name, eps=0.1, plot_mat=True, raise_eps=False):
         xy[:, 0] = xy[:,0] / np.max(xy[:,0])
         xy[:, 1] = xy[:,1] / np.max(xy[:,1])
 
+        mthd = name.split("_")[1]
+        if mthd == "ht":
+            similarity = hyperbolic_tangent
+        else:
+            similarity = thin_plane_spline
+        
+        A = similarity(xy, xy)
+
         min_sample_size = int(dataset_size * 0.01)
         max_sample_size = int(dataset_size * 0.2)
 
-        return xy, dataset_size, min_sample_size, max_sample_size
+        return A, dataset_size, min_sample_size, max_sample_size
 
     if name == "asymmetric":
         """
