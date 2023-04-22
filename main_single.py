@@ -83,6 +83,7 @@ true_spectrum1 = np.expand_dims(true_spectrum, axis=0)
 true_spectrum1 = np.expand_dims(true_spectrum1, axis=0)
 true_spectrum1 = np.expand_dims(true_spectrum1, axis=0)
 error = np.abs(approx_results - true_spectrum1) / float(np.sqrt(np.count_nonzero(true_mat)))
+error = np.log(error)
 
 mean_approx_results = np.mean(error, axis=2)
 mean_matvec_results = np.mean(matvec_results, axis=2)
@@ -99,9 +100,10 @@ for j in range(len(true_spectrum)):
     filename = dataset_name+"_"+approx_mthds[0].__name__+"_"+str(k_given)+"_"+str(q_given)+"_"+mode+"_eigval"+str(j)
     plt.gcf().clear()
     fig, ax = plt.subplots(1,1, figsize=(10,10))
+    # plot approximation by 0
+    ax.plot(ks, np.log(np.abs(np.zeros_like(mean_approx_results[i,:,0]) - true_spectrum[j])/\
+            float(np.sqrt(np.count_nonzero(true_mat))) ), label="approx by 0")
     for i in range(len(qs)):
-        # plot approximation by 0
-        ax.plot(ks, np.zeros_like(mean_approx_results[i,:,0]) - true_spectrum[j], label="approx by 0")
         # plot the mean errors
         ax.plot(ks, mean_approx_results[i,:,0], label="q="+str(qs[i]))
 
