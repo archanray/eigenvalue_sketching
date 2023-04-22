@@ -14,7 +14,7 @@ dataset_name = "kong_ht"
 # Search parameters
 search_rank = [0,1,2,3,4,5]
 # Approximation parameters
-trials = 5
+trials = 10
 # Approximation methods, check approximator for options
 approx_mthds = [bki_adp]
 ######################################################################################
@@ -126,9 +126,9 @@ for j in range(len(true_spectrum)):
         # print(mean_approx_results[i,:,j])
         ax.plot(np.log(ks), mean_approx_results[i,:,j], label="q="+str(qs[i]))
 
-        ax.set_xlabel("k")
-        ax.set_ylabel("error")
-        ax.set_title("log error vs log k for different q for eigval"+str(true_spectrum[j])+" of "+dataset_name+" dataset")
+        ax.set_xlabel("log k")
+        ax.set_ylabel("log error")
+        ax.set_title("Approximation of eigval "+str(true_spectrum[j])+" of "+dataset_name+" dataset")
         ax.legend()
     plt.savefig("figures/single_results/"+filename+"_"+str(j)+".pdf")
 ######################################################################################
