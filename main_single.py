@@ -6,6 +6,7 @@ from src.approximator import eigval_approx_SW_nonadaptive as sw_nonadp
 from src.get_dataset import get_data
 import pickle
 from tqdm import tqdm
+from src.utils import sort_abs_descending as sad
 
 ##################################### PARAMETERS #####################################
 # Dataset
@@ -13,7 +14,7 @@ dataset_name = "random_random"
 # Search parameters
 search_rank = [0,1,2,3,4,5]
 # Approximation parameters
-trials = 10
+trials = 1
 # Approximation methods, check approximator for options
 approx_mthds = [bki_adp]
 ######################################################################################
@@ -24,10 +25,7 @@ true_mat, dataset_size, min_samples, max_samples = get_data(dataset_name)
 true_spectrum, _ = np.linalg.eig(true_mat)
 #true_spectrum = np.diag(true_spectrum)
 
-abs_true_spectrum = np.abs(true_spectrum)
-abs_true_spectrum_ordered_indices = np.argsort(-abs_true_spectrum)
-
-search_rank = abs_true_spectrum_ordered_indices[search_rank]
+true_spectrum = sad(true_spectrum)
 
 print("loaded datasets")
 print("A_infty:", np.max(true_mat))
@@ -37,8 +35,10 @@ print("search ranks:", search_rank)
 
 ################################### APPROXIMATION ####################################
 # Initialize the results
-qs = np.logspace(0,6,num=6, base=2, endpoint=False)
-ks = np.arange(50,90,5)
+#qs = np.logspace(0,6,num=6, base=2, endpoint=False)
+#ks = np.arange(50,90,5)
+qs = [20]
+ks = [20]
 k_given = True
 q_given = True
 mode = "Q"
@@ -50,8 +50,9 @@ for i in tqdm(range(len(qs))):
     for j in range(len(ks)):
         for l in range(trials):
             for mthd in approx_mthds:
-                R = approx_mthds[0](true_mat, k=ks[j], k_given=k_given, q=qs[i], q_given=q_given, mode=mode)
-                approx_results[i,j,l,:] = (R[0])[search_rank]
+                R = approx_mthds[0](true_mat, k=ks[j], k_given=k_given, q=qs[i], q_given=q_given, mode=mode, sr=search_rank)
+                print("outputs:", R)
+                approx_results[i,j,l,:] = (R[0])
                 matvec_results[i,j,l] = R[1]
 
 filename = dataset_name+"_"+approx_mthds[0].__name__+"_"+str(k_given)+"_"+str(q_given)+"_"+mode
@@ -62,6 +63,7 @@ with open("single_results/"+filename+".pkl", "wb") as f:
             dataset_name, approx_mthds, k_given, q_given, mode], f)
 ######################################################################################
 
+"""
 ############################## AGGREGATE RESULTS #####################################
 # Load the results
 with open("single_results/"+filename+".pkl", "rb") as f:
@@ -106,7 +108,7 @@ for j in range(len(true_spectrum)):
             float(np.sqrt(np.count_nonzero(true_mat))) ), label="approx by 0")
     for i in range(len(qs)):
         # plot the mean errors
-        print(mean_approx_results[i,:,j])
+        # print(mean_approx_results[i,:,j])
         ax.plot(ks, mean_approx_results[i,:,j], label="q="+str(qs[i]))
 
         ax.set_xlabel("k")
@@ -115,3 +117,4 @@ for j in range(len(true_spectrum)):
         ax.legend()
     plt.savefig("figures/single_results/"+filename+"_"+str(j)+".pdf")
 ######################################################################################
+"""

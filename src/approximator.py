@@ -1,7 +1,8 @@
 import numpy as np
 from src.block_krylov import block_krylov_iter as bki
+from src.utils import sort_abs_descending as sad
 
-def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=False, q=1, q_given=False):
+def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=False, q=1, q_given=False, sr=[]):
     """
     Inputs:
     A -- n times n matrix
@@ -28,7 +29,10 @@ def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=
     alpha = np.linalg.eigvals(Atilde)
     zeros = np.zeros(n - Z.shape[1])
     alpha = np.concatenate((alpha, zeros))
-    alpha = -np.sort(-alpha)
+    alpha = sad(alpha)
+
+    if sr != []:
+        alpha = alpha[sr]
 
     return alpha, matvecs
 
