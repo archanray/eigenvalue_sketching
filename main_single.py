@@ -106,7 +106,8 @@ for j in range(len(true_spectrum)):
             float(np.sqrt(np.count_nonzero(true_mat))) ), label="approx by 0")
     for i in range(len(qs)):
         # plot the mean errors
-        ax.plot(ks, mean_approx_results[i,:,0], label="q="+str(qs[i]))
+        print(mean_approx_results[i,:,j])
+        ax.plot(ks, mean_approx_results[i,:,j], label="q="+str(qs[i]))
 
         ax.set_xlabel("k")
         ax.set_ylabel("error")
