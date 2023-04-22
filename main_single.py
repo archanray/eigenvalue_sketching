@@ -10,7 +10,7 @@ from src.utils import sort_abs_descending as sad
 
 ##################################### PARAMETERS #####################################
 # Dataset
-dataset_name = "kong_ht"
+dataset_name = "facebook"
 # Search parameters
 search_rank = [0,1,2,3,4,5]
 # Approximation parameters
@@ -42,7 +42,7 @@ qs = [1,2,3,4]
 ks = [6,10,15,20,30]
 k_given = True
 q_given = True
-mode = "Z"
+mode = "Q"
 
 approx_results = np.zeros((len(qs), len(ks), trials, len(search_rank)))
 matvec_results = np.zeros((len(qs), len(ks), trials))

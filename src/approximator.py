@@ -2,6 +2,21 @@ import numpy as np
 from src.block_krylov import block_krylov_iter as bki
 from src.utils import sort_abs_descending as sad
 
+def compute_alpha(A, n):
+    """
+    Inputs:
+    A -- k times k matrix
+
+    Outputs:
+    alpha -- n sized array containing eigenvalue approximates
+    """
+    alpha, _ = np.linalg.eig(A)
+    alpha = np.real(alpha)
+    zeros = np.zeros(n - A.shape[0])
+    alpha = np.concatenate((alpha, zeros))
+    alpha = sad(alpha)
+    return alpha
+
 def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=False, q=1, q_given=False, sr=[]):
     """
     Inputs:
@@ -26,10 +41,7 @@ def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=
     Atilde = Z.T @ (A @ Z)
     matvecs += Z.shape[1]
 
-    alpha = np.linalg.eigvals(Atilde)
-    zeros = np.zeros(n - Z.shape[1])
-    alpha = np.concatenate((alpha, zeros))
-    alpha = sad(alpha)
+    alpha = compute_alpha(Atilde, n)
 
     if sr != []:
         alpha = alpha[sr]
@@ -53,10 +65,7 @@ def eigval_approx_othro_adaptive(A, k):
     Atilde = V.T @ (A @ V)
     matvecs += V.shape[1]
 
-    alpha = np.linalg.eigvals(Atilde)
-    zeros = np.zeros(n - V.shape[1])
-    alpha = np.concatenate((alpha, zeros))
-    alpha = np.sort(alpha)
+    alpha = compute_alpha(Atilde, n)
 
     return alpha, matvecs
 
@@ -81,10 +90,7 @@ def eigval_approx_ortho_nonadaptive(A, k):
     Abar = AS.T @ Btilde.T
     Atilde = (Abar + Abar.T) / 2
 
-    alpha = np.linalg.eigvals(Atilde)
-    zeros = np.zeros(n - Btilde.shape[1])
-    alpha = np.concatenate((alpha, zeros))
-    alpha = np.sort(alpha)
+    alpha = compute_alpha(Atilde, n)
 
     return alpha, matvecs
 
@@ -104,10 +110,11 @@ def eigval_approx_SW_nonadaptive(A, eps, delta, k):
     T = G @ (A @ G.T)
     matvecs += G.shape[0]
 
-    alpha = np.linalg.eigvals(T) - np.sum(np.diag(T)) / k
+    alpha, _ = np.linalg.eig(T)
+    alpha = alpha - np.sum(np.diag(T)) / k
     zeros = np.zeros(n - G.shape[0])
     alpha = np.concatenate((alpha, zeros))
-    alpha = np.sort(alpha)
+    alpha = sad(alpha)
     
     return alpha, matvecs
 
