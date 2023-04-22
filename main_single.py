@@ -82,6 +82,7 @@ with open("single_results/"+filename+".pkl", "rb") as f:
 true_spectrum1 = np.expand_dims(true_spectrum, axis=0)
 true_spectrum1 = np.expand_dims(true_spectrum1, axis=0)
 true_spectrum1 = np.expand_dims(true_spectrum1, axis=0)
+
 error = np.abs(approx_results - true_spectrum1) / float(np.sqrt(np.count_nonzero(true_mat)))
 error = np.log(error)
 

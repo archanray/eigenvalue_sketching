@@ -28,7 +28,7 @@ def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=
     alpha = np.linalg.eigvals(Atilde)
     zeros = np.zeros(n - Z.shape[1])
     alpha = np.concatenate((alpha, zeros))
-    alpha = np.sort(alpha)
+    alpha = -np.sort(-alpha)
 
     return alpha, matvecs
 
