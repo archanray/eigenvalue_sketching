@@ -17,7 +17,7 @@ def compute_alpha(A, n):
     alpha = sad(alpha)
     return alpha
 
-def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=False, q=1, q_given=False, sr=[]):
+def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=False, q=3, q_given=True, sr=[]):
     """
     Inputs:
     A -- n times n matrix
