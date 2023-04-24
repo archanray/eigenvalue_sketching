@@ -2,7 +2,7 @@ import numpy as np
 from src.block_krylov import block_krylov_iter as bki
 from src.utils import sort_abs_descending as sad
 
-def compute_alpha(A, n):
+def compute_alpha(A, n, sub_trace=False):
     """
     Inputs:
     A -- k times k matrix
@@ -12,6 +12,8 @@ def compute_alpha(A, n):
     """
     alpha, _ = np.linalg.eig(A)
     alpha = np.real(alpha)
+    if sub_trace == True:
+        alpha = alpha - (np.trace(A) / A.shape[0])
     zeros = np.zeros(n - A.shape[0])
     alpha = np.concatenate((alpha, zeros))
     alpha = sad(alpha)
@@ -107,17 +109,12 @@ def eigval_approx_SW_nonadaptive(A, k=1, sr=[]):
     Outputs:
     alpha -- k sized array containing eigenvalue approximates
     """
-    n = A.shape[1]
     G = np.random.normal(0,1/k, (k, A.shape[0]))
     matvecs = 0
     S = G @ (A @ G.T)
     matvecs += G.shape[0]
 
-    alpha, _ = np.linalg.eig(S)
-    alpha = alpha - (np.sum(np.diag(S)) / k )
-    zeros = np.zeros(A.shape[1] - G.shape[0])
-    alpha = np.concatenate((alpha, zeros))
-    alpha = sad(alpha)
+    alpha = compute_alpha(S, A.shape[1], sub_trace=True)
 
     if sr !=[]:
         alpha = alpha[sr]
