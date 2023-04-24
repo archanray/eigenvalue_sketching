@@ -115,7 +115,7 @@ def eigval_approx_SW_nonadaptive(A, k=1, sr=[]):
     matvecs += G.shape[0]
 
     alpha, _ = np.linalg.eig(T)
-    alpha = (n/k)*alpha - np.sum(np.diag(T)) / k
+    alpha = (n/k)*(alpha - np.sum(np.diag(T)) / k )
     zeros = np.zeros(A.shape[1] - G.shape[0])
     alpha = np.concatenate((alpha, zeros))
     alpha = sad(alpha)
