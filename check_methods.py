@@ -37,10 +37,11 @@ for mv in params["approx_mthds"]:
             plt.ylabel("log(errors)")
             plt.title(mv.__name__+" with rank "+str(sr))
             plt.legend()
-            filename = "results/"+dataset_name+"/"+mv.__name__+"_rank_"+str(sr)+".png"
+            filename = "figures/"+dataset_name+"/"+mv.__name__+"_rank_"+str(sr)+".png"
             if not os.path.exists(os.path.dirname(filename)):
                 os.makedirs(os.path.dirname(filename))
             plt.savefig(filename)
+            plt.gcf().clear()
             pass
         pass
     pass
