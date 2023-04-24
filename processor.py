@@ -2,7 +2,7 @@ import numpy as np
 from src.display_codes import plot_errors
 import pickle as pkl
 
-dataset_name = "facebook"
+dataset_name = "random_random"
 
 with open("results/"+dataset_name+".pkl", "rb") as f:
     results = pkl.load(f)

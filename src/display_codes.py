@@ -30,7 +30,6 @@ def plot_errors(params, errors, p20, p80, matvecs):
         plt.rcParams.update({'font.size': 12})
         for mv in params["approx_mthds"]:
             E = errors[mv.__name__][:][:, sr]
-            print(E.shape, errors[mv.__name__].shape)
             P1 = p20[mv.__name__][:][:, sr]
             P2 = p80[mv.__name__][:][:, sr]
             plt.plot(matvecs[mv.__name__], E, label=mv.__name__)
@@ -43,6 +42,5 @@ def plot_errors(params, errors, p20, p80, matvecs):
         if not os.path.isdir(filename):
             os.makedirs(filename)
         filename = filename+str(sr)+"-error.pdf"
-        plt.show()
         plt.savefig(filename)
     return None
