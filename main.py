@@ -37,6 +37,7 @@ print("search ranks:", search_rank)
 ks = np.arange(min_samples, int(max_samples/10)+10)
 #ks = np.arange(min_samples, min_samples+1)
 # Parameters
+# fix the approx_methods later
 params = {"search_rank": search_rank, "trials": trials, \
         "min_samples": min_samples, "max_samples": max_samples, \
         "approx_mthds": approx_mthds, "dataset_size": dataset_size, \

@@ -3,6 +3,9 @@ import numpy as np
 import os
 
 def display_image(image):
+    """
+    Display the image
+    """
     plt.gcf().clear()
     plt.rcParams.update({'font.size': 12})
     plt.imshow(image, cmap="gray")
@@ -17,3 +20,25 @@ def display_image(image):
     plt.savefig(filename)
     return None
     pass
+
+
+def plot_errors(params, errors, p20, p80, matvecs):
+    """
+    Plot the errors for each method
+    """
+    for sr in params["search_rank"]:
+        plt.gcf().clear()
+        plt.rcParams.update({'font.size': 12})
+        for mv in params["approx_mthds"]:
+            plt.plot(matvecs[mv.__name__], errors[mv.__name__], label=mv.__name__)
+            plt.fill_between(matvecs[mv.__name__], p20[mv.__name__], p80[mv.__name__], alpha=0.2)
+        plt.xlabel("log(Number of matrix-vector products)", fontsize=16)
+        plt.ylabel("log(Error)", fontsize=16)
+        plt.title(params["dataset_name"], fontsize=16)
+        plt.legend()
+        filename = "./figures/"+params["dataset_name"]+"/"
+        if not os.path.isdir(filename):
+            os.makedirs(filename)
+        filename = filename+str(sr)+"-error.pdf"
+        plt.savefig(filename)
+    return None
