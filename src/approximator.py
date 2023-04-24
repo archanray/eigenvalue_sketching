@@ -17,7 +17,7 @@ def compute_alpha(A, n):
     alpha = sad(alpha)
     return alpha
 
-def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=False, q=3, q_given=True, sr=[]):
+def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=True, q=3, q_given=True, sr=[]):
     """
     Inputs:
     A -- n times n matrix
@@ -27,7 +27,6 @@ def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=
     Outputs:
     alpha -- n sized array containing eigenvalue approximates
     """
-    n = A.shape[0]
     if k_given == False:
         k = c1*int(1/epsilon**2)
     else:
@@ -36,19 +35,19 @@ def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=
     if q_given == False:
         Z, matvecs = bki(A, eps=epsilon, k=k, c=c2, return_var=mode)
     else:
-        Z, matvecs = bki(A, eps=epsilon, k=k, c=c2, return_var=mode, q=q, q_given=True)
+        Z, matvecs = bki(A, eps=epsilon, k=k, c=c2, return_var=mode, q=q, q_given=q_given)
 
     Atilde = Z.T @ (A @ Z)
     matvecs += Z.shape[1]
 
-    alpha = compute_alpha(Atilde, n)
+    alpha = compute_alpha(Atilde, A.shape[1])
 
     if sr != []:
         alpha = alpha[sr]
 
     return alpha, matvecs
 
-def eigval_approx_othro_adaptive(A, k):
+def eigval_approx_othro_adaptive(A, k=1, sr=[]):
     """
     Inputs:
     A -- n times n matrix
@@ -65,11 +64,13 @@ def eigval_approx_othro_adaptive(A, k):
     Atilde = V.T @ (A @ V)
     matvecs += V.shape[1]
 
-    alpha = compute_alpha(Atilde, n)
+    alpha = compute_alpha(Atilde, A.shape[1])
+    if sr !=[]:
+        alpha = alpha[sr]
 
     return alpha, matvecs
 
-def eigval_approx_ortho_nonadaptive(A, k):
+def eigval_approx_ortho_nonadaptive(A, k=1, sr=[]):
     """
     Inputs:
     A -- n times n matrix
@@ -86,15 +87,17 @@ def eigval_approx_ortho_nonadaptive(A, k):
     AT = A @ T
     matvecs += 2 * k
 
-    Btilde = (np.lingalg.inv(AS.T @ T @ T.T @ AS)) @ AS.T @ T @ AT.T
+    Btilde = (np.linalg.inv(AS.T @ T @ T.T @ AS)) @ AS.T @ T @ AT.T
     Abar = AS.T @ Btilde.T
     Atilde = (Abar + Abar.T) / 2
 
-    alpha = compute_alpha(Atilde, n)
+    alpha = compute_alpha(Atilde, A.shape[1])
+    if sr !=[]:
+        alpha = alpha[sr]
 
     return alpha, matvecs
 
-def eigval_approx_SW_nonadaptive(A, eps, delta, k):
+def eigval_approx_SW_nonadaptive(A, k=1, sr=[]):
     """
     Inputs:
     A -- n times n matrix
@@ -112,9 +115,12 @@ def eigval_approx_SW_nonadaptive(A, eps, delta, k):
 
     alpha, _ = np.linalg.eig(T)
     alpha = alpha - np.sum(np.diag(T)) / k
-    zeros = np.zeros(n - G.shape[0])
+    zeros = np.zeros(A.shape[1] - G.shape[0])
     alpha = np.concatenate((alpha, zeros))
     alpha = sad(alpha)
+
+    if sr !=[]:
+        alpha = alpha[sr]
     
     return alpha, matvecs
 

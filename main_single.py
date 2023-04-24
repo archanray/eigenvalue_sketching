@@ -53,7 +53,7 @@ for i in tqdm(range(len(qs))):
             for mthd in approx_mthds:
                 R = approx_mthds[0](true_mat, k=ks[j], k_given=k_given, q=qs[i], q_given=q_given, mode=mode, sr=search_rank)
                 #print("outputs:", R)
-                approx_results[i,j,l,:] = (R[0])
+                approx_results[i,j,l,:] = R[0]
                 matvec_results[i,j,l] = R[1]
 
 filename = dataset_name+"_"+approx_mthds[0].__name__+"_"+str(k_given)+"_"+str(q_given)+"_"+mode
