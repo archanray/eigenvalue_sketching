@@ -102,8 +102,6 @@ def eigval_approx_SW_nonadaptive(A, k=1, sr=[]):
     """
     Inputs:
     A -- n times n matrix
-    eps -- tolerance
-    delta -- probability of failure
     k -- number of eigenvalue approximates
 
     Outputs:
@@ -112,11 +110,11 @@ def eigval_approx_SW_nonadaptive(A, k=1, sr=[]):
     n = A.shape[1]
     G = np.random.normal(0,1/k, (k, A.shape[0]))
     matvecs = 0
-    T = G @ (A @ G.T)
+    S = G @ (A @ G.T)
     matvecs += G.shape[0]
 
-    alpha, _ = np.linalg.eig(T)
-    alpha = alpha - np.sum(np.diag(T)) / k 
+    alpha, _ = np.linalg.eig(S)
+    alpha = alpha - (np.sum(np.diag(S)) / k )
     zeros = np.zeros(A.shape[1] - G.shape[0])
     alpha = np.concatenate((alpha, zeros))
     alpha = sad(alpha)
