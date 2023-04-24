@@ -10,7 +10,7 @@ from src.utils import sort_abs_descending as sad
 
 ##################################### PARAMETERS #####################################
 # Dataset
-dataset_name = "random_random"
+dataset_name = "facebook"
 # Search parameters
 search_rank = [0,1,2,3,4,5]
 # Approximation parameters
@@ -40,7 +40,7 @@ print("search ranks:", search_rank)
 #ks = np.arange(50,90,5)
 #qs = [1,2,4,8,16,32]
 #ks = [6,10,15,20,30]
-ks = np.arange(min_samples, max_samples, 10)
+ks = np.arange(min_samples, max_samples, 50)
 #k_given = True
 #q_given = True
 #mode = "Z"
@@ -68,7 +68,7 @@ for i in tqdm(range(len(qs))):
 """
 
 # for bki_adp
-for j in range(len(ks)):
+for j in tqdm(range(len(ks))):
     for l in range(trials):
         for mthd in approx_mthds:
             # sw_nonadp
