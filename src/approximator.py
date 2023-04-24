@@ -38,7 +38,8 @@ def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=
         Z, matvecs = bki(A, eps=epsilon, k=k, c=c2, return_var=mode, q=q, q_given=q_given)
 
     Atilde = Z.T @ (A @ Z)
-    matvecs += Z.shape[1]
+    if mode == "Q":
+        matvecs += Z.shape[1]
 
     alpha = compute_alpha(Atilde, A.shape[1])
 
@@ -57,12 +58,12 @@ def eigval_approx_othro_adaptive(A, k=1, sr=[]):
     alpha -- k sized array containing eigenvalue approximates
     """
     matvecs = 0
-    G = np.random.randn(A.shape[0], k)
+    G = np.random.normal(0,1/k, (A.shape[0], k))
     V, _, _ = np.linalg.svd(A @ G)
     matvecs += G.shape[1]
 
     Atilde = V.T @ (A @ V)
-    matvecs += V.shape[1]
+    #matvecs += V.shape[1]
 
     alpha = compute_alpha(Atilde, A.shape[1])
     if sr !=[]:
@@ -81,8 +82,8 @@ def eigval_approx_ortho_nonadaptive(A, k=1, sr=[]):
     """
 
     matvecs = 0
-    S = np.random.randn(A.shape[0], k)
-    T = np.random.randn(A.shape[0], k)
+    S = np.random.normal(0,1/k, (A.shape[0], k))
+    T = np.random.normal(0,1/k, (A.shape[0], k))
     AS = A @ S
     AT = A @ T
     matvecs += 2 * k
@@ -109,13 +110,12 @@ def eigval_approx_SW_nonadaptive(A, k=1, sr=[]):
     alpha -- k sized array containing eigenvalue approximates
     """
     n = A.shape[1]
-    G = np.random.randn(k, A.shape[0])
+    G = np.random.normal(0,1/k, (k, A.shape[0]))
     matvecs = 0
     T = G @ (A @ G.T)
     matvecs += G.shape[0]
 
     alpha, _ = np.linalg.eig(T)
-    print(alpha)
     alpha = alpha - np.sum(np.diag(T)) / k 
     zeros = np.zeros(A.shape[1] - G.shape[0])
     alpha = np.concatenate((alpha, zeros))
@@ -124,6 +124,5 @@ def eigval_approx_SW_nonadaptive(A, k=1, sr=[]):
     if sr !=[]:
         alpha = alpha[sr]
 
-    print(alpha)
     return alpha, matvecs
 

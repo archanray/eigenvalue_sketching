@@ -10,7 +10,7 @@ from src.utils import sort_abs_descending as sad
 
 ##################################### PARAMETERS #####################################
 # Dataset
-dataset_name = "random_random"
+dataset_name = "facebook"
 # Search parameters
 search_rank = [0,1,2,3,4,5]
 # Approximation parameters
@@ -130,7 +130,7 @@ error = np.log(error+eps)
 mean_approx_results = np.mean(error, axis=1)
 mean_matvec_results = np.mean(matvec_results, axis=1)
 
-print(mean_approx_results.shape)
+#print(mean_approx_results.shape)
 
 std_approx_results = np.std(approx_results, axis=1)
 std_matvec_results = np.std(matvec_results, axis=1)
