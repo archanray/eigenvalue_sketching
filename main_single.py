@@ -10,7 +10,7 @@ from src.utils import sort_abs_descending as sad
 
 ##################################### PARAMETERS #####################################
 # Dataset
-dataset_name = "facebook"
+dataset_name = "random_random"
 # Search parameters
 search_rank = [0,1,2,3,4,5]
 # Approximation parameters
