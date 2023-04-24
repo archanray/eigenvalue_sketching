@@ -2,7 +2,7 @@ import numpy as np
 from src.display_codes import plot_errors
 import pickle as pkl
 
-dataset_name = "random_random"
+dataset_name = "facebook"
 
 with open("results/"+dataset_name+".pkl", "rb") as f:
     results = pkl.load(f)
@@ -29,8 +29,8 @@ for mv in params["approx_mthds"]:
 
     errors[mv.__name__] = np.mean(errs, axis=1)
 
-    p20[mv.__name__] = np.percentile(errors[mv.__name__], 20, axis=1)
-    p80[mv.__name__] = np.percentile(errors[mv.__name__], 80, axis=1)
+    p20[mv.__name__] = np.percentile(errs, 20, axis=1)
+    p80[mv.__name__] = np.percentile(errs, 80, axis=1)
 
     avg_matvecs[mv.__name__] = np.log(np.mean(matvec_results[mv.__name__], axis=1))
 
