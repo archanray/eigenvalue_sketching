@@ -39,7 +39,8 @@ print("search ranks:", search_rank)
 #qs = np.logspace(0,6,num=6, base=2, endpoint=False)
 #ks = np.arange(50,90,5)
 #qs = [1,2,4,8,16,32]
-ks = [6,10,15,20,30]
+#ks = [6,10,15,20,30]
+ks = np.arange(min_samples, max_samples, 10)
 #k_given = True
 #q_given = True
 #mode = "Z"
