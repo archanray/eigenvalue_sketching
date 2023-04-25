@@ -78,7 +78,7 @@ for j in tqdm(range(len(ks))):
 
 #filename = dataset_name+"_"+approx_mthds[0].__name__+"_"+str(k_given)+"_"+str(q_given)+"_"+mode
 
-filename = dataset_name+"_"+approx_mthds[0].__name__
+filename = dataset_name+"_"+approx_mthds[0].__name__+"_trace_sub_false"
 
 save_vals = {}
 save_vals["true_spectrum"] = true_spectrum[search_rank]

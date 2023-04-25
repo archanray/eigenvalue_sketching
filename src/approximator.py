@@ -114,7 +114,7 @@ def eigval_approx_SW_nonadaptive(A, k=1, sr=[]):
     S = G @ (A @ G.T)
     matvecs += G.shape[0]
 
-    alpha = compute_alpha(S, A.shape[1], sub_trace=True)
+    alpha = compute_alpha(S, A.shape[1], sub_trace=False)
 
     if sr !=[]:
         alpha = alpha[sr]
