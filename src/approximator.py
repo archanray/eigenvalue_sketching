@@ -10,7 +10,10 @@ def compute_alpha(A, n, sub_trace=False):
     Outputs:
     alpha -- n sized array containing eigenvalue approximates
     """
+
     alpha, _ = np.linalg.eig(A)
+    print("max A:", np.max(A))
+    print("sad alphas:", alpha)
     alpha = np.real(alpha)
     if sub_trace == True:
         alpha = alpha - (np.trace(A) / A.shape[0])
@@ -114,10 +117,40 @@ def eigval_approx_SW_nonadaptive(A, k=1, sr=[]):
     S = G @ (A @ G.T)
     matvecs += G.shape[0]
 
-    alpha = compute_alpha(S, A.shape[1], sub_trace=False)
+    alpha = compute_alpha(S, A.shape[1], sub_trace=True)
 
     if sr !=[]:
         alpha = alpha[sr]
 
+    print("checks:", alpha)
     return alpha, matvecs
 
+def eigval_approx_random_sample(A, k=1, sr=[]):
+    """
+    Inputs:
+    A -- n times n matrix
+    k -- number of eigenvalue approximates
+
+    Outputs:
+    alpha -- k sized array containing eigenvalue approximates
+    """
+    matvecs = 0
+    norm = np.ones(A.shape[0]) / A.shape[0]
+    list_of_available_indices = range(A.shape[0])
+    sample_indices = np.sort(np.random.choice(list_of_available_indices, k, replace=True))
+    chosen_p = norm[sample_indices]
+
+    SAS = A[sample_indices][:, sample_indices]
+    matvecs += k
+    sqrt_chosen_p = np.sqrt(chosen_p*k)
+    D = np.diag(1/ sqrt_chosen_p)
+    SAS = D @ SAS @ D
+
+    alpha = compute_alpha(SAS, A.shape[1])
+
+    if sr !=[]:
+        alpha = alpha[sr]
+    
+    print("checks:", alpha)
+    print("checks:", SAS.shape, A.shape)
+    return alpha, matvecs

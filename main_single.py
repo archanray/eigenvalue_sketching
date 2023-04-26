@@ -3,6 +3,7 @@ from src.approximator import eigval_approx_bki_adaptive as bki_adp
 from src.approximator import eigval_approx_othro_adaptive as oth_adp
 from src.approximator import eigval_approx_ortho_nonadaptive as oth_nonadp
 from src.approximator import eigval_approx_SW_nonadaptive as sw_nonadp
+from src.approximator import eigval_approx_random_sample as rnd_smp
 from src.get_dataset import get_data
 import pickle
 from tqdm import tqdm
@@ -14,9 +15,9 @@ dataset_name = "facebook"
 # Search parameters
 search_rank = [0,1,2,3,4,5]
 # Approximation parameters
-trials = 10
+trials = 1
 # Approximation methods, check approximator for options
-approx_mthds = [sw_nonadp]
+approx_mthds = [rnd_smp]
 ######################################################################################
 
 ################################### GRAB THE MATRICES ################################
@@ -40,7 +41,8 @@ print("search ranks:", search_rank)
 #ks = np.arange(50,90,5)
 #qs = [1,2,4,8,16,32]
 #ks = [6,10,15,20,30]
-ks = np.arange(min_samples, max_samples, 50)
+#ks = np.arange(min_samples, max_samples, 50)
+ks = [min_samples, 4039]
 #k_given = True
 #q_given = True
 #mode = "Z"
@@ -78,7 +80,7 @@ for j in tqdm(range(len(ks))):
 
 #filename = dataset_name+"_"+approx_mthds[0].__name__+"_"+str(k_given)+"_"+str(q_given)+"_"+mode
 
-filename = dataset_name+"_"+approx_mthds[0].__name__+"_trace_sub_false"
+filename = dataset_name+"_"+approx_mthds[0].__name__
 
 save_vals = {}
 save_vals["true_spectrum"] = true_spectrum[search_rank]
