@@ -51,6 +51,7 @@ def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=
     if sr != []:
         alpha = alpha[sr]
 
+    print(alpha)
     return alpha, matvecs
 
 def eigval_approx_othro_adaptive(A, k=1, sr=[]):
@@ -74,6 +75,7 @@ def eigval_approx_othro_adaptive(A, k=1, sr=[]):
     if sr !=[]:
         alpha = alpha[sr]
 
+    print(alpha)
     return alpha, matvecs
 
 def eigval_approx_ortho_nonadaptive(A, k=1, sr=[]):
@@ -100,7 +102,7 @@ def eigval_approx_ortho_nonadaptive(A, k=1, sr=[]):
     alpha = compute_alpha(Atilde, A.shape[1])
     if sr !=[]:
         alpha = alpha[sr]
-
+    
     return alpha, matvecs
 
 def eigval_approx_SW_nonadaptive(A, k=1, sr=[]):
@@ -122,7 +124,6 @@ def eigval_approx_SW_nonadaptive(A, k=1, sr=[]):
     if sr !=[]:
         alpha = alpha[sr]
 
-    print("checks:", alpha)
     return alpha, matvecs
 
 def eigval_approx_random_sample(A, k=1, sr=[]):

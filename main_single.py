@@ -15,7 +15,7 @@ dataset_name = "facebook"
 # Search parameters
 search_rank = [0,1,2,3,4,5]
 # Approximation parameters
-trials = 10
+trials = 50
 # Approximation methods, check approximator for options
 approx_mthds = [rnd_smp]
 ######################################################################################
@@ -41,8 +41,8 @@ print("search ranks:", search_rank)
 #ks = np.arange(50,90,5)
 #qs = [1,2,4,8,16,32]
 #ks = [6,10,15,20,30]
-ks = np.arange(min_samples, max_samples, 50)
-#ks = [min_samples, max_samples]
+ks = np.arange(min_samples, max_samples, 10)
+#ks = [min_samples, max_samples, max_samples+2000, true_mat.shape[0]]
 #k_given = True
 #q_given = True
 #mode = "Z"
@@ -126,13 +126,12 @@ true_spectrum1 = np.expand_dims(true_spectrum1, axis=0)
 # add below for bki_adp
 #true_spectrum1 = np.expand_dims(true_spectrum1, axis=0)
 
-error = np.abs(approx_results - true_spectrum1) / float(np.sqrt(np.count_nonzero(true_mat)))
+nnzA = float(np.sqrt(np.count_nonzero(true_mat)))
+error = np.abs(approx_results - true_spectrum1) / nnzA
 error = np.log(error+eps)
 
 mean_approx_results = np.mean(error, axis=1)
 mean_matvec_results = np.mean(matvec_results, axis=1)
-
-#print(mean_approx_results.shape)
 
 std_approx_results = np.std(approx_results, axis=1)
 std_matvec_results = np.std(matvec_results, axis=1)
