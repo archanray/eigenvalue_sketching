@@ -161,7 +161,7 @@ for j in range(len(true_spectrum)):
     plt.savefig("figures/single_results/"+filename+"_"+str(j)+".pdf")
     """
     # plot the mean errors
-    ax.plot(np.log(ks), mean_approx_results[:,j])
+    ax.plot(np.log(np.array(ks) / true_mat.shape[0]), mean_approx_results[:,j])
     ax.set_xlabel("log k")
     ax.set_ylabel("log error")
     ax.set_title("Approximation of eigval "+str(true_spectrum[j])+" of "+dataset_name+" dataset")
