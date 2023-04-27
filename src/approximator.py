@@ -12,8 +12,8 @@ def compute_alpha(A, n, sub_trace=False):
     """
 
     alpha, _ = np.linalg.eig(A)
-    print("max A:", np.max(A))
-    print("sad alphas:", alpha)
+    #print("max A:", np.max(A))
+    #print("sad alphas:", alpha)
     alpha = np.real(alpha)
     if sub_trace == True:
         alpha = alpha - (np.trace(A) / A.shape[0])
@@ -151,6 +151,6 @@ def eigval_approx_random_sample(A, k=1, sr=[]):
     if sr !=[]:
         alpha = alpha[sr]
     
-    print("checks:", alpha)
-    print("checks:", SAS.shape, A.shape)
+    #print("checks:", alpha)
+    #print("checks:", SAS.shape, A.shape)
     return alpha, matvecs
