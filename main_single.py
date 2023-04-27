@@ -11,11 +11,11 @@ from src.utils import sort_abs_descending as sad
 
 ##################################### PARAMETERS #####################################
 # Dataset
-dataset_name = "random_random"
+dataset_name = "facebook"
 # Search parameters
 search_rank = [0,1,2,3,4,5]
 # Approximation parameters
-trials = 1
+trials = 10
 # Approximation methods, check approximator for options
 approx_mthds = [sw_nonadp]
 ######################################################################################
