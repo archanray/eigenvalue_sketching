@@ -11,13 +11,13 @@ from src.utils import sort_abs_descending as sad
 
 ##################################### PARAMETERS #####################################
 # Dataset
-dataset_name = "facebook"
+dataset_name = "random_random"
 # Search parameters
 search_rank = [0,1,2,3,4,5]
 # Approximation parameters
 trials = 1
 # Approximation methods, check approximator for options
-approx_mthds = [rnd_smp]
+approx_mthds = [sw_nonadp]
 ######################################################################################
 
 ################################### GRAB THE MATRICES ################################
@@ -42,7 +42,7 @@ print("search ranks:", search_rank)
 #qs = [1,2,4,8,16,32]
 #ks = [6,10,15,20,30]
 #ks = np.arange(min_samples, max_samples, 50)
-ks = [min_samples, 4039]
+ks = [min_samples, max_samples]
 #k_given = True
 #q_given = True
 #mode = "Z"
