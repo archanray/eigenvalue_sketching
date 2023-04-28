@@ -17,7 +17,7 @@ search_rank = [0,1,2,3,4,5]
 # Approximation parameters
 trials = 10
 # Approximation methods, check approximator for options
-approx_mthds = [sw_nonadp]
+approx_mthds = [oth_nonadp]
 ######################################################################################
 
 ################################### GRAB THE MATRICES ################################
