@@ -114,7 +114,7 @@ def eigval_approx_SW_nonadaptive(A, k=1, sr=[]):
     Outputs:
     alpha -- k sized array containing eigenvalue approximates
     """
-    G = np.random.normal(0,1/k, (k, A.shape[0]))
+    G = np.random.normal(0,1/np.sqrt(k), (k, A.shape[0]))
     matvecs = 0
     S = G @ (A @ G.T)
     matvecs += G.shape[0]
