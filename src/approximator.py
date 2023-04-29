@@ -90,7 +90,7 @@ def eigval_approx_ortho_nonadaptive(A, k=1, sr=[]):
 
     matvecs = 0
     S = np.random.normal(0,1/np.sqrt(k), (A.shape[0], k))
-    T = np.random.normal(0,1/np.sqrt(k), (A.shape[0], k))
+    T = np.random.normal(0,1/np.sqrt(10*k), (A.shape[0], 10*k))
     AS = A @ S
     AT = A @ T
     matvecs += 2 * k
