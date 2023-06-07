@@ -25,5 +25,5 @@ for i in save_vars["params"]["sr"]:
 	plt.ylabel("log absolute errors")
 	plt.legend()
 	plt.title("eigval="+str(save_vars["params"]["true_eigs"][i]))
-	plt.savefig("figures/"+dataset_name+"/"str(i)+".pdf")
+	plt.savefig("figures/"+dataset_name+"/"+str(i)+".pdf")
 ############################################################
