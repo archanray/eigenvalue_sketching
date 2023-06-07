@@ -21,13 +21,17 @@ trials = int(sys.argv[2])
 eps = 1e-32 # tolerance
 # Approximation methods, check approximator for options
 # approx_mthds = [bki_adp, oth_nonadp, sw_nonadp, oth_adp]
-approx_mthds = sys.argv[3:]
+approx_mthds = sys.argv[3]
 # print(approx_mthds)
 if not approx_mthds:
-    print("no methods selected; please choose among: bki_adp_Q, bki_adp_Z, oth_nonadp, sw_nonadp, oth_adp")
+    print("no methods selected; please choose among: bki_adp_Q, bki_adp_Z, oth_nonadp, sw_nonadp, oth_adp without spaces")
     sys.exit()
 else:
-    pass
+    if "full" in approx_mthds:
+        approx_mthds = "bki_adp_Q, bki_adp_Z, oth_nonadp, sw_nonadp, oth_adp"
+    else:
+        pass
+approx_mthds = approx_mthds.split(",")
 ######################################################################################
 
 ################################### GRAB THE MATRICES ################################
