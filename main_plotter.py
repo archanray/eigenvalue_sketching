@@ -5,6 +5,12 @@ import os
 
 dataset_name = "random_random"
 
+def sorter(xvals, yvals):
+	ids = np.argsort(xvals)
+	xvals = xvals[ids]
+	yvals = yvals[ids]
+	return xvals, yvals
+
 ########################## load data #######################
 with open("results/"+dataset_name+".pkl", "rb") as f:
     save_vars = pickle.load(f)
