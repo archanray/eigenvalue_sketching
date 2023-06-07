@@ -13,6 +13,7 @@ import sys
 ##################################### PARAMETERS #####################################
 # Dataset
 dataset_name = sys.argv[1]
+print(dataset_name)
 # Search parameters
 search_ranks = [0,1,2,3,4,5]
 # Approximation parameters
