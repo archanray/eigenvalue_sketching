@@ -17,8 +17,9 @@ def compute_alpha(A, n, sub_trace=False):
     alpha = np.real(alpha)
     if sub_trace == True:
         alpha = alpha - (np.trace(A) / A.shape[0])
-    zeros = np.zeros(n - A.shape[0])
-    alpha = np.concatenate((alpha, zeros))
+    if A.shape[0] != n:
+        zeros = np.zeros(n - A.shape[0])
+        alpha = np.concatenate((alpha, zeros))
     alpha = sad(alpha)
     return alpha
 
@@ -104,6 +105,35 @@ def eigval_approx_ortho_nonadaptive(A, k=1, sr=[]):
         alpha = alpha[sr]
     
     return alpha, matvecs
+
+def eigval_approx_ortho_nonadaptive_2(A, k=1, c=2, sr=[]):
+    """
+    Inputs:
+    A -- n times n matrix
+    k -- number of eigenvalue approximates
+
+    Outputs:
+    alpha -- k sized array containing eigenvalue approximates
+    """
+    matvecs = 0
+    n = A.shape[1]
+    k1 = k
+    k2 = c*k1
+    S = np.random.normal(0,1/np.sqrt(k1), (k1, n))
+    T = np.random.normal(0,1/np.sqrt(k2), (k2, n))
+    AST = A @ S.T
+    ATT = A @ T.T
+    matvecs += k1+k2
+
+    Btilde = (np.linalg.inv(AST.T @ T.T @ T @ AST)) @ AST.T @ T.T @ ATT.T
+    Abar = AST @ Btilde
+    Atilde = (Abar + Abar.T) / 2
+
+    alpha = compute_alpha(Atilde, n)
+    if sr !=[]:
+        alpha = alpha[sr]
+    
+    return alpha, matvecs    
 
 def eigval_approx_SW_nonadaptive(A, k=1, sr=[]):
     """

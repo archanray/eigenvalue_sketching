@@ -1,13 +1,17 @@
 import numpy as np
 from src.approximator import eigval_approx_bki_adaptive as bki_adp
 from src.approximator import eigval_approx_othro_adaptive as oth_adp
-from src.approximator import eigval_approx_ortho_nonadaptive as oth_nonadp
+from src.approximator import eigval_approx_ortho_nonadaptive_2 as oth_nonadp
 from src.approximator import eigval_approx_SW_nonadaptive as sw_nonadp
 from src.approx_wrapper import approximation
 from src.get_dataset import get_data
 from src.utils import sort_abs_descending as sad
 import pickle
 from tqdm import tqdm
+
+"""
+code needs fixing the range so the plots overlap
+"""
 
 ##################################### PARAMETERS #####################################
 # Dataset
