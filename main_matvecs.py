@@ -143,7 +143,7 @@ if "oth_adp" in approx_mthds:
 ######################################################################################
 
 ######################### Approximator -- sw_nonadp ##################################
-if "sw_nonadp" in approx_mthds
+if "sw_nonadp" in approx_mthds:
     print("Approximator: Sketching with Trace Subtraction")
     all_ks = list(range(10,4000,50))
     avg_errors = np.zeros((len(all_ks), len(search_ranks)))
