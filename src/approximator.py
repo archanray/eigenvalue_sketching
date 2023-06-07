@@ -11,6 +11,7 @@ def compute_alpha(A, n, sub_trace=False):
     alpha -- n sized array containing eigenvalue approximates
     """
 
+
     alpha, _ = np.linalg.eig(A)
     #print("max A:", np.max(A))
     #print("sad alphas:", alpha)
@@ -52,7 +53,6 @@ def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=
     if sr != []:
         alpha = alpha[sr]
 
-    print(alpha)
     return alpha, matvecs
 
 def eigval_approx_othro_adaptive(A, k=1, sr=[]):
@@ -65,7 +65,7 @@ def eigval_approx_othro_adaptive(A, k=1, sr=[]):
     alpha -- k sized array containing eigenvalue approximates
     """
     matvecs = 0
-    G = np.random.normal(0,1/k, (A.shape[0], k))
+    G = np.random.normal(0,1/np.sqrt(k), (A.shape[0], k))
     V, _, _ = np.linalg.svd(A @ G)
     matvecs += G.shape[1]
 
@@ -76,7 +76,7 @@ def eigval_approx_othro_adaptive(A, k=1, sr=[]):
     if sr !=[]:
         alpha = alpha[sr]
 
-    print(alpha)
+    # print(alpha)
     return alpha, matvecs
 
 def eigval_approx_ortho_nonadaptive(A, k=1, sr=[]):
@@ -113,12 +113,12 @@ def eigval_approx_ortho_nonadaptive_2(A, k=1, c=2, sr=[]):
     k -- number of eigenvalue approximates
 
     Outputs:
-    alpha -- k sized array containing eigenvalue approximates
+    alpha -- n sized array containing eigenvalue approximates
     """
     matvecs = 0
     n = A.shape[1]
     k1 = k
-    k2 = c*k1
+    k2 = int(c*k1)
     S = np.random.normal(0,1/np.sqrt(k1), (k1, n))
     T = np.random.normal(0,1/np.sqrt(k2), (k2, n))
     AST = A @ S.T

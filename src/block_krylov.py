@@ -25,7 +25,7 @@ def block_krylov_iter(A, eps=1, k=1, c=1, return_var="Q", q=1, q_given=False):
         q = int(np.ceil(q))
 
     k = int(k)
-    Pi = np.random.normal(0, 1/k, (d, k))
+    Pi = np.random.normal(0, 1/np.sqrt(k), (d, k))
     Pi = Pi / np.linalg.norm(Pi, axis=0)
 
     APi = A @ Pi
