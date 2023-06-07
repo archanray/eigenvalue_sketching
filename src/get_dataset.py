@@ -42,7 +42,7 @@ def get_data(name, eps=0.1, plot_mat=True, raise_eps=False):
         xy[:,0] = -xy[:,0]
         y_min = np.min(xy[:,0])
         xy[:,0] = xy[:,0]-y_min
-        xy = xy.astype(np.float)
+        xy = xy.astype(float)
         xy[:, 0] = xy[:,0] / np.max(xy[:,0])
         xy[:, 1] = xy[:,1] / np.max(xy[:,1])
 
