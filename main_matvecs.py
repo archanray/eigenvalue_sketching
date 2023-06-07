@@ -156,7 +156,7 @@ save_dict["sw_nonadp"].append(matvecs_all)
 
 ######################### Approximator -- oth_nonadp #################################
 print("Approximator: Orthogonal Subspace Non-adaptive")
-all_ks = list(range(50,1500,50))
+all_ks = list(range(25,1000,25))
 all_cs = list(range(1,11,1))
 avg_errors = np.zeros((len(all_ks)*len(all_cs), len(search_ranks)))
 std_errors = np.zeros((len(all_ks)*len(all_cs), len(search_ranks)))
