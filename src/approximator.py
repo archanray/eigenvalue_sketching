@@ -1,6 +1,7 @@
 import numpy as np
 from src.block_krylov import block_krylov_iter as bki
 from src.utils import sort_abs_descending as sad
+from src.utils import sort_descending as sd
 
 def compute_alpha(A, n, sub_trace=False):
     """
@@ -21,7 +22,7 @@ def compute_alpha(A, n, sub_trace=False):
     if A.shape[0] != n:
         zeros = np.zeros(n - A.shape[0])
         alpha = np.concatenate((alpha, zeros))
-    alpha = sad(alpha)
+    alpha = sd(alpha) # sort alphas descending
     return alpha
 
 def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=True, q=3, q_given=True, sr=[]):
