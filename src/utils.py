@@ -30,3 +30,11 @@ def sort_abs_descending(x):
     abs_x = np.abs(x)
     idx = np.argsort(-abs_x)
     return x[idx]
+
+
+def sort_descending(x):
+    """
+    Sort array in descending order.
+    """
+    idx = np.argsort(-x)
+    return x[idx]

@@ -2,8 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pickle
 import os
+import sys
 
-dataset_name = "random_random"
+dataset_name = sys.argv[1]
 
 def sorter(xvals, y1vals, y2vals=None):
 	ids = np.argsort(xvals)
