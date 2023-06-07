@@ -44,8 +44,8 @@ save_dict = {}
 
 ########################### Approximator -- bki_adp ##################################
 print("Approximator: Block Krylov Adaptive: Q")
-all_ks = list(range(50,1000,50))
-all_qs = list(range(0,11,1))
+all_ks = list(range(200,1000,100))
+all_qs = list(range(0,11,3))
 avg_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
 std_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
 matvecs_all = np.zeros(len(all_ks)*len(all_qs))
@@ -74,8 +74,8 @@ save_dict["bki_adp_Q"].append(matvecs_all)
 
 ########################### Approximator -- bki_adp ##################################
 print("Approximator: Block Krylov Adaptive: Z")
-all_ks = list(range(50,1000,50))
-all_qs = list(range(0,11,1))
+all_ks = list(range(200,1000,100))
+all_qs = list(range(0,11,3))
 avg_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
 std_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
 matvecs_all = np.zeros(len(all_ks)*len(all_qs))
@@ -131,7 +131,7 @@ save_dict["oth_adp"].append(matvecs_all)
 
 ######################### Approximator -- sw_nonadp ##################################
 print("Approximator: Sketching with Trace Subtraction")
-all_ks = list(range(50,1500,50))
+all_ks = list(range(50,5000,100))
 avg_errors = np.zeros((len(all_ks), len(search_ranks)))
 std_errors = np.zeros((len(all_ks), len(search_ranks)))
 matvecs_all = np.zeros(len(all_ks))
@@ -158,8 +158,8 @@ save_dict["sw_nonadp"].append(matvecs_all)
 
 ######################### Approximator -- oth_nonadp #################################
 print("Approximator: Orthogonal Subspace Non-adaptive")
-all_ks = list(range(25,1000,25))
-all_cs = list(range(1,11,1))
+all_ks = list(range(25,400,25))
+all_cs = list(range(1,11,3))
 avg_errors = np.zeros((len(all_ks)*len(all_cs), len(search_ranks)))
 std_errors = np.zeros((len(all_ks)*len(all_cs), len(search_ranks)))
 matvecs_all = np.zeros(len(all_ks)*len(all_cs))
@@ -184,7 +184,7 @@ save_dict["oth_nonadp"].append(std_errors)
 save_dict["oth_nonadp"].append(P1)
 save_dict["oth_nonadp"].append(P2)
 save_dict["oth_nonadp"].append(matvecs_all)
-######################################################################################
+# ######################################################################################
 
 ############################# SAVE VALS ##############################################
 save_vars = {"params": params, "save_vals": save_dict}
