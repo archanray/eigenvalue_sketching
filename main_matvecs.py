@@ -11,7 +11,7 @@ from tqdm import tqdm
 
 ##################################### PARAMETERS #####################################
 # Dataset
-dataset_name = "facebook"
+dataset_name = "random_random"
 # Search parameters
 search_ranks = [0,1,2,3,4,5]
 # Approximation parameters
@@ -102,7 +102,7 @@ save_dict["bki_adp_Z"].append(matvecs_all)
 
 ########################### Approximator -- oth_adp ##################################
 print("Approximator: Orthogonal Subspace Adaptive")
-all_ks = list(range(50,1500,50))
+all_ks = list(range(50,3000,50))
 avg_errors = np.zeros((len(all_ks), len(search_ranks)))
 std_errors = np.zeros((len(all_ks), len(search_ranks)))
 matvecs_all = np.zeros(len(all_ks))
