@@ -14,7 +14,7 @@ print(save_vars["save_vals"].keys())
 ######################### plots ############################
 for i in save_vars["params"]["sr"]:
 	print(i)
-	plt.gcf.clear()
+	plt.gcf.clf()
 	for mthd in save_vars["save_vals"].keys():
 		plt.plot(np.log(save_vars["save_vals"][mthd][4]), \
 			save_vars["save_vals"][mthd][0], label=mthd)
