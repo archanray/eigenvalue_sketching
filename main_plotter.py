@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pickle
 import os
 
-dataset_name = "random_random"
+dataset_name = "facebook"
 
 def sorter(xvals, y1vals, y2vals=None):
 	ids = np.argsort(xvals)
