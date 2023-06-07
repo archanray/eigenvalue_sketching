@@ -17,10 +17,10 @@ for i in save_vars["params"]["sr"]:
 	plt.gcf().clf()
 	for mthd in save_vars["save_vals"].keys():
 		plt.plot(np.log(save_vars["save_vals"][mthd][4]), \
-			save_vars["save_vals"][mthd][0], label=mthd)
+			save_vars["save_vals"][mthd][0][:,i], label=mthd)
 		plt.fill_between(np.log(save_vars["save_vals"][mthd][4]), \
-			save_vars["save_vals"][mthd][2], \
-			save_vars["save_vals"][mthd][3], alpha=0.2)
+			save_vars["save_vals"][mthd][2][:,i], \
+			save_vars["save_vals"][mthd][3][:,i], alpha=0.2)
 	plt.xlabel("log matvecs")
 	plt.ylabel("log absolute errors")
 	plt.legend()
