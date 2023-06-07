@@ -17,7 +17,7 @@ print(dataset_name)
 # Search parameters
 search_ranks = [0,1,2,3,4,5]
 # Approximation parameters
-trials = 10
+trials = sys.argv[2]
 eps = 1e-32 # tolerance
 # Approximation methods, check approximator for options
 # approx_mthds = [bki_adp, oth_nonadp, sw_nonadp, oth_adp]
