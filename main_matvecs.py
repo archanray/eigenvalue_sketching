@@ -7,11 +7,12 @@ from src.get_dataset import get_data
 from src.utils import sort_abs_descending as sad
 import pickle
 from tqdm import tqdm
+import sys
 # import matplotlib.pyplot as plt
 
 ##################################### PARAMETERS #####################################
 # Dataset
-dataset_name = "random_random"
+dataset_name = sys.argv[1]
 # Search parameters
 search_ranks = [0,1,2,3,4,5]
 # Approximation parameters
