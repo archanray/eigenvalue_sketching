@@ -25,6 +25,7 @@ eps = 1e-32 # tolerance
 
 ################################### GRAB THE MATRICES ################################
 true_mat, dataset_size, min_samples, max_samples = get_data(dataset_name)
+true_mat = true_mat[0:2000][:, 0:2000]
 
 true_spectrum, _ = np.linalg.eig(true_mat)
 true_spectrum = sad(np.real(true_spectrum))
