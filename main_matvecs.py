@@ -21,16 +21,16 @@ trials = int(sys.argv[2])
 eps = 1e-32 # tolerance
 # Approximation methods, check approximator for options
 # approx_mthds = [bki_adp, oth_nonadp, sw_nonadp, oth_adp]
-approx_mthds = sys.argv[3]
+mthds = sys.argv[3]
 # print(approx_mthds)
-if not approx_mthds:
+if not mthds:
     print("no methods selected; please choose among: bki_adp_Q, bki_adp_Z, oth_nonadp, sw_nonadp, oth_adp without spaces")
     sys.exit()
 else:
-    if "full" in approx_mthds:
+    if "full" in mthds:
         approx_mthds = "bki_adp_Q, bki_adp_Z, oth_nonadp, sw_nonadp, oth_adp"
     else:
-        pass
+        approx_mthds = mthds
 approx_mthds = approx_mthds.split(",")
 ######################################################################################
 
@@ -208,8 +208,12 @@ if "oth_nonadp" in approx_mthds:
 ######################################################################################
 
 ############################# SAVE VALS ##############################################
-for i in approx_mthds:
-    adder = adder+"_"+i
+adder = ""
+if mthds == "full":
+    adder = "_"+mthds
+else:
+    for i in approx_mthds:
+        adder = adder+"_"+i
 save_vars = {"params": params, "save_vals": save_dict}
 with open("results/"+dataset_name+adder+".pkl", "wb") as f:
     pickle.dump(save_vars, f)
