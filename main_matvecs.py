@@ -6,6 +6,7 @@ from src.approximator import eigval_approx_SW_nonadaptive as sw_nonadp
 from src.get_dataset import get_data
 from src.utils import sort_abs_descending as sad
 from src.utils import sort_descending as sd
+from src.utils import l_infty_error as lie
 import pickle
 from tqdm import tqdm
 import sys
@@ -28,10 +29,11 @@ if not mthds:
     sys.exit()
 else:
     if "full" in mthds:
-        approx_mthds = "bki_adp_Q, bki_adp_Z, oth_nonadp, sw_nonadp, oth_adp"
+        approx_mthds = "bki_adp_Q,bki_adp_Z,oth_nonadp,sw_nonadp,oth_adp"
     else:
         approx_mthds = mthds
 approx_mthds = approx_mthds.split(",")
+print(approx_mthds)
 ######################################################################################
 
 ################################### GRAB THE MATRICES ################################
@@ -39,12 +41,13 @@ true_mat, dataset_size, min_samples, max_samples = get_data(dataset_name)
 
 true_spectrum, _ = np.linalg.eig(true_mat)
 true_spectrum = sd(np.real(true_spectrum)) # sort eigvals in descending order
-true_spectrum = true_spectrum[search_ranks]
+# true_spectrum = true_spectrum[search_ranks]
 max_abs_eigval = max(np.abs(true_spectrum[0]), np.abs(true_spectrum[-1]))
 
 print("loaded datasets")
 print("A_infty:", np.max(true_mat))
-print("true eigvals:", true_spectrum[search_ranks])
+print("top true eigvals:", true_spectrum[search_ranks])
+print("true eigvals len:", len(true_spectrum))
 print("search ranks:", search_ranks)
 print("trials:", trials)
 ######################################################################################
@@ -62,21 +65,28 @@ if "bki_adp_Q" in approx_mthds:
     all_qs = list(range(0,11,2))
     avg_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
     std_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
+    avg_lies = np.zeros(len(all_ks)*len(all_qs))
+    std_lies = np.zeros(len(all_ks)*len(all_qs))
     matvecs_all = np.zeros(len(all_ks)*len(all_qs))
     count = 0
     for i in tqdm(range(len(all_ks)), position=0):
       k = all_ks[i]
       for j in range(len(all_qs)):
-          q = all_qs[j]
-          errors = np.zeros((trials, len(search_ranks)))
-          for t in range(trials):
-              alpha, matvecs = bki_adp(true_mat, k=k, k_given=True, \
-                                        q=q, q_given=True, mode="Q", sr=search_ranks)
-              errors[t,:] = np.abs(true_spectrum - alpha) / max_abs_eigval
-          avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
-          std_errors[count, :] = np.log(np.abs(np.std(errors, axis=0)) + eps)
-          matvecs_all[count] = matvecs
-          count += 1
+            q = all_qs[j]
+            errors = np.zeros((trials, len(search_ranks)))
+            lies = np.zeros(trials)
+            for t in range(trials):
+                alpha, matvecs = bki_adp(true_mat, k=k, k_given=True, \
+                                        q=q, q_given=True, mode="Q", sr=[])
+                errors[t,:] = np.abs(true_spectrum[search_ranks] - alpha[search_ranks]) / max_abs_eigval
+                lies[t] = lie(true_spectrum, alpha)
+
+            avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
+            std_errors[count, :] = np.log(np.abs(np.std(errors, axis=0)) + eps)
+            avg_lies[count] = np.log(np.abs(np.mean(lies)) + eps)
+            std_lies[count] = np.log(np.abs(np.std(lies)) + eps)
+            matvecs_all[count] = matvecs
+            count += 1
     P1 = avg_errors - std_errors
     P2 = avg_errors + std_errors
     save_dict["bki_adp_Q"] = []
@@ -84,6 +94,8 @@ if "bki_adp_Q" in approx_mthds:
     save_dict["bki_adp_Q"].append(std_errors)
     save_dict["bki_adp_Q"].append(P1)
     save_dict["bki_adp_Q"].append(P2)
+    save_dict["bki_adp_Q"].append(avg_lies)
+    save_dict["bki_adp_Q"].append(std_lies)
     save_dict["bki_adp_Q"].append(matvecs_all)
 ######################################################################################
 
@@ -94,20 +106,27 @@ if "bki_adp_Z" in approx_mthds:
     all_qs = list(range(0,11,2))
     avg_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
     std_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
+    avg_lies = np.zeros(len(all_ks)*len(all_qs))
+    std_lies = np.zeros(len(all_ks)*len(all_qs))
     matvecs_all = np.zeros(len(all_ks)*len(all_qs))
     count = 0
     for i in tqdm(range(len(all_ks)), position=0):
-      k = all_ks[i]
-      for j in range(len(all_qs)):
-          q = all_qs[j]
-          errors = np.zeros((trials, len(search_ranks)))
-          for t in range(trials):
-              alpha, matvecs = bki_adp(true_mat, k=k, k_given=True, q=q, q_given=True, mode="Z", sr=search_ranks)
-              errors[t,:] = np.abs(true_spectrum - alpha) / max_abs_eigval
-          avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
-          std_errors[count, :] = np.log(np.abs(np.std(errors, axis=0)) + eps)
-          matvecs_all[count] = matvecs
-          count += 1
+        k = all_ks[i]
+        for j in range(len(all_qs)):
+            q = all_qs[j]
+            errors = np.zeros((trials, len(search_ranks)))
+            lies = np.zeros(trials)
+            for t in range(trials):
+                alpha, matvecs = bki_adp(true_mat, k=k, k_given=True, q=q, q_given=True, mode="Z", sr=[])
+                errors[t,:] = np.abs(true_spectrum[search_ranks] - alpha[search_ranks]) / max_abs_eigval
+                lies[t] = lie(true_spectrum, alpha)
+
+            avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
+            std_errors[count, :] = np.log(np.abs(np.std(errors, axis=0)) + eps)
+            avg_lies[count] = np.log(np.abs(np.mean(lies)) + eps)
+            std_lies[count] = np.log(np.abs(np.std(lies)) + eps)
+            matvecs_all[count] = matvecs
+            count += 1
     P1 = avg_errors - std_errors
     P2 = avg_errors + std_errors
     save_dict["bki_adp_Z"] = []
@@ -115,6 +134,8 @@ if "bki_adp_Z" in approx_mthds:
     save_dict["bki_adp_Z"].append(std_errors)
     save_dict["bki_adp_Z"].append(P1)
     save_dict["bki_adp_Z"].append(P2)
+    save_dict["bki_adp_Z"].append(avg_lies)
+    save_dict["bki_adp_Z"].append(std_lies)
     save_dict["bki_adp_Z"].append(matvecs_all)
 ######################################################################################
 
@@ -124,16 +145,23 @@ if "oth_adp" in approx_mthds:
     all_ks = list(range(50,2000,50))
     avg_errors = np.zeros((len(all_ks), len(search_ranks)))
     std_errors = np.zeros((len(all_ks), len(search_ranks)))
+    avg_lies = np.zeros(len(all_ks))
+    std_lies = np.zeros(len(all_ks))
     matvecs_all = np.zeros(len(all_ks))
     count = 0
     for i in tqdm(range(len(all_ks)), position=0):
         k = all_ks[i]
         errors = np.zeros((trials, len(search_ranks)))
+        lies = np.zeros(trials)
         for t in range(trials):
-            alpha, matvecs = oth_adp(true_mat, k=k, sr=search_ranks)
-            errors[t,:] = np.abs(true_spectrum - alpha) / max_abs_eigval
+            alpha, matvecs = oth_adp(true_mat, k=k, sr=[])
+            errors[t,:] = np.abs(true_spectrum[search_ranks] - alpha[search_ranks]) / max_abs_eigval
+            lies[t] = lie(true_spectrum, alpha)
+
         avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
         std_errors[count, :] = np.log(np.abs(np.std(errors, axis=0)) + eps)
+        avg_lies[count] = np.log(np.abs(np.mean(lies)) + eps)
+        std_lies[count] = np.log(np.abs(np.std(lies)) + eps)
         matvecs_all[count] = matvecs
         count += 1
     P1 = avg_errors - std_errors
@@ -143,6 +171,8 @@ if "oth_adp" in approx_mthds:
     save_dict["oth_adp"].append(std_errors)
     save_dict["oth_adp"].append(P1)
     save_dict["oth_adp"].append(P2)
+    save_dict["oth_adp"].append(avg_lies)
+    save_dict["oth_adp"].append(std_lies)
     save_dict["oth_adp"].append(matvecs_all)
 ######################################################################################
 
@@ -152,20 +182,25 @@ if "sw_nonadp" in approx_mthds:
     all_ks = list(range(10,4000,50))
     avg_errors = np.zeros((len(all_ks), len(search_ranks)))
     std_errors = np.zeros((len(all_ks), len(search_ranks)))
+    avg_lies = np.zeros(len(all_ks))
+    std_lies = np.zeros(len(all_ks))
     matvecs_all = np.zeros(len(all_ks))
     count = 0
     for i in tqdm(range(len(all_ks)), position=0):
-      k = all_ks[i]
-      errors = np.zeros((trials, len(search_ranks)))
-      # print(k)
-      for t in range(trials):
-          alpha, matvecs = sw_nonadp(true_mat, k=k, sr=search_ranks)
-          # print(alpha)
-          errors[t,:] = np.abs(true_spectrum - alpha) / max_abs_eigval
-      avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
-      std_errors[count, :] = np.log(np.abs(np.std(errors, axis=0)) + eps)
-      matvecs_all[count] = matvecs
-      count += 1
+        k = all_ks[i]
+        errors = np.zeros((trials, len(search_ranks)))
+        lies = np.zeros(trials)
+        for t in range(trials):
+            alpha, matvecs = sw_nonadp(true_mat, k=k, sr=[])
+            errors[t,:] = np.abs(true_spectrum[search_ranks] - alpha[search_ranks]) / max_abs_eigval
+            lies[t] = lie(true_spectrum, alpha)
+
+        avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
+        std_errors[count, :] = np.log(np.abs(np.std(errors, axis=0)) + eps)
+        avg_lies[count] = np.log(np.abs(np.mean(lies)) + eps)
+        std_lies[count] = np.log(np.abs(np.std(lies)) + eps)
+        matvecs_all[count] = matvecs
+        count += 1
     P1 = avg_errors - std_errors
     P2 = avg_errors + std_errors
     save_dict["sw_nonadp"] = []
@@ -173,6 +208,8 @@ if "sw_nonadp" in approx_mthds:
     save_dict["sw_nonadp"].append(std_errors)
     save_dict["sw_nonadp"].append(P1)
     save_dict["sw_nonadp"].append(P2)
+    save_dict["sw_nonadp"].append(avg_lies)
+    save_dict["sw_nonadp"].append(std_lies)
     save_dict["sw_nonadp"].append(matvecs_all)
 ######################################################################################
 
@@ -183,20 +220,27 @@ if "oth_nonadp" in approx_mthds:
     all_cs = list(range(2,3,1))
     avg_errors = np.zeros((len(all_ks)*len(all_cs), len(search_ranks)))
     std_errors = np.zeros((len(all_ks)*len(all_cs), len(search_ranks)))
+    avg_lies = np.zeros(len(all_ks)*len(all_cs))
+    std_lies = np.zeros(len(all_ks)*len(all_cs))
     matvecs_all = np.zeros(len(all_ks)*len(all_cs))
     count = 0
     for i in tqdm(range(len(all_ks)), position=0):
-      k = all_ks[i]
-      for j in range(len(all_cs)):
-          c = all_cs[j]
-          errors = np.zeros((trials, len(search_ranks)))
-          for t in range(trials):
-              alpha, matvecs = oth_nonadp(true_mat, k=k, c=c, sr=search_ranks)
-              errors[t,:] = np.abs(true_spectrum - alpha) / max_abs_eigval
-          avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
-          std_errors[count, :] = np.log(np.abs(np.std(errors, axis=0)) + eps)
-          matvecs_all[count] = matvecs
-          count += 1
+        k = all_ks[i]
+        for j in range(len(all_cs)):
+            c = all_cs[j]
+            errors = np.zeros((trials, len(search_ranks)))
+            lies = np.zeros(trials)
+            for t in range(trials):
+                alpha, matvecs = oth_nonadp(true_mat, k=k, c=c, sr=[])
+                errors[t,:] = np.abs(true_spectrum[search_ranks] - alpha[search_ranks]) / max_abs_eigval
+                lies[t] = lie(true_spectrum, alpha)
+
+            avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
+            std_errors[count, :] = np.log(np.abs(np.std(errors, axis=0)) + eps)
+            avg_lies[count] = np.log(np.abs(np.mean(lies)) + eps)
+            std_lies[count] = np.log(np.abs(np.std(lies)) + eps)
+            matvecs_all[count] = matvecs
+            count += 1
     P1 = avg_errors - std_errors
     P2 = avg_errors + std_errors
     save_dict["oth_nonadp"] = []
@@ -204,6 +248,8 @@ if "oth_nonadp" in approx_mthds:
     save_dict["oth_nonadp"].append(std_errors)
     save_dict["oth_nonadp"].append(P1)
     save_dict["oth_nonadp"].append(P2)
+    save_dict["oth_nonadp"].append(avg_lies)
+    save_dict["oth_nonadp"].append(std_lies)
     save_dict["oth_nonadp"].append(matvecs_all)
 ######################################################################################
 

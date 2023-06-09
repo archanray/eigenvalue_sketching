@@ -33,3 +33,44 @@ def approximation(A, params):
             raise ValueError('Approximation method not supported')
 
     return approx_eigvals, matvecs_all
+
+def approx_unified(A, params, algos, algo_params):
+    """
+    Wrapper for all
+    """
+    if len(algo_params["iters"]) == 1:
+        iterator = algo_params["iters"][0]
+        len_rows = len(iterator)
+    else:
+        import itertools
+        iterator = itertools.product(algo_params["iters"][0], algo_params["iters"][1])
+        len_rows = len(algo_params["iters"][0] * algo_params["iters"][1])
+    len_cols = len(params["sr"])
+
+    #######################log vars####################################################
+    save_dict = {}
+    avg_errors = np.zeros((len_rows, len_cols))
+    std_errors = np.zeros((len_rows, len_cols))
+    avg_lies = np.zeros(len_rows)
+    std_lies = np.zeros(len_rows)
+    matvecs_all = np.zeros(len_rows)
+    ##################################################################################
+
+    for a in algos:
+        if a == "bki_adp_Q":
+            algo = bki_adp
+            return_mode = Q
+        if a == "bki_adp_Z":
+            algo = bki_adp
+            return_mode = Z
+        if a == "oth_adp":
+            algo = oth_adp
+        if a == "oth_nonadp":
+            algo = oth_nonadp
+        if a == "sw_nonadp":
+            algo = sw_nonadp
+        pass
+
+        count = 0
+        for i in iterator:
+            pass

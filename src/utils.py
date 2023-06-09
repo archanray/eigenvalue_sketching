@@ -11,7 +11,6 @@ def hyperbolic_tangent(data1, data2, sigma=1):
     similarity_matrix = np.asarray(similarity_matrix)
     return similarity_matrix
 
-
 def thin_plane_spline(data1, data2, sigma=1.0):
     """
     Ds = |x-y|^2 / sigma^2
@@ -38,3 +37,6 @@ def sort_descending(x):
     """
     idx = np.argsort(-x)
     return x[idx]
+
+def l_infty_error(list1, list2):
+    return np.max(np.abs(list1 - list2))
