@@ -50,7 +50,7 @@ for i in save_vars["params"]["sr"]:
 	plt.ylabel("log absolute errors")
 	plt.legend()
 	plt.title("eigval="+str(save_vars["params"]["true_eigs"][i]))
-	plt.savefig("figures/"+dataset_name+"/"+str(i)+".pdf")
+	plt.savefig("figures/"+dataset_name+"/"+str(i)+"_"+mthds+".pdf")
 ############################################################
 
 ######################### plots lies ############################
@@ -66,5 +66,5 @@ plt.xlabel("log matvecs")
 plt.ylabel("log l_infty errors")
 plt.legend()
 plt.title("max eigval="+str(save_vars["params"]["true_eigs"][0]))
-plt.savefig("figures/"+dataset_name+"/"+"lIE_plots"+".pdf")
+plt.savefig("figures/"+dataset_name+"/"+"lIE_plots"+"_"+mthds+".pdf")
 ############################################################
