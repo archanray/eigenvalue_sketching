@@ -62,6 +62,7 @@ for mthd in save_vars["save_vals"].keys():
 		plt.plot(xvals, y1vals, label=mthd)
 
 		plt.fill_between(xvals, y1vals-y2vals, y1vals+y2vals, alpha=0.2)
+plt.ylim([-4,9])
 plt.xlabel("log matvecs")
 plt.ylabel("log l_infty errors")
 plt.legend()
