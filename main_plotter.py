@@ -28,7 +28,7 @@ def sorter(xvals, y1vals, y2vals=None):
 		return xvals, y1vals, y2vals
 
 ########################## load data #######################
-with open("results/"+dataset_name+"_"+mthds+".pkl", "rb") as f:
+with open("results/"+dataset_name+"_"+"full"+".pkl", "rb") as f:
     save_vars = pickle.load(f)
 print(save_vars["save_vals"].keys())
 ############################################################
