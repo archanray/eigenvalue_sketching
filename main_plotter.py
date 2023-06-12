@@ -33,6 +33,9 @@ with open("results/"+dataset_name+"_"+"full"+".pkl", "rb") as f:
 print(save_vars["save_vals"].keys())
 ############################################################
 
+if not os.path.isdir("figures/"+dataset_name+"/"):
+    os.makedirs("figures/"+dataset_name+"/")
+
 ######################### plots ############################
 for i in save_vars["params"]["sr"]:
 	plt.gcf().clf()
