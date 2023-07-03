@@ -163,6 +163,8 @@ def get_data(name, eps=0.1, plot_mat=True, raise_eps=False):
         if name == "facebook":
             A = A+A.T # symmetrizing as the original dataset is directed
 
+        A = A[1000][:,1000]
+
         dataset_size = len(A)
         
         min_sample_size = int(dataset_size * 0.01)
