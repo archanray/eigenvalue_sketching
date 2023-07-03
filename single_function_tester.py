@@ -1,7 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-# from src.get_dataset import get_data
+from src.get_dataset import get_data
+from src.block_krylov import block_krylov_iter as bki
 
 def get_data(name):
 	if name == "random_random":
@@ -38,9 +39,9 @@ lambda_A, _= np.linalg.eig(A)
 lambda_A = sort_descending(np.real(lambda_A)) # these are the original eigenvalues
 n = A.shape[1] # shape of the data matrix
 
-c = np.arange(1.25,3,0.25)
+q = np.arange(0,11,2)
 all_ks = list(range(10,260,10))
-trials = 50
+trials = 10
 
 for j in tqdm(range(len(c)), position=0):
 	avg_errors = np.zeros((len(all_ks), n))
@@ -51,7 +52,9 @@ for j in tqdm(range(len(c)), position=0):
 		errors = np.zeros((trials, n))
 		# trials
 		for t in range(trials): 
-			alpha = eigval_approx(A, k_now, c[j]) # these are the approximate eigvals at each round
+			# alpha = eigval_approx(A, k_now, c[j]) # these are the approximate eigvals at each round
+			alpha, _ = bki(A, k=k, k_given=True, \
+                                        q=c, q_given=True, mode="Q", sr=[])
 			errors[t,:] = lambda_A - alpha # error at a single round
 
 		avg_errors[i,:] = np.log(np.abs(np.mean(errors, axis=0)))
@@ -69,4 +72,4 @@ plt.xlabel("log samples")
 plt.ylabel("log absolute errors")
 plt.legend()
 plt.title("RSM, eigval="+str(lambda_A[0]))
-plt.savefig("figures/non_adaptive_checks_random_data_scaled.pdf")
+plt.savefig("figures/bkiQ_checks_facebook_data_scaled.pdf")

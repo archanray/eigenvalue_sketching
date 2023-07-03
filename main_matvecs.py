@@ -79,7 +79,7 @@ if "bki_adp_Q" in approx_mthds:
                 alpha, matvecs = bki_adp(true_mat, k=k, k_given=True, \
                                         q=q, q_given=True, mode="Q", sr=[])
                 errors[t,:] = np.abs(true_spectrum[search_ranks] - alpha[search_ranks]) / max_abs_eigval
-                lies[t] = lie(true_spectrum, alpha)
+                lies[t] = lie(true_spectrum, alpha, max_abs_eigval)
 
             avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
             std_errors[count, :] = np.log(np.abs(np.std(errors, axis=0)) + eps)
@@ -119,7 +119,7 @@ if "bki_adp_Z" in approx_mthds:
             for t in range(trials):
                 alpha, matvecs = bki_adp(true_mat, k=k, k_given=True, q=q, q_given=True, mode="Z", sr=[])
                 errors[t,:] = np.abs(true_spectrum[search_ranks] - alpha[search_ranks]) / max_abs_eigval
-                lies[t] = lie(true_spectrum, alpha)
+                lies[t] = lie(true_spectrum, alpha, max_abs_eigval)
 
             avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
             std_errors[count, :] = np.log(np.abs(np.std(errors, axis=0)) + eps)
@@ -156,7 +156,7 @@ if "oth_adp" in approx_mthds:
         for t in range(trials):
             alpha, matvecs = oth_adp(true_mat, k=k, sr=[])
             errors[t,:] = np.abs(true_spectrum[search_ranks] - alpha[search_ranks]) / max_abs_eigval
-            lies[t] = lie(true_spectrum, alpha)
+            lies[t] = lie(true_spectrum, alpha, max_abs_eigval)
 
         avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
         std_errors[count, :] = np.log(np.abs(np.std(errors, axis=0)) + eps)
@@ -193,7 +193,7 @@ if "sw_nonadp" in approx_mthds:
         for t in range(trials):
             alpha, matvecs = sw_nonadp(true_mat, k=k, sr=[])
             errors[t,:] = np.abs(true_spectrum[search_ranks] - alpha[search_ranks]) / max_abs_eigval
-            lies[t] = lie(true_spectrum, alpha)
+            lies[t] = lie(true_spectrum, alpha, max_abs_eigval)
 
         avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
         std_errors[count, :] = np.log(np.abs(np.std(errors, axis=0)) + eps)
@@ -233,7 +233,7 @@ if "oth_nonadp" in approx_mthds:
             for t in range(trials):
                 alpha, matvecs = oth_nonadp(true_mat, k=k, c=c, sr=[])
                 errors[t,:] = np.abs(true_spectrum[search_ranks] - alpha[search_ranks]) / max_abs_eigval
-                lies[t] = lie(true_spectrum, alpha)
+                lies[t] = lie(true_spectrum, alpha, max_abs_eigval)
 
             avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
             std_errors[count, :] = np.log(np.abs(np.std(errors, axis=0)) + eps)

@@ -38,5 +38,15 @@ def sort_descending(x):
     idx = np.argsort(-x)
     return x[idx]
 
-def l_infty_error(list1, list2):
-    return np.max(np.abs(list1 - list2))
+def sorter(xvals, y1vals, y2vals=None):
+    ids = np.argsort(xvals)
+    xvals = xvals[ids]
+    y1vals = y1vals[ids]
+    if y2vals is None:
+        return xvals, y1vals
+    else:
+        y2vals = y2vals[ids]
+        return xvals, y1vals, y2vals
+
+def l_infty_error(list1, list2, normalizer=1):
+    return np.max(np.abs(list1 - list2))/normalizer
