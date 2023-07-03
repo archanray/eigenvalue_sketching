@@ -39,7 +39,7 @@ lambda_A, _= np.linalg.eig(A)
 lambda_A = sort_descending(np.real(lambda_A)) # these are the original eigenvalues
 n = A.shape[1] # shape of the data matrix
 
-q = np.arange(0,11,2)
+c = np.arange(0,11,2)
 all_ks = list(range(10,260,10))
 trials = 10
 
