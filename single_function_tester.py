@@ -53,7 +53,7 @@ for j in tqdm(range(len(c)), position=0):
 		# trials
 		for t in range(trials): 
 			# alpha = eigval_approx(A, k_now, c[j]) # these are the approximate eigvals at each round
-			alpha, _ = bki(A, k=k, k_given=True, \
+			alpha, _ = bki(A, k=k_now, k_given=True, \
                                         q=c[j], q_given=True, mode="Q", sr=[])
 			errors[t,:] = lambda_A - alpha # error at a single round
 
