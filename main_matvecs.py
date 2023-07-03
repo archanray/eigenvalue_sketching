@@ -61,7 +61,7 @@ save_dict = {}
 ########################### Approximator -- bki_adp ##################################
 if "bki_adp_Q" in approx_mthds:
     print("Approximator: Block Krylov Adaptive: Q")
-    all_ks = list(range(200,1000,50))
+    all_ks = list(range(50,100,50))
     all_qs = list(range(0,11,2))
     avg_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
     std_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
@@ -102,7 +102,7 @@ if "bki_adp_Q" in approx_mthds:
 ########################### Approximator -- bki_adp ##################################
 if "bki_adp_Z" in approx_mthds:
     print("Approximator: Block Krylov Adaptive: Z")
-    all_ks = list(range(200,1000,50))
+    all_ks = list(range(50,100,50))
     all_qs = list(range(0,11,2))
     avg_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
     std_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
@@ -142,7 +142,7 @@ if "bki_adp_Z" in approx_mthds:
 ########################### Approximator -- oth_adp ##################################
 if "oth_adp" in approx_mthds:
     print("Approximator: Orthogonal Subspace Adaptive")
-    all_ks = list(range(50,2000,50))
+    all_ks = list(range(50,500,50))
     avg_errors = np.zeros((len(all_ks), len(search_ranks)))
     std_errors = np.zeros((len(all_ks), len(search_ranks)))
     avg_lies = np.zeros(len(all_ks))
@@ -179,7 +179,7 @@ if "oth_adp" in approx_mthds:
 ######################### Approximator -- sw_nonadp ##################################
 if "sw_nonadp" in approx_mthds:
     print("Approximator: Sketching with Trace Subtraction")
-    all_ks = list(range(10,4000,50))
+    all_ks = list(range(50,500,50))
     avg_errors = np.zeros((len(all_ks), len(search_ranks)))
     std_errors = np.zeros((len(all_ks), len(search_ranks)))
     avg_lies = np.zeros(len(all_ks))
@@ -216,7 +216,7 @@ if "sw_nonadp" in approx_mthds:
 ######################### Approximator -- oth_nonadp #################################
 if "oth_nonadp" in approx_mthds:
     print("Approximator: Orthogonal Subspace Non-adaptive")
-    all_ks = list(range(25,1000,25))
+    all_ks = list(range(15,500,25))
     all_cs = list(range(2,3,1))
     avg_errors = np.zeros((len(all_ks)*len(all_cs), len(search_ranks)))
     std_errors = np.zeros((len(all_ks)*len(all_cs), len(search_ranks)))

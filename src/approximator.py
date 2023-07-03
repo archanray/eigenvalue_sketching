@@ -2,6 +2,7 @@ import numpy as np
 from src.block_krylov import block_krylov_iter as bki
 from src.utils import sort_abs_descending as sad
 from src.utils import sort_descending as sd
+from numpy.linalg import qr
 
 def compute_alpha(A, n, sub_trace=False):
     """
@@ -67,10 +68,11 @@ def eigval_approx_othro_adaptive(A, k=1, sr=[]):
     """
     matvecs = 0
     G = np.random.normal(0,1/np.sqrt(k), (A.shape[0], k))
-    V, _, _ = np.linalg.svd(A @ G)
+    # V, _, _ = np.linalg.svd(A @ G)
+    Q, R = qr(A @ G)
     matvecs += G.shape[1]
 
-    Atilde = V.T @ (A @ V)
+    Atilde = Q.T @ (A @ Q)
     #matvecs += V.shape[1]
 
     alpha = compute_alpha(Atilde, A.shape[1])
