@@ -32,6 +32,9 @@ with open("results/"+dataset_name+"_"+"full"+".pkl", "rb") as f:
     save_vars = pickle.load(f)
 print(save_vars["save_vals"].keys())
 ############################################################
+# CHANGE THIS TO " " IF NOT TESTING
+dataset_name_addr = "test"
+dataset_name = dataset_name+"_"+dataset_name_addr
 
 if not os.path.isdir("figures/"+dataset_name+"/"):
     os.makedirs("figures/"+dataset_name+"/")
