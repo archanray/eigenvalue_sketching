@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 from src.get_dataset import get_data
-from src.block_krylov import block_krylov_iter as bki
+from src.approximator import eigval_approx_bki_adaptive as bki_adp
 
 def get_data(name):
 	if name == "random_random":
@@ -53,7 +53,7 @@ for j in tqdm(range(len(c)), position=0):
 		# trials
 		for t in range(trials): 
 			# alpha = eigval_approx(A, k_now, c[j]) # these are the approximate eigvals at each round
-			alpha, _ = bki(A, k=k_now, k_given=True, \
+			alpha, _ = bki_adp(A, k=k_now, k_given=True, \
                                         q=c[j], q_given=True, mode="Q", sr=[])
 			errors[t,:] = lambda_A - alpha # error at a single round
 
