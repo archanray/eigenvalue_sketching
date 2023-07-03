@@ -142,7 +142,7 @@ if "bki_adp_Z" in approx_mthds:
 ########################### Approximator -- oth_adp ##################################
 if "oth_adp" in approx_mthds:
     print("Approximator: Orthogonal Subspace Adaptive")
-    all_ks = list(range(20,500,50))
+    all_ks = list(range(40,500,50))
     avg_errors = np.zeros((len(all_ks), len(search_ranks)))
     std_errors = np.zeros((len(all_ks), len(search_ranks)))
     avg_lies = np.zeros(len(all_ks))
