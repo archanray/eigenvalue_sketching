@@ -49,8 +49,8 @@ for i in save_vars["params"]["sr"]:
 			plt.plot(xvals, yvals, label=mthd)
 
 			xvals, y1vals, y2vals = sorter(np.log(save_vars["save_vals"][mthd][6]), \
-									save_vars["save_vals"][mthd][2][:,i], \
-									save_vars["save_vals"][mthd][3][:,i])
+									save_vars["save_vals"][mthd][1][:,i], \
+									save_vars["save_vals"][mthd][2][:,i])
 			plt.fill_between(xvals, y1vals, y2vals, alpha=0.2)
 	plt.xlabel("log matvecs")
 	plt.ylabel("log absolute errors")
@@ -63,12 +63,16 @@ for i in save_vars["params"]["sr"]:
 plt.gcf().clf()
 for mthd in save_vars["save_vals"].keys():
 	if mthd in approx_mthds:
-		xvals, y1vals, y2vals = sorter(np.log(save_vars["save_vals"][mthd][6]), \
-								save_vars["save_vals"][mthd][4], save_vars["save_vals"][mthd][5])
-		plt.plot(xvals, y1vals, label=mthd)
+		xvals, yvals = sorter(np.log(save_vars["save_vals"][mthd][6]), \
+								save_vars["save_vals"][mthd][3])
+		plt.plot(xvals, yvals, label=mthd)
 
-		plt.fill_between(xvals, y1vals-y2vals, y1vals+y2vals, alpha=0.2)
-plt.ylim([-4,9])
+		xvals, y1vals, y2vals = sorter(np.log(save_vars["save_vals"][mthd][6]), \
+									save_vars["save_vals"][mthd][4][:,i], \
+									save_vars["save_vals"][mthd][5][:,i])
+
+		plt.fill_between(xvals, y1vals, y2vals, alpha=0.2)
+# plt.ylim([-4,9])
 plt.xlabel("log matvecs")
 plt.ylabel("log l_infty errors")
 plt.legend()
