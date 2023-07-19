@@ -68,8 +68,8 @@ for mthd in save_vars["save_vals"].keys():
 		plt.plot(xvals, yvals, label=mthd)
 
 		xvals, y1vals, y2vals = sorter(np.log(save_vars["save_vals"][mthd][6]), \
-									save_vars["save_vals"][mthd][4][:,i], \
-									save_vars["save_vals"][mthd][5][:,i])
+									save_vars["save_vals"][mthd][4], \
+									save_vars["save_vals"][mthd][5])
 
 		plt.fill_between(xvals, y1vals, y2vals, alpha=0.2)
 # plt.ylim([-4,9])

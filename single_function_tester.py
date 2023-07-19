@@ -40,8 +40,8 @@ lambda_A = sort_descending(np.real(lambda_A)) # these are the original eigenvalu
 max_eigval = max(np.abs(lambda_A[0]), np.abs(lambda_A[-1]))
 n = A.shape[1] # shape of the data matrix
 
-c = np.arange(0,11,2)
-all_ks = list(range(10,500,10))
+c = np.arange(0,11,5)
+all_ks = list(range(10,250,50))
 trials = 10
 
 for j in tqdm(range(len(c)), position=0):
@@ -56,7 +56,7 @@ for j in tqdm(range(len(c)), position=0):
 		for t in range(trials): 
 			# alpha = eigval_approx(A, k_now, c[j]) # these are the approximate eigvals at each round
 			alpha, _ = bki_adp(A, k=k_now, k_given=True, \
-                                        q=c[j], q_given=True, mode="Q", sr=[])
+                                        q=c[j], q_given=True, mode="Z", sr=[])
 			errors[t,:] = np.abs(lambda_A - alpha)/max_eigval # error at a single round
 
 		avg_errors[i,:] = np.log(np.abs(np.mean(errors, axis=0))+1e-32)
@@ -75,4 +75,4 @@ plt.xlabel("log samples")
 plt.ylabel("log absolute errors")
 plt.legend()
 plt.title("RSM, eigval="+str(lambda_A[0]))
-plt.savefig("figures/bkiQ_checks_facebook_data_scaled.pdf")
+plt.savefig("figures/bkiZ_checks_facebook_data_scaled.pdf")

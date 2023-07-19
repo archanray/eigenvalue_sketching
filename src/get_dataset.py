@@ -163,7 +163,7 @@ def get_data(name, eps=0.1, plot_mat=True, raise_eps=False):
         if name == "facebook":
             A = A+A.T # symmetrizing as the original dataset is directed
 
-        #A = A[0:1000,0:1000]
+        A = A[0:1000,0:1000]
 
         dataset_size = len(A)
         

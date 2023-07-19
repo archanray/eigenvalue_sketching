@@ -68,7 +68,7 @@ if "bki_adp_Q" in approx_mthds:
     p80_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
     avg_lies = np.zeros(len(all_ks)*len(all_qs))
     p20_lies = np.zeros(len(all_ks)*len(all_qs))
-    p80_errors = np.zeros(len(all_ks)*len(all_qs))
+    p80_lies = np.zeros(len(all_ks)*len(all_qs))
     matvecs_all = np.zeros(len(all_ks)*len(all_qs))
     count = 0
     for i in tqdm(range(len(all_ks)), position=0):
