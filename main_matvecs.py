@@ -61,14 +61,14 @@ save_dict = {}
 ########################### Approximator -- bki_adp ##################################
 if "bki_adp_Q" in approx_mthds:
     print("Approximator: Block Krylov Adaptive: Q")
-    all_ks = list(range(20,100,100))
+    all_ks = list(range(15,80,50))
     all_qs = list(range(0,11,2))
     avg_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
     p20_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
     p80_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
     avg_lies = np.zeros(len(all_ks)*len(all_qs))
     p20_lies = np.zeros(len(all_ks)*len(all_qs))
-    p80_errors = np.zeros(len(all_ks)*len(all_qs))
+    p80_lies = np.zeros(len(all_ks)*len(all_qs))
     matvecs_all = np.zeros(len(all_ks)*len(all_qs))
     count = 0
     for i in tqdm(range(len(all_ks)), position=0):
@@ -81,7 +81,7 @@ if "bki_adp_Q" in approx_mthds:
                 alpha, matvecs = bki_adp(true_mat, k=k, k_given=True, \
                                         q=q, q_given=True, mode="Q", sr=[])
                 errors[t,:] = np.abs(true_spectrum[search_ranks] - alpha[search_ranks]) / max_abs_eigval
-                lies[t] = lie(true_spectrum, alpha, max_abs_eigval)
+                lies[t] = lie(true_spectrum[search_ranks], alpha[search_ranks], max_abs_eigval)
 
             avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
             p20_errors[count, :] = np.log(np.abs(np.percentile(errors,q=20, axis=0)) + eps)
@@ -104,7 +104,7 @@ if "bki_adp_Q" in approx_mthds:
 ########################### Approximator -- bki_adp ##################################
 if "bki_adp_Z" in approx_mthds:
     print("Approximator: Block Krylov Adaptive: Z")
-    all_ks = list(range(20,100,100))
+    all_ks = list(range(15,80,50))
     all_qs = list(range(0,11,2))
     avg_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
     p20_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
@@ -123,14 +123,14 @@ if "bki_adp_Z" in approx_mthds:
             for t in range(trials):
                 alpha, matvecs = bki_adp(true_mat, k=k, k_given=True, q=q, q_given=True, mode="Z", sr=[])
                 errors[t,:] = np.abs(true_spectrum[search_ranks] - alpha[search_ranks]) / max_abs_eigval
-                lies[t] = lie(true_spectrum, alpha, max_abs_eigval)
+                lies[t] = lie(true_spectrum[search_ranks], alpha[search_ranks], max_abs_eigval)
 
             avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
             p20_errors[count, :] = np.log(np.abs(np.percentile(errors, q=20, axis=0)) + eps)
             p80_errors[count, :] = np.log(np.abs(np.percentile(errors, q=80, axis=0)) + eps)
             avg_lies[count] = np.log(np.abs(np.mean(lies)) + eps)
             p20_lies[count] = np.log(np.abs(np.percentile(lies, q=20)) + eps)
-            p20_lies[count] = np.log(np.abs(np.percentile(lies, q=80)) + eps)
+            p80_lies[count] = np.log(np.abs(np.percentile(lies, q=80)) + eps)
             matvecs_all[count] = matvecs
             count += 1
     save_dict["bki_adp_Z"] = []
@@ -146,7 +146,7 @@ if "bki_adp_Z" in approx_mthds:
 ########################### Approximator -- oth_adp ##################################
 if "oth_adp" in approx_mthds:
     print("Approximator: Orthogonal Subspace Adaptive")
-    all_ks = list(range(40,500,50))
+    all_ks = list(range(30,900,50))
     avg_errors = np.zeros((len(all_ks), len(search_ranks)))
     p20_errors = np.zeros((len(all_ks), len(search_ranks)))
     p80_errors = np.zeros((len(all_ks), len(search_ranks)))
@@ -162,7 +162,7 @@ if "oth_adp" in approx_mthds:
         for t in range(trials):
             alpha, matvecs = oth_adp(true_mat, k=k, sr=[])
             errors[t,:] = np.abs(true_spectrum[search_ranks] - alpha[search_ranks]) / max_abs_eigval
-            lies[t] = lie(true_spectrum, alpha, max_abs_eigval)
+            lies[t] = lie(true_spectrum[search_ranks], alpha[search_ranks], max_abs_eigval)
 
         avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
         p20_errors[count, :] = np.log(np.abs(np.percentile(errors, q=20, axis=0)) + eps)
@@ -185,7 +185,7 @@ if "oth_adp" in approx_mthds:
 ######################### Approximator -- sw_nonadp ##################################
 if "sw_nonadp" in approx_mthds:
     print("Approximator: Sketching with Trace Subtraction")
-    all_ks = list(range(50,500,50))
+    all_ks = list(range(30,1000,50))
     avg_errors = np.zeros((len(all_ks), len(search_ranks)))
     p20_errors = np.zeros((len(all_ks), len(search_ranks)))
     p80_errors = np.zeros((len(all_ks), len(search_ranks)))
@@ -201,7 +201,7 @@ if "sw_nonadp" in approx_mthds:
         for t in range(trials):
             alpha, matvecs = sw_nonadp(true_mat, k=k, sr=[])
             errors[t,:] = np.abs(true_spectrum[search_ranks] - alpha[search_ranks]) / max_abs_eigval
-            lies[t] = lie(true_spectrum, alpha, max_abs_eigval)
+            lies[t] = lie(true_spectrum[search_ranks], alpha[search_ranks], max_abs_eigval)
 
         avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
         p20_errors[count, :] = np.log(np.abs(np.percentile(errors, q=20, axis=0)) + eps)
@@ -224,7 +224,7 @@ if "sw_nonadp" in approx_mthds:
 ######################### Approximator -- oth_nonadp #################################
 if "oth_nonadp" in approx_mthds:
     print("Approximator: Orthogonal Subspace Non-adaptive")
-    all_ks = list(range(20,500,50))
+    all_ks = list(range(10,600,50))
     all_cs = list(range(2,3,1))
     avg_errors = np.zeros((len(all_ks)*len(all_cs), len(search_ranks)))
     p20_errors = np.zeros((len(all_ks)*len(all_cs), len(search_ranks)))
@@ -243,7 +243,7 @@ if "oth_nonadp" in approx_mthds:
             for t in range(trials):
                 alpha, matvecs = oth_nonadp(true_mat, k=k, c=c, sr=[])
                 errors[t,:] = np.abs(true_spectrum[search_ranks] - alpha[search_ranks]) / max_abs_eigval
-                lies[t] = lie(true_spectrum, alpha, max_abs_eigval)
+                lies[t] = lie(true_spectrum[search_ranks], alpha[search_ranks], max_abs_eigval)
 
             avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
             p20_errors[count, :] = np.log(np.abs(np.percentile(errors, q=20, axis=0)) + eps)

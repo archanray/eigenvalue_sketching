@@ -32,9 +32,12 @@ with open("results/"+dataset_name+"_"+"full"+".pkl", "rb") as f:
     save_vars = pickle.load(f)
 print(save_vars["save_vals"].keys())
 ############################################################
-# CHANGE THIS TO " " IF NOT TESTING
-dataset_name_addr = "test"
-dataset_name = dataset_name+"_"+dataset_name_addr
+# CHANGE THIS TO "" IF NOT TESTING
+dataset_name_addr = ""#"test"
+if dataset_name_addr == "":
+	pass
+else:
+	dataset_name = dataset_name+"_"+dataset_name_addr
 
 if not os.path.isdir("figures/"+dataset_name+"/"):
     os.makedirs("figures/"+dataset_name+"/")
@@ -68,8 +71,8 @@ for mthd in save_vars["save_vals"].keys():
 		plt.plot(xvals, yvals, label=mthd)
 
 		xvals, y1vals, y2vals = sorter(np.log(save_vars["save_vals"][mthd][6]), \
-									save_vars["save_vals"][mthd][4][:,i], \
-									save_vars["save_vals"][mthd][5][:,i])
+									save_vars["save_vals"][mthd][4], \
+									save_vars["save_vals"][mthd][5])
 
 		plt.fill_between(xvals, y1vals, y2vals, alpha=0.2)
 # plt.ylim([-4,9])
