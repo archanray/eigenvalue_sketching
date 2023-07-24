@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 from src.get_dataset import get_data
 from src.approximator import eigval_approx_bki_adaptive as bki_adp
+import sys
 
 # def get_data(name):
 # 	if name == "random_random":
@@ -33,16 +34,20 @@ def eigval_approx(A, k1, c):
 	alpha = sort_descending(np.real(alpha))
 	return alpha
 
-# A = get_data("random_random")
-A,_,_,_ = get_data("facebook")
+dataset_name = sys.argv[1]
+mode = sys.argv[2]
+
+A,_,_,_ = get_data(dataset_name)
 lambda_A, _= np.linalg.eig(A)
 lambda_A = sort_descending(np.real(lambda_A)) # these are the original eigenvalues
 max_eigval = max(np.abs(lambda_A[0]), np.abs(lambda_A[-1]))
 n = A.shape[1] # shape of the data matrix
 
-c = np.arange(0,11,5)
+c = np.arange(0,11,2)
 all_ks = list(range(10,250,50))
 trials = 10
+
+plt.gcf().clf()
 
 for j in tqdm(range(len(c)), position=0):
 	avg_errors = np.zeros((len(all_ks), n))
@@ -56,7 +61,7 @@ for j in tqdm(range(len(c)), position=0):
 		for t in range(trials): 
 			# alpha = eigval_approx(A, k_now, c[j]) # these are the approximate eigvals at each round
 			alpha, _ = bki_adp(A, k=k_now, k_given=True, \
-                                        q=c[j], q_given=True, mode="Z", sr=[])
+                                        q=c[j], q_given=True, mode=mode, sr=[])
 			errors[t,:] = np.abs(lambda_A - alpha)/max_eigval # error at a single round
 
 		avg_errors[i,:] = np.log(np.abs(np.mean(errors, axis=0))+1e-32)
@@ -75,4 +80,4 @@ plt.xlabel("log samples")
 plt.ylabel("log absolute errors")
 plt.legend()
 plt.title("RSM, eigval="+str(lambda_A[0]))
-plt.savefig("figures/bkiZ_checks_facebook_data_scaled.pdf")
+plt.savefig("figures/bki"+mode+"_checks_"+dataset_name+"_data_scaled.pdf")
