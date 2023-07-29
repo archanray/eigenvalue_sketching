@@ -203,7 +203,7 @@ def EigenGameUnloaded(M, k, iters=100, eta=1e-3, sr=[]):
         grad = ojas - penalties
         V += eta * grad
         V /= np.linalg.norm(V, axis=0)
-    Mtilde = np.diag(V.T @ M @ V)
+    Mtilde = V.T @ M @ V
     matvecs += M.shape[0]*k
 
     alpha = compute_alpha(Mtilde, M.shape[1])

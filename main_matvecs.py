@@ -149,7 +149,7 @@ if "bki_adp_Z" in approx_mthds:
 if "eg_unldd" in approx_mthds:
     print("Approximator: Eigengames Unloaded")
     all_ks = list(range(15,80,50))
-    all_qs = list(range(0,11,2))
+    all_qs = list(range(10,100,2))
     avg_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
     p20_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
     p80_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
