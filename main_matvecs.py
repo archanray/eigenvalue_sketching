@@ -145,7 +145,7 @@ if "bki_adp_Z" in approx_mthds:
     save_dict["bki_adp_Z"].append(matvecs_all)
 ######################################################################################
 
-########################### Approximator -- bki_adp ##################################
+########################## Approximator -- eg_unldd ##################################
 if "eg_unldd" in approx_mthds:
     print("Approximator: Eigengames Unloaded")
     all_ks = list(range(15,80,50))
