@@ -1,5 +1,11 @@
 import numpy as np
 from sklearn.metrics import pairwise_distances as euclid
+from src.approximator import eigval_approx_bki_adaptive as bki_adp
+from src.approximator import eigval_approx_othro_adaptive as oth_adp
+from src.approximator import eigval_approx_ortho_nonadaptive_2 as oth_nonadp
+from src.approximator import eigval_approx_SW_nonadaptive as sw_nonadp
+from src.approximator import EigenGameUnloaded as egu
+from src.approximator import eigval_approx_random_sample as ears
 
 def hyperbolic_tangent(data1, data2, sigma=1):
     """
@@ -50,3 +56,18 @@ def sorter(xvals, y1vals, y2vals=None):
 
 def l_infty_error(list1, list2, normalizer=1):
     return np.max(np.abs(list1 - list2))/normalizer
+
+def StrToFunc(name: str):
+    dict_of_funcs = {
+                    "bki": bki_adp,
+                    "oth_adp": oth_adp,
+                    "oth_nonadp": oth_nonadp,
+                    "sw_nonadp": sw_nonadp, 
+                    "eg_unldd": egu,
+                    "rand_samp": ears
+                    }
+
+    if "bki" in name:
+        return dict_of_funcs["bki"]
+    else:
+        return dict_of_funcs[name]

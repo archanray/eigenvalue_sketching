@@ -81,7 +81,7 @@ if "bki_adp_Q" in approx_mthds:
             lies = np.zeros(trials)
             for t in range(trials):
                 alpha, matvecs = bki_adp(true_mat, k=k, k_given=True, \
-                                        q=q, q_given=True, mode="Q", sr=[])
+                                        iters=q, q_given=True, mode="Q", sr=[])
                 errors[t,:] = np.abs(true_spectrum[search_ranks] - alpha[search_ranks]) / max_abs_eigval
                 lies[t] = lie(true_spectrum[search_ranks], alpha[search_ranks], max_abs_eigval)
 
@@ -123,7 +123,7 @@ if "bki_adp_Z" in approx_mthds:
             errors = np.zeros((trials, len(search_ranks)))
             lies = np.zeros(trials)
             for t in range(trials):
-                alpha, matvecs = bki_adp(true_mat, k=k, k_given=True, q=q, q_given=True, mode="Z", sr=[])
+                alpha, matvecs = bki_adp(true_mat, k=k, k_given=True, iters=q, q_given=True, mode="Z", sr=[])
                 errors[t,:] = np.abs(true_spectrum[search_ranks] - alpha[search_ranks]) / max_abs_eigval
                 lies[t] = lie(true_spectrum[search_ranks], alpha[search_ranks], max_abs_eigval)
 
