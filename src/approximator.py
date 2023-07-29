@@ -197,14 +197,14 @@ def EigenGameUnloaded(M, k, iters=100, eta=1e-3, sr=[]):
     mask = np.tril(np.ones((k, k)), k=-1)
     for _ in range(iters):
         VTMV = np.dot(V.T, M.dot(V))
-        matvecs += M.shape[0]*k
+        matvecs += k
         penalties = np.dot(V, (VTMV * mask).T)
         ojas = M.dot(V)
         grad = ojas - penalties
         V += eta * grad
         V /= np.linalg.norm(V, axis=0)
     Mtilde = V.T @ M @ V
-    matvecs += M.shape[0]*k
+    matvecs += k
 
     alpha = compute_alpha(Mtilde, M.shape[1])
     if sr !=[]:
