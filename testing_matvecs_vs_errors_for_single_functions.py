@@ -6,6 +6,7 @@ from tqdm import tqdm
 from src.utils import l_infty_error as lie
 from src.get_dataset import get_data
 from src.utils import sort_descending as sd
+import pickle as pkl
 
 def plotter(dataset, plot_vals, mode="fix_ks"):
     dir_ = "figures/"
@@ -14,8 +15,10 @@ def plotter(dataset, plot_vals, mode="fix_ks"):
     if not os.path.isdir(filepath):
         os.makedirs(filepath)
     if mode == "fix_ks":
+        plt.gcf.clf()
         pass
     if mode == "fix_iters":
+        plt.gcf.clf()
         pass
     return None
 
@@ -48,6 +51,13 @@ def processor(dataset, outputs, params):
                 }
 
     # save these in a file so as to avoid recomputing
+    save_dict = {"plt_vals": plot_vals, "outputs": outputs, "params": params}
+    dir_path = os.path.join("results", dataset)
+    if not os.path.isdir(dir_path):
+        os.makedirs(dir_path)
+    file_path = os.path.join(dir_path, params["method"]+".pkl")
+    with open(file_path, "wb") as f:
+        pickle.dump(save_vars, f)
 
     # plot: fix iters
     plotter(dataset, plot_vals, mode="fix_iters")
@@ -55,10 +65,12 @@ def processor(dataset, outputs, params):
     plotter(dataset, plot_vals, mode="fix_ks")
     return None
 
-def computer(dataset, method, params):
+def computer(dataset, params):
     true_mat, dataset_size, _, _ = get_data(dataset)
     true_spectrum, _ = np.linalg.eig(true_mat)
     true_spectrum = sd(np.real(true_spectrum))
+
+    method = StrToFunc(params["method"])
 
     ts = len(range(params["trials"]))
     ks = len(range(params["ks"]))
@@ -91,8 +103,6 @@ def main():
     method = sys.argv[2]
     trials = int(sys.argv[3])
 
-    method = StrToFunc(method)
-
     # set up parameters
     sr = [0,1,2,3,4,-5,-4,-3,-2,-1]
     if "bki" in method or "egu" in method:
@@ -106,8 +116,9 @@ def main():
         algo_params = {"ks": ks, "iters": None}
     algo_params["trials"] = trials
     algo_params["search_rank"] = sr
+    algo_params["method"] = method
 
-    outputs = computer(dataset, method, algo_params)
+    outputs = computer(dataset, algo_params)
     processor(dataset, outputs, params)
     return None
 
