@@ -15,7 +15,30 @@ def plotter(dataset, plot_vals, mode="fix_ks"):
     if not os.path.isdir(filepath):
         os.makedirs(filepath)
     if mode == "fix_ks":
-        plt.gcf.clf()
+        for i in range(len(plot_vals["ks"])):
+            k = plot_vals["ks"][i]
+            plt.gcf.clf()
+            for j in range(len(plot_vals["iters"])):
+                ite = plot_vals["iters"][j]
+                if len(plot_vals["iters"]) == 1:
+                    plt.plot(plot_vals["log_matvecs"][k,:,1],\
+                             plot_vals["mean_log_lies"][j])
+                    plt.fill_between(
+                                     plot_vals["log_matvecs"],\
+                                     plot_vals["p20_log_lies"][j],\
+                                     plot_vals["p80_log_lies"][j]
+                                    )
+                else:
+                    plt.plot(plot_vals["log_matvecs"],\
+                             plot_vals["mean_log_lies"][j],\
+                             label=str(j))
+                    plt.fill_between(
+                                     plot_vals["log_matvecs"],\
+                                     plot_vals["p20_log_lies"][j],\
+                                     plot_vals["p80_log_lies"][j]
+                                    )
+
+
         pass
     if mode == "fix_iters":
         plt.gcf.clf()
@@ -60,7 +83,10 @@ def processor(dataset, outputs, params):
         pickle.dump(save_vars, f)
 
     # plot: fix iters
-    plotter(dataset, plot_vals, mode="fix_iters")
+    if not params["iters"]:
+        pass
+    else:
+        plotter(dataset, plot_vals, mode="fix_iters")
     # plot: fix ks
     plotter(dataset, plot_vals, mode="fix_ks")
     return None
