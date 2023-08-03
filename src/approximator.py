@@ -189,7 +189,7 @@ def eigval_approx_random_sample(A, k=1, sr=[]):
     #print("checks:", SAS.shape, A.shape)
     return alpha, matvecs
 
-def EigenGameUnloaded(M, k=1, iters=100, eta=1e3, sr=[]):
+def EigenGameUnloaded(M, k=2, iters=100, eta=1e3, sr=[]):
     k = k//2
     V = np.random.randn(M.shape[0], k)
     V /= np.linalg.norm(V, axis=0, keepdims=True)
@@ -238,4 +238,29 @@ def EigenGameUnloaded(M, k=1, iters=100, eta=1e3, sr=[]):
 
     return V
 
+def EigenGamesUnloadedForEigs(M, k=2, iters=100, eta=1e3, sr=[]):
+    V = np.random.randn(M.shape[0], k)
+    V /= np.linalg.norm(V, axis=0, keepdims=True)
 
+    matvecs = 0
+    mask = np.tril(np.ones((k, k)), k=-1)
+
+    for _ in range(1,iters):
+        ojas = M.dot(np.dot(M.T, M.dot(V)))
+        VTMV = np.dot(V.T, ojas)
+        penalties = np.dot(V, (VTMV * mask).T)
+        grad = ojas - penalties
+        V += eta * grad
+        V /= np.linalg.norm(V, axis=0)
+        matvecs += 3*k
+
+    VTMV = np.dot(V.T, M.dot(np.dot(M.T, M.dot(V))) )
+    matvecs += 2*k
+
+    alpha = compute_alpha(VTMV, M.shape[1])
+
+    if sr !=[]:
+        alpha = alpha[sr]
+    return alpha, matvecs
+
+    return V

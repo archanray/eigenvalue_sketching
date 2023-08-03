@@ -32,6 +32,7 @@ def block_krylov_iter(A, eps=1, k=1, c=1, return_var="Q", q=1, q_given=False):
     matvecs += k
 
     S = A @ (A.T @ APi)
+    matvecs += 2*k
     K = deepcopy(APi)
     # generating the Krylov Subspace
     for i in range(1,q+1):

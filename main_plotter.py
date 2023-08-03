@@ -7,7 +7,8 @@ import sys
 dataset_name = sys.argv[1]
 mthds = sys.argv[2]
 if not mthds:
-    print("no methods selected; please choose among: bki_adp_Q, bki_adp_Z, oth_nonadp, sw_nonadp, oth_adp without spaces")
+    print("no methods selected; please choose among: bki_adp_Q, bki_adp_Z, \
+           oth_nonadp, sw_nonadp, oth_adp without spaces")
     sys.exit()
 else:
     if "full" in mthds:
@@ -31,8 +32,8 @@ def sorter(xvals, y1vals, y2vals=None):
 if "full" in mthds:
     with open("results/"+dataset_name+"_"+"full"+".pkl", "rb") as f:
         save_vars = pickle.load(f)
-elif "eg_unldd" in mthds:
-    with open("results/"+dataset_name+"_"+"eg_unldd"+".pkl", "rb") as f:
+elif "eg_unldde" in mthds:
+    with open("results/"+dataset_name+"_"+"bki_adp_Q_bki_adp_Z_eg_unldde"+".pkl", "rb") as f:
         save_vars = pickle.load(f)
 print(save_vars["save_vals"].keys())
 ############################################################

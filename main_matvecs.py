@@ -4,6 +4,7 @@ from src.approximator import eigval_approx_othro_adaptive as oth_adp
 from src.approximator import eigval_approx_ortho_nonadaptive_2 as oth_nonadp
 from src.approximator import eigval_approx_SW_nonadaptive as sw_nonadp
 from src.approximator import EigenGameUnloaded as egu
+from src.approximator import EigenGamesUnloadedForEigs as egue
 from src.get_dataset import get_data
 from src.utils import sort_abs_descending as sad
 from src.utils import sort_descending as sd
@@ -27,7 +28,7 @@ mthds = sys.argv[3]
 # print(approx_mthds)
 if not mthds:
     print("no methods selected; please choose among: bki_adp_Q, bki_adp_Z, oth_nonadp, sw_nonadp, \
-            oth_adp, eg_unldd without spaces")
+            oth_adp, eg_unldd, eg_unldde without spaces")
     sys.exit()
 else:
     if "full" in mthds:
@@ -185,6 +186,48 @@ if "eg_unldd" in approx_mthds:
     save_dict["eg_unldd"].append(p20_lies)
     save_dict["eg_unldd"].append(p80_lies)
     save_dict["eg_unldd"].append(matvecs_all)
+######################################################################################
+
+########################## Approximator -- eg_unldde #################################
+if "eg_unldde" in approx_mthds:
+    print("Approximator: Eigengames UnloadedE")
+    all_ks = list(range(16,80,50))
+    all_qs = list(range(10,100,2))
+    avg_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
+    p20_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
+    p80_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
+    avg_lies = np.zeros(len(all_ks)*len(all_qs))
+    p20_lies = np.zeros(len(all_ks)*len(all_qs))
+    p80_lies = np.zeros(len(all_ks)*len(all_qs))
+    matvecs_all = np.zeros(len(all_ks)*len(all_qs))
+    count = 0
+    for i in tqdm(range(len(all_ks)), position=0):
+        k = all_ks[i]
+        for j in range(len(all_qs)):
+            q = all_qs[j]
+            errors = np.zeros((trials, len(search_ranks)))
+            lies = np.zeros(trials)
+            for t in range(trials):
+                alpha, matvecs = egue(true_mat, k=k, iters=q, sr=[])
+                errors[t,:] = np.abs(true_spectrum[search_ranks] - alpha[search_ranks]) / max_abs_eigval
+                lies[t] = lie(true_spectrum[search_ranks], alpha[search_ranks], max_abs_eigval)
+
+            avg_errors[count, :] = np.log(np.abs(np.mean(errors, axis=0)) + eps)
+            p20_errors[count, :] = np.log(np.abs(np.percentile(errors, q=20, axis=0)) + eps)
+            p80_errors[count, :] = np.log(np.abs(np.percentile(errors, q=80, axis=0)) + eps)
+            avg_lies[count] = np.log(np.abs(np.mean(lies)) + eps)
+            p20_lies[count] = np.log(np.abs(np.percentile(lies, q=20)) + eps)
+            p80_lies[count] = np.log(np.abs(np.percentile(lies, q=80)) + eps)
+            matvecs_all[count] = matvecs
+            count += 1
+    save_dict["eg_unldde"] = []
+    save_dict["eg_unldde"].append(avg_errors)
+    save_dict["eg_unldde"].append(p20_errors)
+    save_dict["eg_unldde"].append(p80_errors)
+    save_dict["eg_unldde"].append(avg_lies)
+    save_dict["eg_unldde"].append(p20_lies)
+    save_dict["eg_unldde"].append(p80_lies)
+    save_dict["eg_unldde"].append(matvecs_all)
 ######################################################################################
 
 ########################### Approximator -- oth_adp ##################################
