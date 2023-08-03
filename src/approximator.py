@@ -1,6 +1,6 @@
 import numpy as np
 from src.block_krylov import block_krylov_iter as bki
-from src.utils import sort_abs_descending as sad
+# from src.utils import sort_abs_descending as sad
 from src.utils import sort_descending as sd
 from numpy.linalg import qr
 
@@ -26,7 +26,7 @@ def compute_alpha(A, n, sub_trace=False):
     alpha = sd(alpha) # sort alphas descending
     return alpha
 
-def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=True, q=3, q_given=True, sr=[]):
+def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=True, iters=3, q_given=True, sr=[]):
     """
     Inputs:
     A -- n times n matrix
@@ -44,7 +44,7 @@ def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=
     if q_given == False:
         Z, matvecs = bki(A, eps=epsilon, k=k, c=c2, return_var=mode)
     else:
-        Z, matvecs = bki(A, eps=epsilon, k=k, c=c2, return_var=mode, q=q, q_given=q_given)
+        Z, matvecs = bki(A, eps=epsilon, k=k, c=c2, return_var=mode, q=iters, q_given=q_given)
 
     Atilde = Z.T @ (A @ Z)
     if mode == "Q":
