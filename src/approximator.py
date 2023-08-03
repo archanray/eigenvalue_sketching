@@ -189,7 +189,7 @@ def eigval_approx_random_sample(A, k=1, sr=[]):
     #print("checks:", SAS.shape, A.shape)
     return alpha, matvecs
 
-def EigenGameUnloaded(M, k=1, iters=100, eta=1e+3, sr=[]):
+def EigenGameUnloaded(M, k=1, iters=100, eta=1e3, sr=[]):
     k = k//2
     V = np.random.randn(M.shape[0], k)
     V /= np.linalg.norm(V, axis=0, keepdims=True)
@@ -207,11 +207,14 @@ def EigenGameUnloaded(M, k=1, iters=100, eta=1e+3, sr=[]):
         V /= np.linalg.norm(V, axis=0)
 
     VTMV = np.dot(V.T, M.dot(V))
-    a1 = compute_alpha(VTMV, M.shape[1])
+    a1 = np.diag(VTMV)
     matvecs += k
 
     lambs = np.max(np.diag(VTMV))
-    Mbar = lambs*np.eye(M.shape[1]) - M
+    Mbar = 1.05 * lambs*np.eye(M.shape[1]) - M
+
+    V = np.random.randn(M.shape[0], k)
+    V /= np.linalg.norm(V, axis=0, keepdims=True)
 
     for _ in range(iters//2):
         VTMV = np.dot(V.T, Mbar.dot(V))
@@ -223,10 +226,10 @@ def EigenGameUnloaded(M, k=1, iters=100, eta=1e+3, sr=[]):
         V /= np.linalg.norm(V, axis=0)
     
     VTMV = np.dot(V.T, -M.dot(V))
-    a2 = compute_alpha(VTMV, M.shape[1])
+    a2 = np.diag(VTMV)
     matvecs += k
 
-    alpha = np.concatenate((a1, a2))
+    alpha = np.concatenate((a1, a2), axis=0)
     alpha = sd(alpha)
 
     if sr !=[]:
