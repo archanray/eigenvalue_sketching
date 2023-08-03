@@ -63,7 +63,7 @@ save_dict = {}
 ########################### Approximator -- bki_adp ##################################
 if "bki_adp_Q" in approx_mthds:
     print("Approximator: Block Krylov Adaptive: Q")
-    all_ks = list(range(15,80,50))
+    all_ks = list(range(16,80,50))
     all_qs = list(range(0,11,2))
     avg_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
     p20_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
@@ -106,7 +106,7 @@ if "bki_adp_Q" in approx_mthds:
 ########################### Approximator -- bki_adp ##################################
 if "bki_adp_Z" in approx_mthds:
     print("Approximator: Block Krylov Adaptive: Z")
-    all_ks = list(range(15,80,50))
+    all_ks = list(range(16,80,50))
     all_qs = list(range(0,11,2))
     avg_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
     p20_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
@@ -148,7 +148,7 @@ if "bki_adp_Z" in approx_mthds:
 ########################## Approximator -- eg_unldd ##################################
 if "eg_unldd" in approx_mthds:
     print("Approximator: Eigengames Unloaded")
-    all_ks = list(range(15,80,50))
+    all_ks = list(range(16,80,50))
     all_qs = list(range(10,100,2))
     avg_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
     p20_errors = np.zeros((len(all_ks)*len(all_qs), len(search_ranks)))
