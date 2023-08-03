@@ -179,15 +179,15 @@ def main():
     # set up parameters
     sr = [0,1,2,3,4,-5,-4,-3,-2,-1]
     if "bki" in method or "eg_unldd" in method:
-        ks = list(range(10,260,10))
-        iters = list(range(0,151,1))
+        ks = list(range(10,160,10))
+        iters = list(range(0,101,1))
         # ks = [10,20]
         # iters = [2, 5]
         algo_params = {
                        "ks": ks, "iters": iters
                        }
     else:
-        ks = list(range(10,150,10))
+        ks = list(range(10,160,10))
         # ks = [10,20, 30]
         algo_params = {"ks": ks, "iters": None}
     algo_params["trials"] = trials
