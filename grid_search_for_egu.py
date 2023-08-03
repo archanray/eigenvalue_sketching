@@ -9,16 +9,9 @@ from src.utils import sort_descending as sd
 import pickle
 import matplotlib.pyplot as plt
 from src.utils import sorter
-from src.approximator import EigenGameUnloaded as egu
 
 def looper(V, Vlow, Vhigh, xaxis, range_v1, \
            range_v2, filepath, titleval, method, labels="k"):
-    # print("V=", V)
-    # print("Vlow=", Vlow)
-    # print("Vhigh=", Vhigh)
-    # print("xaxis=", xaxis)
-    # print("range_v1=", range_v1)
-    # print("range_v2=", range_v2)
     fig = plt.figure()
     plt.gcf().clf()
     # fix v1s plot v2s
@@ -38,7 +31,7 @@ def looper(V, Vlow, Vhigh, xaxis, range_v1, \
     plt.ylabel("log absolute errors")
     plt.legend()
     plt.title("max eigval="+str(titleval))
-    plt.savefig(os.path.join(filepath, method+" "+labels+".pdf"))
+    plt.savefig(os.path.join(filepath, "grid_search_"+method+" "+labels+".pdf"))
     return None
 
 
@@ -55,23 +48,23 @@ def plotter(dataset, plot_vals, mode="fix_ks"):
                plot_vals["p80_log_lies"],\
                plot_vals["log_matvecs"],\
                plot_vals["ks"],\
-               plot_vals["iters"],\
+               plot_vals["lrs"],\
                filepath, plot_vals["max_abs_eigval"],\
                method=plot_vals["method"],\
                labels = "k"
               )
         pass
-    if mode == "fix_iters":
+    if mode == "fix_lrs":
         looper(
                plot_vals["mean_log_lies"].T,\
                plot_vals["p20_log_lies"].T,\
                plot_vals["p80_log_lies"].T,\
                plot_vals["log_matvecs"].T,\
-               plot_vals["iters"],\
+               plot_vals["lrs"],\
                plot_vals["ks"],\
                filepath, plot_vals["max_abs_eigval"],\
                method=plot_vals["method"],\
-               labels = "q"
+               labels = "lr"
               )
         pass
     return None
@@ -101,7 +94,7 @@ def processor(dataset, outputs, params):
                  "log_matvecs": log_matvecs,
                  "max_abs_eigval": max_abs_eigval,
                  "ks": params["ks"],
-                 "iters": params["iters"],
+                 "lrs": params["lrs"],
                  "method": params["method"]
                 }
 
@@ -110,20 +103,12 @@ def processor(dataset, outputs, params):
     dir_path = os.path.join("results", dataset)
     if not os.path.isdir(dir_path):
         os.makedirs(dir_path)
-    file_path = os.path.join(dir_path, params["method"]+".pkl")
+    file_path = os.path.join(dir_path, "grid_search_"+params["method"]+".pkl")
     with open(file_path, "wb") as f:
         pickle.dump(save_dict, f)
 
-    # plot: fix iters
-    if not params["iters"]:
-        pass
-    else:
-        plotter(dataset, plot_vals, mode="fix_iters")
-    # plot: fix ks
-    if not params["ks"]:
-        pass
-    else:
-        plotter(dataset, plot_vals, mode="fix_ks")
+    # plot: fix lrs
+    plotter(dataset, plot_vals, mode="fix_lrs")
     return None
 
 def computer(dataset, params):
@@ -132,42 +117,25 @@ def computer(dataset, params):
     true_spectrum = sd(np.real(true_spectrum))
 
     method = StrToFunc(params["method"])
-    if "bki" in params["method"] and "Q" in params["method"]:
-        mode = "Q"
-    elif "bki" in params["method"] and "Z" in params["method"]:
-        mode = "Z"
-    else:
-        mode = None
 
     ts = params["trials"]
     ks = len(params["ks"])
+    lrs = len(params["lr"])
     srs = len(params["search_rank"])
-    if not params["iters"]:
-        qs = 1
-    else:
-        qs = len(params["iters"])
-    outputs = {"approx_eigvals": np.zeros((ts, ks, qs, srs)),
-               "matvecs": np.zeros((ks, qs))}
+    ite = params["iters"][0]
+
+    outputs = {"approx_eigvals": np.zeros((ts, ks, lrs, srs)),
+               "matvecs": np.zeros((ks, lrs))}
     for t in tqdm(range(params["trials"])):
         for i in range(len(params["ks"])):
             k = params["ks"][i]
-            if not params["iters"]:
-                eigvals, matvecs = method(true_mat, k=k, sr=params["search_rank"])
-                outputs["approx_eigvals"][t,i,0,:] = eigvals
-                outputs["matvecs"][i,0] = matvecs
-            else:
-                for j in range(len(params["iters"])):
-                    q = params["iters"][j]
-                    if not mode:
-                        eigvals, matvecs = method(true_mat, \
-                                                  k=k, iters=q, \
-                                                  sr=params["search_rank"])
-                    else:
-                        eigvals, matvecs = method(true_mat, \
-                                                  k=k, iters=q, \
-                                                  sr=params["search_rank"], mode=mode)
-                    outputs["approx_eigvals"][t,i,j,:] = eigvals
-                    outputs["matvecs"][i,j] = matvecs
+            for j in range(len(params["lrs"])):
+                lr = params["lrs"][j]
+                eigvals, matvecs = method(true_mat, \
+                                          k=k, iters=ite, eta=lr\
+                                          sr=params["search_rank"])
+                outputs["approx_eigvals"][t,i,j,:] = eigvals
+                outputs["matvecs"][i,j] = matvecs
     outputs["true_spectrum"] = true_spectrum[params["search_rank"]]
     return outputs
 
@@ -179,13 +147,15 @@ def main():
     # set up parameters
     sr = [0,1,2,3,4,-5,-4,-3,-2,-1]
     ks = list(range(10,160,10))
-    iters = list(range(0,101,1))
+    iters = [20]
+    lr = list(np.arange())
     algo_params = {
-                    "ks": ks, "iters": iters
+                    "ks": ks, "iters": iters,\
+                    "trials": trials,\
+                    "search_rank": sr,\
+                    "method": "eg_unldd",\
+                    "lr": lr
                   }
-    algo_params["trials"] = trials
-    algo_params["search_rank"] = sr
-    algo_params["method"] = method
 
     outputs = computer(dataset, algo_params)
     processor(dataset, outputs, algo_params)
