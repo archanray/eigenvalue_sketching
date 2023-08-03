@@ -30,7 +30,7 @@ def looper(V, Vlow, Vhigh, xaxis, range_v1, \
             return None
         else:
             xvals, yvals = sorter(xaxis[i,:], V[i,:])
-            plt.plot(xvals, yvals, label="k="+str(fix_v1))
+            plt.plot(xvals, yvals, label=labels+"="+str(fix_v1))
             xvals, y1vals, y2vals = sorter(xaxis[i,:], Vlow[i,:], Vhigh[i,:])
             plt.fill_between(xvals, y1vals, y2vals, alpha=0.2)
     plt.xlabel("log matvecs")
