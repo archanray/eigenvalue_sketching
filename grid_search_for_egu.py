@@ -24,7 +24,7 @@ def looper(V, Vlow, Vhigh, xaxis, range_v1, \
             return None
         else:
             xvals, yvals = sorter(xaxis[i,:], V[i,:])
-            plt.plot(xvals, yvals, label=labels+"="+str(fix_v1))
+            plt.plot(xvals, yvals, label=labels+"="+str(float("{:.5f}".format(fix_v1))))
             xvals, y1vals, y2vals = sorter(xaxis[i,:], Vlow[i,:], Vhigh[i,:])
             plt.fill_between(xvals, y1vals, y2vals, alpha=0.2)
     plt.xlabel("log matvecs")
@@ -120,7 +120,7 @@ def computer(dataset, params):
 
     ts = params["trials"]
     ks = len(params["ks"])
-    lrs = len(params["lr"])
+    lrs = len(params["lrs"])
     srs = len(params["search_rank"])
     ite = params["iters"][0]
 
@@ -132,7 +132,7 @@ def computer(dataset, params):
             for j in range(len(params["lrs"])):
                 lr = params["lrs"][j]
                 eigvals, matvecs = method(true_mat, \
-                                          k=k, iters=ite, eta=lr\
+                                          k=k, iters=ite, eta=lr,\
                                           sr=params["search_rank"])
                 outputs["approx_eigvals"][t,i,j,:] = eigvals
                 outputs["matvecs"][i,j] = matvecs
@@ -146,15 +146,15 @@ def main():
 
     # set up parameters
     sr = [0,1,2,3,4,-5,-4,-3,-2,-1]
-    ks = list(range(10,160,10))
+    ks = list(range(10,210,10))
     iters = [20]
-    lr = list(np.arange())
+    lr = list(np.arange(0.00051, 0.00060, 0.00001))
     algo_params = {
                     "ks": ks, "iters": iters,\
                     "trials": trials,\
                     "search_rank": sr,\
                     "method": "eg_unldd",\
-                    "lr": lr
+                    "lrs": lr
                   }
 
     outputs = computer(dataset, algo_params)
