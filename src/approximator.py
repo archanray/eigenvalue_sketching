@@ -225,7 +225,7 @@ def EigenGameUnloaded(M, k=2, iters=100, eta=1e3, sr=[]):
         V += eta * grad
         V /= np.linalg.norm(V, axis=0)
     
-    VTMV = np.dot(V.T, -M.dot(V))
+    VTMV = np.dot(V.T, M.dot(V))
     a2 = np.diag(VTMV)
     matvecs += k
 
