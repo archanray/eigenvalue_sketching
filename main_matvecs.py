@@ -32,7 +32,7 @@ if not mthds:
     sys.exit()
 else:
     if "full" in mthds:
-        approx_mthds = "bki_adp_Q,bki_adp_Z,oth_nonadp,sw_nonadp,oth_adp,eg_unldd"
+        approx_mthds = "bki_adp_Q,bki_adp_Z,oth_nonadp,sw_nonadp,oth_adp,eg_unldd,eg_unldde"
     else:
         approx_mthds = mthds
 approx_mthds = approx_mthds.split(",")

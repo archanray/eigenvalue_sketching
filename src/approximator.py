@@ -189,7 +189,7 @@ def eigval_approx_random_sample(A, k=1, sr=[]):
     #print("checks:", SAS.shape, A.shape)
     return alpha, matvecs
 
-def EigenGameUnloaded(M, k=2, iters=100, eta=1e3, sr=[]):
+def EigenGameUnloaded(M, k=2, iters=100, eta=1e2, sr=[]):
     k = k//2
     V = np.random.randn(M.shape[0], k)
     V /= np.linalg.norm(V, axis=0, keepdims=True)
@@ -238,7 +238,7 @@ def EigenGameUnloaded(M, k=2, iters=100, eta=1e3, sr=[]):
 
     return V
 
-def EigenGamesUnloadedForEigs(M, k=2, iters=100, eta=1e3, sr=[]):
+def EigenGamesUnloadedForEigs(M, k=2, iters=100, eta=1e2, sr=[]):
     V = np.random.randn(M.shape[0], k)
     V /= np.linalg.norm(V, axis=0, keepdims=True)
 
