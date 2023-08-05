@@ -210,8 +210,9 @@ def EigenGameUnloaded(M, k=2, iters=100, eta=1e2, sr=[]):
     a1 = np.diag(VTMV)
     matvecs += k
 
-    lambs = np.max(np.diag(VTMV))
-    Mbar = 1.05 * lambs*np.eye(M.shape[1]) - M
+    #lambs = np.max(np.diag(VTMV))
+    #Mbar = 1.05 * lambs*np.eye(M.shape[1]) - M
+    Mbar = V @ (V.T @ M) - M
 
     V = np.random.randn(M.shape[0], k)
     V /= np.linalg.norm(V, axis=0, keepdims=True)
