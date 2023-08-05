@@ -107,8 +107,8 @@ def processor(dataset, outputs, params):
     with open(file_path, "wb") as f:
         pickle.dump(save_dict, f)
 
-    # plot: fix ks
-    plotter(dataset, plot_vals, mode="fix_ks")
+    # plot: fix lrs
+    plotter(dataset, plot_vals, mode="fix_lrs")
     return None
 
 def computer(dataset, params):
