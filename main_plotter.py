@@ -17,7 +17,6 @@ else:
     else:
         approx_mthds = mthds
 approx_mthds = approx_mthds.split(",")
-print(approx_mthds)
 
 def sorter(xvals, y1vals, y2vals=None):
     ids = np.argsort(xvals)
@@ -31,12 +30,15 @@ def sorter(xvals, y1vals, y2vals=None):
 
 ########################## load data #######################
 if "full" in mthds:
-    with open("results/"+dataset_name+"_"+"full"+".pkl", "rb") as f:
+    with open("results/"+dataset_name+"_"+"full"+"_kspec"+".pkl", "rb") as f:
         save_vars = pickle.load(f)
 elif "eg_unldde" in mthds:
     with open("results/"+dataset_name+"_"+"bki_adp_Q_bki_adp_Z_eg_unldde"+".pkl", "rb") as f:
         save_vars = pickle.load(f)
+approx_mthds = save_vars["save_vals"].keys()
 print(save_vars["save_vals"].keys())
+print(approx_mthds)
+
 ############################################################
 # CHANGE THIS TO "" IF NOT TESTING
 dataset_name_addr = ""#"test"
