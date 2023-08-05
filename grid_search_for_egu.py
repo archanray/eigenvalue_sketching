@@ -107,8 +107,8 @@ def processor(dataset, outputs, params):
     with open(file_path, "wb") as f:
         pickle.dump(save_dict, f)
 
-    # plot: fix lrs
-    plotter(dataset, plot_vals, mode="fix_lrs")
+    # plot: fix ks
+    plotter(dataset, plot_vals, mode="fix_ks")
     return None
 
 def computer(dataset, params):
@@ -146,9 +146,9 @@ def main():
 
     # set up parameters
     sr = [0,1,2,3,4,-5,-4,-3,-2,-1]
-    ks = list(range(10,210,10))
-    iters = [20]
-    lr = list(np.arange(0.00051, 0.00060, 0.00001))
+    ks = list(range(10,100,20))
+    iters = [20]#list(range(0,20,2))
+    lr = list(np.arange(1e4, 1e1, 100))
     algo_params = {
                     "ks": ks, "iters": iters,\
                     "trials": trials,\
