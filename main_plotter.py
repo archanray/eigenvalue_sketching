@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import pickle
 import os
 import sys
+from matplotlib.pyplot import cm
 
 dataset_name = sys.argv[1]
 mthds = sys.argv[2]
@@ -48,18 +49,21 @@ if not os.path.isdir("figures/"+dataset_name+"/"):
     os.makedirs("figures/"+dataset_name+"/")
 
 ######################### plots ############################
+n = len(save_vars["save_vals"].keys())
 for i in save_vars["params"]["sr"]:
     plt.gcf().clf()
+    color = iter(cm.rainbow(np.linspace(0, 1, n)))
     for mthd in save_vars["save_vals"].keys():
         if mthd in approx_mthds:
+            c = next(color)
             xvals, yvals = sorter(np.log(save_vars["save_vals"][mthd][6]), \
                                     save_vars["save_vals"][mthd][0][:,i])
-            plt.plot(xvals, yvals, label=mthd)
+            plt.plot(xvals, yvals, label=mthd, c=c)
 
             xvals, y1vals, y2vals = sorter(np.log(save_vars["save_vals"][mthd][6]), \
                                     save_vars["save_vals"][mthd][1][:,i], \
                                     save_vars["save_vals"][mthd][2][:,i])
-            plt.fill_between(xvals, y1vals, y2vals, alpha=0.2)
+            plt.fill_between(xvals, y1vals, y2vals, alpha=0.2, color=c)
     plt.xlabel("log matvecs")
     plt.ylabel("log absolute errors")
     plt.legend()
@@ -69,17 +73,19 @@ for i in save_vars["params"]["sr"]:
 
 ######################### plots lies ############################
 plt.gcf().clf()
+color = iter(cm.rainbow(np.linspace(0, 1, n)))
 for mthd in save_vars["save_vals"].keys():
     if mthd in approx_mthds:
+        c = next(color)
         xvals, yvals = sorter(np.log(save_vars["save_vals"][mthd][6]), \
                                 save_vars["save_vals"][mthd][3])
-        plt.plot(xvals, yvals, label=mthd)
+        plt.plot(xvals, yvals, label=mthd, c=c)
 
         xvals, y1vals, y2vals = sorter(np.log(save_vars["save_vals"][mthd][6]), \
                                     save_vars["save_vals"][mthd][4], \
                                     save_vars["save_vals"][mthd][5])
 
-        plt.fill_between(xvals, y1vals, y2vals, alpha=0.2)
+        plt.fill_between(xvals, y1vals, y2vals, alpha=0.2, color=c)
 # plt.ylim([-4,9])
 plt.xlabel("log matvecs")
 plt.ylabel("log l_infty errors")
