@@ -148,7 +148,7 @@ def main():
     sr = [0,1,2,3,4,-5,-4,-3,-2,-1]
     ks = list(range(10,100,20))
     iters = [20]#list(range(0,20,2))
-    lr = list(np.arange(1e1, 1e4, 100))
+    lr = list(np.arange(1e4, 1e7, 1e4))
     algo_params = {
                     "ks": ks, "iters": iters,\
                     "trials": trials,\
