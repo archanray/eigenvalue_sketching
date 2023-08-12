@@ -51,17 +51,3 @@ def sorter(xvals, y1vals, y2vals=None):
 def l_infty_error(list1, list2, normalizer=1):
     return np.max(np.abs(list1 - list2))/normalizer
 
-def StrToFunc(name: str):
-    dict_of_funcs = {
-                    "bki": bki_adp,
-                    "oth_adp": oth_adp,
-                    "oth_nonadp": oth_nonadp,
-                    "sw_nonadp": sw_nonadp, 
-                    "eg_unldd": egu,
-                    "rand_samp": ears
-                    }
-
-    if "bki" in name:
-        return dict_of_funcs["bki"]
-    else:
-        return dict_of_funcs[name]

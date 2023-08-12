@@ -57,7 +57,7 @@ def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=
 
     return alpha, matvecs
 
-def eigval_approx_othro_adaptive(A, k=1, sr=[]):
+def eigval_approx_othro_adaptive(A, k=1, sr=[], mode=None):
     """
     Inputs:
     A -- n times n matrix
@@ -82,7 +82,7 @@ def eigval_approx_othro_adaptive(A, k=1, sr=[]):
     # print(alpha)
     return alpha, matvecs
 
-def eigval_approx_ortho_nonadaptive(A, k=1, sr=[]):
+def eigval_approx_ortho_nonadaptive(A, k=1, sr=[], mode=None):
     """
     Inputs:
     A -- n times n matrix
@@ -109,7 +109,7 @@ def eigval_approx_ortho_nonadaptive(A, k=1, sr=[]):
     
     return alpha, matvecs
 
-def eigval_approx_ortho_nonadaptive_2(A, k=1, c=2, sr=[]):
+def eigval_approx_ortho_nonadaptive_2(A, k=1, c=2, sr=[], mode=None):
     """
     Inputs:
     A -- n times n matrix
@@ -138,7 +138,7 @@ def eigval_approx_ortho_nonadaptive_2(A, k=1, c=2, sr=[]):
     
     return alpha, matvecs    
 
-def eigval_approx_SW_nonadaptive(A, k=1, sr=[]):
+def eigval_approx_SW_nonadaptive(A, k=1, sr=[], mode=None):
     """
     Inputs:
     A -- n times n matrix
@@ -159,7 +159,7 @@ def eigval_approx_SW_nonadaptive(A, k=1, sr=[]):
 
     return alpha, matvecs
 
-def eigval_approx_random_sample(A, k=1, sr=[]):
+def eigval_approx_random_sample(A, k=1, sr=[], method=None):
     """
     Inputs:
     A -- n times n matrix
@@ -189,7 +189,7 @@ def eigval_approx_random_sample(A, k=1, sr=[]):
     #print("checks:", SAS.shape, A.shape)
     return alpha, matvecs
 
-def EigenGameUnloaded(M, k=2, iters=100, eta=1e2, sr=[]):
+def EigenGameUnloaded(M, k=2, iters=100, eta=1e2, sr=[], mode="None"):
     k = k//2
     V = np.random.randn(M.shape[0], k)
     V /= np.linalg.norm(V, axis=0, keepdims=True)
@@ -210,9 +210,11 @@ def EigenGameUnloaded(M, k=2, iters=100, eta=1e2, sr=[]):
     a1 = np.diag(VTMV)
     matvecs += k
 
-    #lambs = np.max(np.diag(VTMV))
-    #Mbar = 1.05 * lambs*np.eye(M.shape[1]) - M
-    Mbar = V @ (V.T @ M) - M
+    if mode == "deflate":
+        Mbar = V @ (V.T @ M) - M
+    if mode == "flip":
+        lambs = np.max(np.diag(VTMV))
+        Mbar = 1.05 * lambs*np.eye(M.shape[1]) - M
 
     V = np.random.randn(M.shape[0], k)
     V /= np.linalg.norm(V, axis=0, keepdims=True)
@@ -239,7 +241,7 @@ def EigenGameUnloaded(M, k=2, iters=100, eta=1e2, sr=[]):
 
     return V
 
-def EigenGamesUnloadedForEigs(M, k=2, iters=100, eta=1e2, sr=[]):
+def EigenGamesUnloadedForEigs(M, k=2, iters=100, eta=1e2, sr=[], mode=None):
     V = np.random.randn(M.shape[0], k)
     V /= np.linalg.norm(V, axis=0, keepdims=True)
 

@@ -443,11 +443,11 @@ def get_data(name, eps=0.1, plot_mat=True, raise_eps=False):
 
         return A, dataset_size, min_sample_size, max_sample_size
 
-    if name == "random_random":
+    if name == "random":
         """
         symmetric matrix with random entries
         """
-        dataset_size = 5000
+        dataset_size = 500
         A = np.random.random((dataset_size, dataset_size))
         A = (A.T + A) / 2
 
@@ -455,3 +455,15 @@ def get_data(name, eps=0.1, plot_mat=True, raise_eps=False):
         max_sample_size = dataset_size
 
         return A, dataset_size, min_sample_size, max_sample_size
+
+    if name == "eye":
+        """
+        symmetric matrix with random entries
+        """
+        dataset_size = 5000
+        A = np.eye(dataset_size)
+
+        min_sample_size = 10
+        max_sample_size = dataset_size
+
+        return A, dataset_size, min_sample_size, max_sample_size    
