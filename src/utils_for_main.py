@@ -72,6 +72,14 @@ def processor(outputs, params, args):
     true_spectrum = np.expand_dims(true_spectrum, axis=(0,1,2))
     # compute log absolute errors
     abs_errors = np.abs(outputs["approx_eigvals"] - true_spectrum) / max_abs_eigval
+    log_abs_errors = np.log(abs_errors + eps)
+    mean_log_errors = np.mean(log_abs_errors, axis=0)
+    # flatten the first two dims
+    # arr1: k*iters x sr
+    # arr2: k*iters
+    mean_log_errors = mean_log_errors.reshape(-1, mean_log_errors.shape[-1])
+    log_matvecs = np.log(outputs["matvecs"]+eps).flatten()
+
     log_lies = np.log(np.max(abs_errors, axis=3)+eps)
     # now compute avg and percentiles
     mean_log_lies = np.mean(log_lies, axis=0)

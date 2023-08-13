@@ -44,3 +44,22 @@ def plot_errors(params, errors, p20, p80, matvecs):
         filename = filename+str(sr)+"-error.pdf"
         plt.savefig(filename)
     return None
+
+def plotErrorForAll(names, datasets=["random"], \
+                    default_load_path="results", \
+                    adder="single_eval_method_",
+                    plot_ranks=["lie"],
+                    dest_=""):
+    import pickle
+
+
+
+    for plot_rank in plot_ranks:
+        for dataset in datasets:
+            dir_ = os.path.join(default_load_path, dataset)
+            path=dir_+adder
+            for name in names:
+                path = path+name+".pkl"
+                with open(path, "rb") as f:
+                    load_vars = pickle.load(f)
+                plot_vars = load_vars["plot_vars"]
