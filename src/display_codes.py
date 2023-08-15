@@ -55,13 +55,15 @@ def plotErrorForAll(names, datasets=["random"], \
     from matplotlib.pyplot import cm
     import colorcet as cc
 
+    names.sort()
+
     for dataset in datasets:
         dir_ = os.path.join(default_load_path, dataset)
         path_root = os.path.join(dir_,adder)
         for plot_rank in plot_ranks:
-            n=len(names)
+            # n=len(names)
             plt.gcf().clf()
-            color = iter(cc.cm.glasbey(np.linspace(0, 1, n)))
+            color = iter(cc.cm.glasbey(np.linspace(0, 1, 10)))
             for name in names:
                 c = next(color)
                 path = path_root+name+".pkl"
@@ -93,7 +95,6 @@ def plotErrorForAll(names, datasets=["random"], \
             else:
                 plt.title("max eigval="+str(plot_vars["max_abs_eigval"]))
 
-            names.sort()
             filename = "_".join(names)
             filename = filename+"_"+str(plot_rank)
 

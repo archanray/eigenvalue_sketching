@@ -14,7 +14,7 @@ def main(args):
 
     # set up the parameters
     if args.block_size == "full":
-        block_sizes = list(range(10,n+10,10))
+        block_sizes = list(range(10,n+10,50))
     else:
         block_sizes = [int(args.block_size)]
     if "egu" in args.method:
