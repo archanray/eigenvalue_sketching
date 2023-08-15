@@ -4,6 +4,10 @@ import argparse
 from src.utils_for_main import StrToFunc, saver, get_eigs, computer, processor
 from src.get_dataset import get_data
 
+def mapper(block_size, n, multiplier=1):
+    iters_high = n//(multiplier*block_size)
+    return iters_high  
+
 def main(args):
     method, mode = StrToFunc(args.method)
     true_mat, n, _, _ = get_data(args.dataset)
@@ -13,11 +17,13 @@ def main(args):
         block_sizes = list(range(10,n+10,10))
     else:
         block_sizes = [int(args.block_size)]
-    if "eigengame" in args.method or "bki" in args.method:
-        iters = list(range(0, 50))
+    if "egu" in args.method:
+        iters = list(range( 0, mapper(int(args.block_size),n), 20 ))
+    elif "bki" in args.method:
+        iters = list(range( 0, mapper(int(args.block_size),n,20) ))
     else:
         iters = [0]
-    params = {"block_sizes": block_sizes, "iters": iters}
+    params = {"block_sizes": block_sizes, "iters": iters, "mode": mode}
 
     # grab the true spectrum
     true_spectrum = get_eigs(true_mat, args.search_ranks)
@@ -28,15 +34,15 @@ def main(args):
                                            len(params["block_sizes"]),\
                                            len(params["iters"]),\
                                            len(args.search_ranks)
-                                          )),
+                                          ), dtype=np.double),
                "matvecs": np.zeros((
                                     len(params["block_sizes"]),\
                                     len(params["iters"])
-                                  ))
+                                  ), dtype=np.double)
                }
     # start accumulating values
     outputs["approx_eigvals"], outputs["matvecs"] = \
-                computer(args, params, true_mat, method, mode, \
+                computer(args, params, true_mat, method, params["mode"], \
                     outputs["approx_eigvals"], outputs["matvecs"])
     # save the true spectrum
     outputs["true_spectrum"] = true_spectrum
@@ -58,8 +64,8 @@ if __name__ == "__main__":
                         type=str, 
                         default="bki_Q", 
                         choices=["bki_adp_Q", "bki_adp_Z", "oth_adp", \
-                        "oth_nonadp", "sw_nonadp", "eigengame_deflate",\
-                        "eigengame_flip"],
+                        "oth_nonadp", "sw_nonadp", "egu_d",\
+                        "egu_f"],
                         required=False, 
                         help="choose matvec method")
     parser.add_argument('--trials', '-t',

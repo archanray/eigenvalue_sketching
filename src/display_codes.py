@@ -49,17 +49,56 @@ def plotErrorForAll(names, datasets=["random"], \
                     default_load_path="results", \
                     adder="single_eval_method_",
                     plot_ranks=["lie"],
-                    dest_=""):
+                    dest_="figures/",
+                    legend=True):
     import pickle
+    from matplotlib.pyplot import cm
+    import colorcet as cc
 
-
-
-    for plot_rank in plot_ranks:
-        for dataset in datasets:
-            dir_ = os.path.join(default_load_path, dataset)
-            path=dir_+adder
+    for dataset in datasets:
+        dir_ = os.path.join(default_load_path, dataset)
+        path_root = os.path.join(dir_,adder)
+        for plot_rank in plot_ranks:
+            n=len(names)
+            plt.gcf().clf()
+            color = iter(cc.cm.glasbey(np.linspace(0, 1, n)))
             for name in names:
-                path = path+name+".pkl"
+                c = next(color)
+                path = path_root+name+".pkl"
                 with open(path, "rb") as f:
                     load_vars = pickle.load(f)
-                plot_vars = load_vars["plot_vars"]
+                plot_vars = load_vars["plt_vals"]
+                xvals = plot_vars["log_matvecs"]
+                if plot_rank != "lie":
+                    yvals = plot_vars["mean_log_errors"][:,plot_rank]
+                    ylow = plot_vars["p20_log_errors"][:,plot_rank]
+                    yhigh = plot_vars["p80_log_errors"][:,plot_rank]
+                else:
+                    yvals = plot_vars["mean_log_lies"]
+                    ylow = plot_vars["p20_log_lies"]
+                    yhigh = plot_vars["p80_log_lies"]
+                plt.plot(xvals, yvals, label=name, color=c)
+                plt.fill_between(xvals, ylow, yhigh, alpha=0.2, color=c)
+            # plt.ylim([-8,0])
+            plt.xlabel("log matvecs")
+            plt.ylabel("log l_infty errors")
+            if legend:
+                plt.legend()
+            else:
+                # code for separate legend plot
+                pass
+            if plot_rank != "lie":
+                plt.title("eigval="+\
+                    str(load_vars["outputs"]["true_spectrum"][plot_rank]))
+            else:
+                plt.title("max eigval="+str(plot_vars["max_abs_eigval"]))
+
+            names.sort()
+            filename = "_".join(names)
+            filename = filename+"_"+str(plot_rank)
+
+            dest_now = dest_+dataset+"/"
+            if not os.path.isdir(dest_now):
+                os.makedirs(dest_now)
+
+            plt.savefig(dest_now+filename+".pdf")

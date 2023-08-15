@@ -13,14 +13,14 @@ def StrToFunc(name: str):
                     "oth_adp": oth_adp,
                     "oth_nonadp": oth_nonadp,
                     "sw_nonadp": sw_nonadp, 
-                    "eigengame": egu,
+                    "egu": egu,
                     "rand_samp": ears
                     }
 
     if "bki" in name:
         return dict_of_funcs["bki"], name.split("_")[-1]
-    elif "eigengame" in name:
-        return dict_of_funcs["eigengame"], name.split("_")[-1]
+    elif "egu" in name:
+        return dict_of_funcs["egu"], name.split("_")[-1]
     else:
         return dict_of_funcs[name], None
 
@@ -48,8 +48,8 @@ def computer(args, params, true_mat, method, mode, m1, m2):
     for t in tqdm(range(args.trials)):
         for i in tqdm(range(len(params["block_sizes"]))):
             k = params["block_sizes"][i]
-            for j in range(len(params["iters"])):
-                if "eigengame" in args.method or "bki" in args.method:
+            for j in tqdm(range(len(params["iters"]))):
+                if "egu" in args.method or "bki" in args.method:
                     ite = params["iters"][j]
                     eigvals, matvecs = method(true_mat, \
                                               k=k, iters=ite,\
@@ -74,21 +74,35 @@ def processor(outputs, params, args):
     abs_errors = np.abs(outputs["approx_eigvals"] - true_spectrum) / max_abs_eigval
     log_abs_errors = np.log(abs_errors + eps)
     mean_log_errors = np.mean(log_abs_errors, axis=0)
-    # flatten the first two dims
-    # arr1: k*iters x sr
-    # arr2: k*iters
-    mean_log_errors = mean_log_errors.reshape(-1, mean_log_errors.shape[-1])
-    log_matvecs = np.log(outputs["matvecs"]+eps).flatten()
-
+    p20_log_errors = np.percentile(log_abs_errors, q=20, axis=0)
+    p80_log_errors = np.percentile(log_abs_errors, q=80, axis=0)
+    # # sort by log_matvecs
+    # # no point in sorting as these values are sorted. 
+    # # If they are not sorted, use the following line
+    # # only required when using multiple ks and iters
+    # log_matvecs, mean_log_errors = sorter(log_matvecs, mean_log_errors)
     log_lies = np.log(np.max(abs_errors, axis=3)+eps)
     # now compute avg and percentiles
     mean_log_lies = np.mean(log_lies, axis=0)
+    # now compute avg and percentiles
     p20_log_lies = np.percentile(log_lies, q=20, axis=0)
     p80_log_lies = np.percentile(log_lies, q=80, axis=0)
-    log_matvecs = np.log(outputs["matvecs"]+eps)
+    # flatten the first two dims
+    # arr1, arr2, arr3: k*iters x sr
+    # arr2: k*iters
+    mean_log_errors = mean_log_errors.reshape(-1, mean_log_errors.shape[-1])
+    p20_log_errors = p20_log_errors.reshape(-1, p20_log_errors.shape[-1])
+    p80_log_errors = p80_log_errors.reshape(-1, p80_log_errors.shape[-1])
+    mean_log_lies = mean_log_lies.flatten()
+    p20_log_lies = p20_log_lies.flatten()
+    p80_log_lies = p80_log_lies.flatten()
+    log_matvecs = np.log(outputs["matvecs"]+eps).flatten()
 
     # values to send to the plotter function
     plot_vals = {
+                 "mean_log_errors": mean_log_errors,
+                 "p20_log_errors": p20_log_errors,
+                 "p80_log_errors": p80_log_errors,
                  "mean_log_lies": mean_log_lies,
                  "p20_log_lies": p20_log_lies,
                  "p80_log_lies": p80_log_lies,
@@ -104,3 +118,19 @@ def processor(outputs, params, args):
                 "args": args}
     saver(save_dict)
     return None
+
+def sorter(xvals, y1vals, y2vals=None):
+    ids = np.argsort(xvals)
+    xvals = xvals[ids]
+    if len(y1vals.shape) == 1:
+        y1vals = y1vals[ids]
+    else:
+        y1vals = y1vals[ids, :]
+    if y2vals is None:
+        return xvals, y1vals
+    else:
+        if len(y2vals.shape) == 1:
+            y2vals = y2vals[ids]
+        else:
+            y2vals = y2vals[ids, :]
+        return xvals, y1vals, y2vals

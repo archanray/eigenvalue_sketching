@@ -447,7 +447,7 @@ def get_data(name, eps=0.1, plot_mat=True, raise_eps=False):
         """
         symmetric matrix with random entries
         """
-        dataset_size = 500
+        dataset_size = 5000
         A = np.random.random((dataset_size, dataset_size))
         A = (A.T + A) / 2
 

@@ -189,7 +189,8 @@ def eigval_approx_random_sample(A, k=1, sr=[], method=None):
     #print("checks:", SAS.shape, A.shape)
     return alpha, matvecs
 
-def EigenGameUnloaded(M, k=2, iters=100, eta=1e2, sr=[], mode="None"):
+def EigenGameUnloaded(M, k=2, iters=100, eta=1e2, sr=[], mode=None):
+    n = M.shape[1]
     k = k//2
     V = np.random.randn(M.shape[0], k)
     V /= np.linalg.norm(V, axis=0, keepdims=True)
@@ -207,12 +208,18 @@ def EigenGameUnloaded(M, k=2, iters=100, eta=1e2, sr=[], mode="None"):
         V /= np.linalg.norm(V, axis=0)
 
     VTMV = np.dot(V.T, M.dot(V))
-    a1 = np.diag(VTMV)
+    if mode == "d":
+        a1 = compute_alpha(VTMV, n//2)
+        pass
+    if mode == "f":
+        a1 = np.diag(VTMV)
     matvecs += k
 
-    if mode == "deflate":
+    if mode == "d":
+        # deflate
         Mbar = V @ (V.T @ M) - M
-    if mode == "flip":
+    if mode == "f":
+        # flip with max eigval
         lambs = np.max(np.diag(VTMV))
         Mbar = 1.05 * lambs*np.eye(M.shape[1]) - M
 
@@ -229,10 +236,16 @@ def EigenGameUnloaded(M, k=2, iters=100, eta=1e2, sr=[], mode="None"):
         V /= np.linalg.norm(V, axis=0)
     
     VTMV = np.dot(V.T, M.dot(V))
-    a2 = np.diag(VTMV)
+    if mode == "d":
+        a2 = compute_alpha(VTMV, n//2)
+    if mode == "f":
+        a2 = np.diag(VTMV)
     matvecs += k
 
     alpha = np.concatenate((a1, a2), axis=0)
+    if len(alpha) != n:
+        alpha = np.pad(alpha, pad_width=(0,n-len(alpha)), \
+                        mode="constant", constant_values=0)
     alpha = sd(alpha)
 
     if sr !=[]:
