@@ -241,7 +241,7 @@ def EigenGameUnloaded(M, k=2, iters=100, eta=1e2, sr=[], mode=None):
     
     VTMV = np.dot(V.T, M.dot(V))
     if mode == "d":
-        a2 = -compute_alpha(VTMV, n//2)
+        a2 = compute_alpha(VTMV, n//2)
     if mode == "f":
         a2 = compute_alpha(VTMV, n//2)
         # a2 = np.diag(VTMV)
@@ -253,6 +253,31 @@ def EigenGameUnloaded(M, k=2, iters=100, eta=1e2, sr=[], mode=None):
                         mode="constant", constant_values=0)
     alpha = sd(alpha)
 
+    if sr !=[]:
+        alpha = alpha[sr]
+    return alpha, matvecs
+
+def EigenGameFeats(X, k=1, iters=100, eta=1e2, sr=[], mode=None):
+    n = X.shape[0]
+    V = np.random.randn(X.shape[0], k)
+    V /= np.linalg.norm(V, axis=0, keepdims=True)
+
+    matvecs = 0
+    mask = np.tril(np.ones((k,k)), k=1)
+    for _ in range(iters):
+        XV = np.dot(X, V)
+        matvecs += k
+        VTMV = np.dot(XV.T, XV)
+        penalties = np.dot(V, (VTMV*mask).T)
+        ojas = np.dot(X.T, XV)
+        matvecs += k
+        grad = ojas-penalties
+        V+= eta * grad
+        V /= np.linalg.norm(V, axis=0)
+
+    VTMV = np.dot(V.T, X.dot(V))
+    matvecs += k
+    alpha = compute_alpha(VTMV, n)
     if sr !=[]:
         alpha = alpha[sr]
     return alpha, matvecs

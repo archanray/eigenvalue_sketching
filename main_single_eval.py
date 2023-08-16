@@ -6,7 +6,7 @@ from src.get_dataset import get_data
 
 def mapper(block_size, n, multiplier=1):
     iters_high = n//(multiplier*block_size)
-    return iters_high  
+    return iters_high
 
 def main(args):
     method, mode = StrToFunc(args.method)
@@ -17,10 +17,10 @@ def main(args):
         block_sizes = list(range(10,n+10,50))
     else:
         block_sizes = [int(args.block_size)]
-    if "egu" in args.method or "e2" in args.method:
-        iters = list(range( 0, mapper(int(args.block_size),n), 40 ))
-    elif "bki" in args.method:
-        iters = list(range( 0, mapper(int(args.block_size),n,20) ))
+    if args.method in ["egu_d", "egu_f", "e2", "e3"]:
+        iters = list(range( 0, mapper(int(args.block_size),n,1), 40 ))
+    elif "bki" in args.method or "e3" in args.method:
+        iters = list(range( 0, mapper(int(args.block_size),n,2), 20 ))
     else:
         iters = [0]
     params = {"block_sizes": block_sizes, "iters": iters, "mode": mode}
@@ -66,7 +66,7 @@ if __name__ == "__main__":
                         default="bki_Q", 
                         choices=["bki_adp_Q", "bki_adp_Z", "oth_adp", \
                         "oth_nonadp", "sw_nonadp", "egu_d",\
-                        "egu_f", "e2"],
+                        "egu_f", "e2", "e3"],
                         required=False, 
                         help="choose matvec method")
     parser.add_argument('--trials', '-t',
