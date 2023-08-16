@@ -5,6 +5,7 @@ from src.approximator import eigval_approx_othro_adaptive as oth_adp
 from src.approximator import eigval_approx_ortho_nonadaptive_2 as oth_nonadp
 from src.approximator import eigval_approx_SW_nonadaptive as sw_nonadp
 from src.approximator import EigenGameUnloaded as egu
+from src.approximator import EigenGameUnloaded2 as egu2
 from src.approximator import eigval_approx_random_sample as ears
 
 def StrToFunc(name: str):
@@ -14,7 +15,8 @@ def StrToFunc(name: str):
                     "oth_nonadp": oth_nonadp,
                     "sw_nonadp": sw_nonadp, 
                     "egu": egu,
-                    "rand_samp": ears
+                    "rand_samp": ears,
+                    "e2": egu2
                     }
 
     if "bki" in name:
@@ -49,7 +51,8 @@ def computer(args, params, true_mat, method, mode, m1, m2):
         for i in tqdm(range(len(params["block_sizes"]))):
             k = params["block_sizes"][i]
             for j in tqdm(range(len(params["iters"]))):
-                if "egu" in args.method or "bki" in args.method:
+                if "egu" in args.method or "bki" in args.method \
+                                        or "e2" in args.method:
                     ite = params["iters"][j]
                     eigvals, matvecs = method(true_mat, \
                                               k=k, iters=ite,\

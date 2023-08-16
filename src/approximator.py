@@ -189,7 +189,7 @@ def eigval_approx_random_sample(A, k=1, sr=[], method=None):
     #print("checks:", SAS.shape, A.shape)
     return alpha, matvecs
 
-def EigenGameUnloaded(M, k=2, iters=100, eta=1e1, sr=[], mode=None):
+def EigenGameUnloaded(M, k=2, iters=100, eta=1e2, sr=[], mode=None):
     n = M.shape[1]
     k = k//2
     V = np.random.randn(M.shape[0], k)
@@ -212,12 +212,13 @@ def EigenGameUnloaded(M, k=2, iters=100, eta=1e1, sr=[], mode=None):
         a1 = compute_alpha(VTMV, n//2)
         pass
     if mode == "f":
-        a1 = np.diag(VTMV)
+        a1 = compute_alpha(VTMV, n//2)
+        # a1 = np.diag(VTMV)
     matvecs += k
 
     if mode == "d":
         # deflate
-        Mbar = V @ (V.T @ M) - M
+        Mbar = V @ (((V.T @ M) @ V) @ V.T) - M
     if mode == "f":
         # flip with max eigval
         lambs = np.max(np.diag(VTMV))
@@ -225,6 +226,9 @@ def EigenGameUnloaded(M, k=2, iters=100, eta=1e1, sr=[], mode=None):
 
     V = np.random.randn(M.shape[0], k)
     V /= np.linalg.norm(V, axis=0, keepdims=True)
+
+    # eg_def = np.real(np.linalg.eig(Mbar)[0])
+    # print("mix max eigvals after deflation:", min(eg_def), max(eg_def))
 
     for _ in range(iters//2):
         VTMV = np.dot(V.T, Mbar.dot(V))
@@ -237,9 +241,10 @@ def EigenGameUnloaded(M, k=2, iters=100, eta=1e1, sr=[], mode=None):
     
     VTMV = np.dot(V.T, M.dot(V))
     if mode == "d":
-        a2 = compute_alpha(VTMV, n//2)
+        a2 = -compute_alpha(VTMV, n//2)
     if mode == "f":
-        a2 = np.diag(VTMV)
+        a2 = compute_alpha(VTMV, n//2)
+        # a2 = np.diag(VTMV)
     matvecs += k
 
     alpha = np.concatenate((a1, a2), axis=0)
@@ -252,31 +257,67 @@ def EigenGameUnloaded(M, k=2, iters=100, eta=1e1, sr=[], mode=None):
         alpha = alpha[sr]
     return alpha, matvecs
 
-    return V
+def EigenGameUnloaded2(M, k=2, iters=100, eta=1e3, sr=[], mode=None):
+  n = M.shape[1]
+  vtop = np.random.randn(M.shape[0])
+  matvecs = 0
+  for _ in range(iters):
+    ojas = M.dot(vtop)
+    matvecs += M.shape[0]
+    grad = ojas
+    vtop += eta * grad
+    vtop /= np.linalg.norm(vtop)
+  
+  lam_top = np.dot(vtop, M.dot(vtop))
+  matvecs += M.shape[0]
 
-def EigenGamesUnloadedForEigs(M, k=2, iters=100, eta=1e2, sr=[], mode=None):
-    V = np.random.randn(M.shape[0], k)
-    V /= np.linalg.norm(V, axis=0, keepdims=True)
+  # print('lam_top', lam_top)
 
-    matvecs = 0
-    mask = np.tril(np.ones((k, k)), k=-1)
+  Mbar = M + abs(lam_top) * np.eye(M.shape[0])
 
-    for _ in range(1,iters):
-        ojas = M.dot(np.dot(M.T, M.dot(V)))
-        VTMV = np.dot(V.T, ojas)
-        penalties = np.dot(V, (VTMV * mask).T)
-        grad = ojas - penalties
-        V += eta * grad
-        V /= np.linalg.norm(V, axis=0)
-        matvecs += 3*k
+  k = k // 2
 
-    VTMV = np.dot(V.T, M.dot(np.dot(M.T, M.dot(V))) )
-    matvecs += 2*k
+  V = np.random.randn(M.shape[0], k)
+  V /= np.linalg.norm(V, axis=1, keepdims=True)
 
-    alpha = compute_alpha(VTMV, M.shape[1])
+  k = V.shape[1]
+  mask = np.tril(np.ones((k, k)), k=-1)
+  for _ in range(iters // 2):
+    VTMV = np.dot(V.T, Mbar.dot(V))
+    matvecs += k
+    penalties = np.dot(V, (VTMV * mask).T)
+    ojas = Mbar.dot(V)
+    grad = ojas - penalties
+    V += eta * grad
+    V /= np.linalg.norm(V, axis=0)
 
-    if sr !=[]:
-        alpha = alpha[sr]
-    return alpha, matvecs
+  VTMV = np.dot(V.T, M.dot(V))
+  matvecs += k
+  lams_pos = np.diag(VTMV)
+  lam_max = lams_pos.max()
+  Mbar = 1.05 * (lam_max + lam_top) * np.eye(M.shape[0]) - Mbar
 
-    return V
+  V = np.random.randn(M.shape[0], k)
+  V /= np.linalg.norm(V, axis=1, keepdims=True)
+
+  for _ in range(iters // 2):
+    VTMV = np.dot(V.T, Mbar.dot(V))
+    matvecs += k
+    penalties = np.dot(V, (VTMV * mask).T)
+    ojas = Mbar.dot(V)
+    grad = ojas - penalties
+    V += eta * grad
+    V /= np.linalg.norm(V, axis=0)
+
+  VTMV = np.dot(V.T, M.dot(V))
+  matvecs += k
+  lams_neg = np.diag(VTMV)
+
+  lams = np.concatenate((lams_pos, lams_neg), axis=0)
+  if len(lams) != n:
+    lams = np.pad(lams, pad_width=(0,n-len(lams)), \
+                        mode="constant", constant_values=0)
+  lams = sd(lams)
+  if sr !=[]:
+    lams = lams[sr]
+  return lams, matvecs

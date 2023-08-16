@@ -17,8 +17,8 @@ def main(args):
         block_sizes = list(range(10,n+10,50))
     else:
         block_sizes = [int(args.block_size)]
-    if "egu" in args.method:
-        iters = list(range( 0, mapper(int(args.block_size),n), 20 ))
+    if "egu" in args.method or "e2" in args.method:
+        iters = list(range( 0, mapper(int(args.block_size),n), 40 ))
     elif "bki" in args.method:
         iters = list(range( 0, mapper(int(args.block_size),n,20) ))
     else:
@@ -27,6 +27,7 @@ def main(args):
 
     # grab the true spectrum
     true_spectrum = get_eigs(true_mat, args.search_ranks)
+    # print(true_spectrum)
 
     # save variable for outputs
     outputs = {"approx_eigvals": np.zeros((
@@ -65,13 +66,13 @@ if __name__ == "__main__":
                         default="bki_Q", 
                         choices=["bki_adp_Q", "bki_adp_Z", "oth_adp", \
                         "oth_nonadp", "sw_nonadp", "egu_d",\
-                        "egu_f"],
+                        "egu_f", "e2"],
                         required=False, 
                         help="choose matvec method")
     parser.add_argument('--trials', '-t',
                         dest='trials', 
                         type=int, 
-                        default=5, 
+                        default=3, 
                         required=False,
                         help="number of trials to average out performance")
     parser.add_argument('--block_size', '-b',
