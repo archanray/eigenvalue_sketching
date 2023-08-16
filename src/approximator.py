@@ -263,7 +263,7 @@ def EigenGameFeats(X, k=1, iters=100, eta=1e2, sr=[], mode=None):
     V /= np.linalg.norm(V, axis=0, keepdims=True)
 
     matvecs = 0
-    mask = np.tril(np.ones((k,k)), k=1)
+    mask = np.tril(np.ones((k,k)), k=-1)
     for _ in range(iters):
         XV = np.dot(X, V)
         matvecs += k
@@ -278,6 +278,7 @@ def EigenGameFeats(X, k=1, iters=100, eta=1e2, sr=[], mode=None):
     VTMV = np.dot(V.T, X.dot(V))
     matvecs += k
     alpha = compute_alpha(VTMV, n)
+    # print(alpha)
     if sr !=[]:
         alpha = alpha[sr]
     return alpha, matvecs
