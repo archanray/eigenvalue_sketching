@@ -263,13 +263,13 @@ def EigenGameUnloaded2(M, k=2, iters=100, eta=1e3, sr=[], mode=None):
   matvecs = 0
   for _ in range(iters):
     ojas = M.dot(vtop)
-    matvecs += M.shape[0]
+    matvecs += 1
     grad = ojas
     vtop += eta * grad
     vtop /= np.linalg.norm(vtop)
   
   lam_top = np.dot(vtop, M.dot(vtop))
-  matvecs += M.shape[0]
+  matvecs += 1
 
   # print('lam_top', lam_top)
 
