@@ -81,7 +81,7 @@ def plotErrorForAll(names, datasets=["random"], \
                     yhigh = plot_vars["p80_log_lies"]
                 plt.plot(xvals, yvals, label=name, color=c)
                 plt.fill_between(xvals, ylow, yhigh, alpha=0.2, color=c)
-            # plt.ylim([-8,0])
+            # plt.ylim([-10,0.5])
             plt.xlabel("log matvecs")
             plt.ylabel("log l_infty errors")
             if legend:

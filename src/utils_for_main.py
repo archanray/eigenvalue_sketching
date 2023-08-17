@@ -45,6 +45,9 @@ def saver(save_dict, name_adder="single_eval_method_"):
 def get_eigs(true_mat, search_ranks):
     spectrum, _ = np.linalg.eig(true_mat)
     spectrum = sd(np.real(spectrum))
+    # import matplotlib.pyplot as plt
+    # plt.scatter(range(len(spectrum)), spectrum)
+    # plt.show()
     return spectrum[search_ranks]
 
 def computer(args, params, true_mat, method, mode, m1, m2):

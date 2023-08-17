@@ -257,9 +257,10 @@ def EigenGameUnloaded(M, k=2, iters=100, eta=1e2, sr=[], mode=None):
         alpha = alpha[sr]
     return alpha, matvecs
 
-def EigenGameFeats(X, k=1, iters=100, eta=1e2, sr=[], mode=None):
+def EigenGameFeats(X, k=1, iters=100, eta=1e-6, sr=[], mode=None):
     n = X.shape[0]
-    V = np.random.randn(X.shape[0], k)
+    # V = np.random.randn(X.shape[0], k)
+    V = np.random.normal(0,1/np.sqrt(k), (X.shape[0], k))
     V /= np.linalg.norm(V, axis=0, keepdims=True)
 
     matvecs = 0
@@ -278,7 +279,14 @@ def EigenGameFeats(X, k=1, iters=100, eta=1e2, sr=[], mode=None):
     VTMV = np.dot(V.T, X.dot(V))
     matvecs += k
     alpha = compute_alpha(VTMV, n)
-    # print(alpha)
+    # Q, R = qr(X @ V)
+    # matvecs += k
+    # Atilde = Q.T @ (X @ Q)
+    # matvecs += k
+    # alpha = compute_alpha(Atilde, n)
+    # import matplotlib.pyplot as plt
+    # plt.scatter(list(range(n)), alpha)
+    # plt.show()
     if sr !=[]:
         alpha = alpha[sr]
     return alpha, matvecs

@@ -18,7 +18,7 @@ def main(args):
     else:
         block_sizes = [int(args.block_size)]
     if args.method in ["egu_d", "egu_f", "e2", "e3"]:
-        iters = list(range( 0, mapper(int(args.block_size),n,1), 40 ))
+        iters = list(range( 0, mapper(int(args.block_size),n,1), 10 ))
     elif "bki" in args.method or "e3" in args.method:
         iters = list(range( 0, mapper(int(args.block_size),n,2), 20 ))
     else:
