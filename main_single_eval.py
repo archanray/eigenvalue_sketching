@@ -36,7 +36,7 @@ def main(args):
                                            len(params["block_sizes"]),\
                                            len(params["iters"]),\
                                            len(args.search_ranks)
-                                          ), dtype=np.double),
+                                          ), dtype=np.longdouble),
                "matvecs": np.zeros((
                                     len(params["block_sizes"]),\
                                     len(params["iters"])
