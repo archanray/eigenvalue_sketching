@@ -1,5 +1,5 @@
 import numpy as np
-from src.block_krylov import block_krylov_iter as bki
+from src.block_krylov import block_krylov_iter_opt as bki
 # from src.utils import sort_abs_descending as sad
 from src.utils import sort_descending as sd
 from numpy.linalg import qr
@@ -189,7 +189,7 @@ def eigval_approx_random_sample(A, k=1, sr=[], method=None):
     #print("checks:", SAS.shape, A.shape)
     return alpha, matvecs
 
-def EigenGameUnloaded(M, k=2, iters=100, eta=1e2, sr=[], mode=None):
+def EigenGameUnloaded(M, k=2, iters=100, eta=1e3, sr=[], mode=None):
     n = M.shape[1]
     k = k//2
     V = np.random.randn(M.shape[0], k)
@@ -257,7 +257,7 @@ def EigenGameUnloaded(M, k=2, iters=100, eta=1e2, sr=[], mode=None):
         alpha = alpha[sr]
     return alpha, matvecs
 
-def EigenGameFeats(X, k=1, iters=100, eta=1e-6, sr=[], mode=None):
+def EigenGameFeats(X, k=1, iters=100, eta=1e3, sr=[], mode=None):
     n = X.shape[0]
     # V = np.random.randn(X.shape[0], k)
     V = np.random.normal(0,1/np.sqrt(k), (X.shape[0], k))

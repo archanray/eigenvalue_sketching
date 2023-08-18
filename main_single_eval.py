@@ -21,7 +21,7 @@ def main(args):
     if args.method in ["egu_d", "egu_f", "e2", "e3"]:
         iters = list(range( 0, mapper(int(args.block_size),n,1), 5 ))
     elif "bki" in args.method or "e3" in args.method:
-        iters = list(range( 0, mapper(int(args.block_size),n,2), 5 ))
+        iters = list(range( 0, mapper(int(args.block_size),n,2), 20 ))
     else:
         iters = [0]
     params = {"block_sizes": block_sizes, "iters": iters, "mode": mode}
@@ -36,11 +36,11 @@ def main(args):
                                            len(params["block_sizes"]),\
                                            len(params["iters"]),\
                                            len(args.search_ranks)
-                                          ), dtype=np.longdouble),
+                                          )),#, dtype=np.float),
                "matvecs": np.zeros((
                                     len(params["block_sizes"]),\
                                     len(params["iters"])
-                                  ), dtype=np.double)
+                                  ))#, dtype=np.float)
                }
     # start accumulating values
     outputs["approx_eigvals"], outputs["matvecs"] = \

@@ -83,7 +83,7 @@ def plotErrorForAll(names, datasets=["random"], \
                 plt.fill_between(xvals, ylow, yhigh, alpha=0.2, color=c)
             # plt.ylim([-10,0.5])
             plt.xlabel("log matvecs")
-            plt.ylabel("log l_infty errors")
+            plt.ylabel("mean log abs errors")
             if legend:
                 plt.legend()
             else:
