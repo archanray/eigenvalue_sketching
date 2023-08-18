@@ -11,6 +11,7 @@ def mapper(block_size, n, multiplier=1):
 def main(args):
     method, mode = StrToFunc(args.method)
     true_mat, n, _, _ = get_data(args.dataset)
+    args.search_ranks = list(range(len(n)))
 
     # set up the parameters
     if args.block_size == "full":
