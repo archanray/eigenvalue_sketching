@@ -56,7 +56,8 @@ def computer(args, params, true_mat, method, mode, m1, m2):
         for i in tqdm(range(len(params["block_sizes"]))):
             k = params["block_sizes"][i]
             for j in tqdm(range(len(params["iters"]))):
-                if args.method in ["egu_d", "egu_f", "e2", "e3"]:
+                if args.method in ["egu_d", "egu_f", "e2", "e3"] or\
+                                "bki" in args.method:
                     ite = params["iters"][j]
                     eigvals, matvecs = method(true_mat, \
                                               k=k, iters=ite,\
