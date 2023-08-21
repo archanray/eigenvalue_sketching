@@ -466,4 +466,21 @@ def get_data(name, eps=0.1, plot_mat=True, raise_eps=False):
         min_sample_size = 10
         max_sample_size = dataset_size
 
-        return A, dataset_size, min_sample_size, max_sample_size    
+        return A, dataset_size, min_sample_size, max_sample_size
+
+    if "wishart" in name:
+        """
+        create wishart ensemble
+        """
+        n = 1000
+        rank = int(name.split("_")[-1])
+        sd = 1/np.sqrt(rank)
+        X = np.random.normal(0, sd, (n, rank))
+        W = X.dot(X.T)
+
+        min_sample_size = 10
+        max_sample_size = n
+
+        return W, n, min_sample_size, max_sample_size
+
+
