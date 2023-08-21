@@ -58,7 +58,9 @@ if __name__ == "__main__":
                         type=str, 
                         default="random", 
                         choices=["random", "facebook", "erdos", \
-                        "arxiv", "kong_ht", "kong_tps", "eye"],
+                        "arxiv", "kong_ht", "kong_tps", "eye",\
+                        "wishart_10", "wishart_20", "wishart_40",\
+                        "wishart_80"],
                         required=False,
                         help="choose datasets here")
     parser.add_argument('--method', '-m',
