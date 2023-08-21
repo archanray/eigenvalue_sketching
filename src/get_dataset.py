@@ -483,4 +483,21 @@ def get_data(name, eps=0.1, plot_mat=True, raise_eps=False):
 
         return W, n, min_sample_size, max_sample_size
 
+    if name == "eye_block":
+        """
+        create a block of identity in a all zeros matrix
+        """
+        n = 1000
+        rank = 100
+        I = np.eye(rank)
+        A = np.zeros((n,n))
+        A[0:100, 0:100] = I
+        rows = np.random.permutation(n)
+        A = A[rows, rows]
+
+        min_sample_size = 10
+        max_sample_size = n
+
+        return A, n, min_sample_size, max_sample_size
+
 

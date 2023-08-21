@@ -81,62 +81,71 @@
 # sbatch -J eyebki80 -o eyebki80.out -e eyebki80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye bki_adp_Q 5 80
 # sbatch -J eyebki12 -o eyebki12.out -e eyebki12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye bki_adp_Q 5 120
 
-# sbatch -J fboadp -o fboadp.out -e fboadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh facebook oth_adp 5
-# sbatch -J rmoadp -o rmoadp.out -e rmoadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh random oth_adp 5
-# sbatch -J rsoadp -o rsoadp.out -e rsoadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh erdos oth_adp 5
-# sbatch -J eyoadp -o eyoadp.out -e eyoadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye oth_adp 5
-# sbatch -J rxoadp -o rxoadp.out -e rxoadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh arxiv oth_adp 5
-sbatch -J w1oadp -o w1oadp.out -e w1oadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_10 oth_adp 5
-sbatch -J w2oadp -o w2oadp.out -e w2oadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_20 oth_adp 5
-sbatch -J w4oadp -o w4oadp.out -e w4oadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_40 oth_adp 5
-sbatch -J w8oadp -o w8oadp.out -e w8oadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_80 oth_adp 5
-
-# sbatch -J fbswna -o fbswna.out -e fbswna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh facebook sw_nonadp 5
-# sbatch -J rmswna -o rmswna.out -e rmswna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh random sw_nonadp 5
-# sbatch -J rsswna -o rsswna.out -e rsswna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh erdos sw_nonadp 5
-# sbatch -J eyswna -o eyswna.out -e eyswna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye sw_nonadp 5
-# sbatch -J rxswna -o rxswna.out -e rxswna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh arxiv sw_nonadp 5
-sbatch -J w1swna -o w1swna.out -e w1swna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_10 sw_nonadp 5
-sbatch -J w2swna -o w2swna.out -e w2swna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_20 sw_nonadp 5
-sbatch -J w4swna -o w4swna.out -e w4swna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_40 sw_nonadp 5
-sbatch -J w8swna -o w8swna.out -e w8swna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_80 sw_nonadp 5
-
-# sbatch -J fbondp -o fbondp.out -e fbondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh facebook oth_nonadp 5
-# sbatch -J rmondp -o rmondp.out -e rmondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh random oth_nonadp 5
-# sbatch -J rsondp -o rsondp.out -e rsondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh erdos oth_nonadp 5
-# sbatch -J eyondp -o eyondp.out -e eyondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye oth_nonadp 5
-# sbatch -J rxondp -o rxondp.out -e rxondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh arxiv oth_nonadp 5
-sbatch -J w1ondp -o w1ondp.out -e w1ondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_10 oth_nonadp 5
-sbatch -J w2ondp -o w2ondp.out -e w2ondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_20 oth_nonadp 5
-sbatch -J w4ondp -o w4ondp.out -e w4ondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_40 oth_nonadp 5
-sbatch -J w8ondp -o w8ondp.out -e w8ondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_80 oth_nonadp 5
-
 # sbatch -J rxvbki10 -o rxvbki10.out -e rxvbki10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh arxiv bki_adp_Q 5 10
 # sbatch -J rxvbki20 -o rxvbki20.out -e rxvbki20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh arxiv bki_adp_Q 5 20
 # sbatch -J rxvbki40 -o rxvbki40.out -e rxvbki40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh arxiv bki_adp_Q 5 40
 # sbatch -J rxvbki80 -o rxvbki80.out -e rxvbki80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh arxiv bki_adp_Q 5 80
 # sbatch -J rxvbki12 -o rxvbki12.out -e rxvbki12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh arxiv bki_adp_Q 5 120
 
-sbatch -J w10bki10 -o w10bki10.out -e w10bki10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_10 bki_adp_Q 5 10
-sbatch -J w10bki20 -o w10bki20.out -e w10bki20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_10 bki_adp_Q 5 20
-sbatch -J w10bki40 -o w10bki40.out -e w10bki40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_10 bki_adp_Q 5 40
-sbatch -J w10bki80 -o w10bki80.out -e w10bki80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_10 bki_adp_Q 5 80
-sbatch -J w10bki12 -o w10bki12.out -e w10bki12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_10 bki_adp_Q 5 120
+# sbatch -J w10bki10 -o w10bki10.out -e w10bki10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_10 bki_adp_Q 5 10
+# sbatch -J w10bki20 -o w10bki20.out -e w10bki20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_10 bki_adp_Q 5 20
+# sbatch -J w10bki40 -o w10bki40.out -e w10bki40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_10 bki_adp_Q 5 40
+# sbatch -J w10bki80 -o w10bki80.out -e w10bki80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_10 bki_adp_Q 5 80
+# sbatch -J w10bki12 -o w10bki12.out -e w10bki12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_10 bki_adp_Q 5 120
 
-sbatch -J w10bki10 -o w20bki10.out -e w20bki10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_20 bki_adp_Q 5 10
-sbatch -J w10bki20 -o w20bki20.out -e w20bki20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_20 bki_adp_Q 5 20
-sbatch -J w10bki40 -o w20bki40.out -e w20bki40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_20 bki_adp_Q 5 40
-sbatch -J w10bki80 -o w20bki80.out -e w20bki80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_20 bki_adp_Q 5 80
-sbatch -J w10bki12 -o w20bki12.out -e w20bki12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_20 bki_adp_Q 5 120
+# sbatch -J w10bki10 -o w20bki10.out -e w20bki10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_20 bki_adp_Q 5 10
+# sbatch -J w10bki20 -o w20bki20.out -e w20bki20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_20 bki_adp_Q 5 20
+# sbatch -J w10bki40 -o w20bki40.out -e w20bki40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_20 bki_adp_Q 5 40
+# sbatch -J w10bki80 -o w20bki80.out -e w20bki80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_20 bki_adp_Q 5 80
+# sbatch -J w10bki12 -o w20bki12.out -e w20bki12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_20 bki_adp_Q 5 120
 
-sbatch -J w10bki10 -o w40bki10.out -e w40bki10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_40 bki_adp_Q 5 10
-sbatch -J w10bki20 -o w40bki20.out -e w40bki20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_40 bki_adp_Q 5 20
-sbatch -J w10bki40 -o w40bki40.out -e w40bki40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_40 bki_adp_Q 5 40
-sbatch -J w10bki80 -o w40bki80.out -e w40bki80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_40 bki_adp_Q 5 80
-sbatch -J w10bki12 -o w40bki12.out -e w40bki12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_40 bki_adp_Q 5 120
+# sbatch -J w10bki10 -o w40bki10.out -e w40bki10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_40 bki_adp_Q 5 10
+# sbatch -J w10bki20 -o w40bki20.out -e w40bki20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_40 bki_adp_Q 5 20
+# sbatch -J w10bki40 -o w40bki40.out -e w40bki40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_40 bki_adp_Q 5 40
+# sbatch -J w10bki80 -o w40bki80.out -e w40bki80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_40 bki_adp_Q 5 80
+# sbatch -J w10bki12 -o w40bki12.out -e w40bki12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_40 bki_adp_Q 5 120
 
-sbatch -J w80bki10 -o w80bki10.out -e w80bki10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_80 bki_adp_Q 5 10
-sbatch -J w80bki20 -o w80bki20.out -e w80bki20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_80 bki_adp_Q 5 20
-sbatch -J w80bki40 -o w80bki40.out -e w80bki40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_80 bki_adp_Q 5 40
-sbatch -J w80bki80 -o w80bki80.out -e w80bki80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_80 bki_adp_Q 5 80
-sbatch -J w80bki12 -o w80bki12.out -e w80bki12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_80 bki_adp_Q 5 120
+# sbatch -J w80bki10 -o w80bki10.out -e w80bki10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_80 bki_adp_Q 5 10
+# sbatch -J w80bki20 -o w80bki20.out -e w80bki20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_80 bki_adp_Q 5 20
+# sbatch -J w80bki40 -o w80bki40.out -e w80bki40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_80 bki_adp_Q 5 40
+# sbatch -J w80bki80 -o w80bki80.out -e w80bki80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_80 bki_adp_Q 5 80
+# sbatch -J w80bki12 -o w80bki12.out -e w80bki12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_80 bki_adp_Q 5 120
+
+sbatch -J eblbki10 -o eblbki10.out -e eblbki10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block bki_adp_Q 5 10
+sbatch -J eblbki20 -o eblbki20.out -e eblbki20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block bki_adp_Q 5 20
+sbatch -J eblbki40 -o eblbki40.out -e eblbki40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block bki_adp_Q 5 40
+sbatch -J eblbki80 -o eblbki80.out -e eblbki80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block bki_adp_Q 5 80
+sbatch -J eblbki12 -o eblbki12.out -e eblbki12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block bki_adp_Q 5 120
+
+# sbatch -J fboadp -o fboadp.out -e fboadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh facebook oth_adp 5
+# sbatch -J rmoadp -o rmoadp.out -e rmoadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh random oth_adp 5
+# sbatch -J rsoadp -o rsoadp.out -e rsoadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh erdos oth_adp 5
+# sbatch -J eyoadp -o eyoadp.out -e eyoadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye oth_adp 5
+# sbatch -J rxoadp -o rxoadp.out -e rxoadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh arxiv oth_adp 5
+# sbatch -J w1oadp -o w1oadp.out -e w1oadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_10 oth_adp 5
+# sbatch -J w2oadp -o w2oadp.out -e w2oadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_20 oth_adp 5
+# sbatch -J w4oadp -o w4oadp.out -e w4oadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_40 oth_adp 5
+# sbatch -J w8oadp -o w8oadp.out -e w8oadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_80 oth_adp 5
+sbatch -J eboadp -o eboadp.out -e eboadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye_block oth_adp 5
+
+# sbatch -J fbswna -o fbswna.out -e fbswna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh facebook sw_nonadp 5
+# sbatch -J rmswna -o rmswna.out -e rmswna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh random sw_nonadp 5
+# sbatch -J rsswna -o rsswna.out -e rsswna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh erdos sw_nonadp 5
+# sbatch -J eyswna -o eyswna.out -e eyswna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye sw_nonadp 5
+# sbatch -J rxswna -o rxswna.out -e rxswna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh arxiv sw_nonadp 5
+# sbatch -J w1swna -o w1swna.out -e w1swna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_10 sw_nonadp 5
+# sbatch -J w2swna -o w2swna.out -e w2swna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_20 sw_nonadp 5
+# sbatch -J w4swna -o w4swna.out -e w4swna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_40 sw_nonadp 5
+# sbatch -J w8swna -o w8swna.out -e w8swna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_80 sw_nonadp 5
+sbatch -J ebswna -o ebswna.out -e ebswna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye_block sw_nonadp 5
+
+# sbatch -J fbondp -o fbondp.out -e fbondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh facebook oth_nonadp 5
+# sbatch -J rmondp -o rmondp.out -e rmondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh random oth_nonadp 5
+# sbatch -J rsondp -o rsondp.out -e rsondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh erdos oth_nonadp 5
+# sbatch -J eyondp -o eyondp.out -e eyondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye oth_nonadp 5
+# sbatch -J rxondp -o rxondp.out -e rxondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh arxiv oth_nonadp 5
+# sbatch -J w1ondp -o w1ondp.out -e w1ondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_10 oth_nonadp 5
+# sbatch -J w2ondp -o w2ondp.out -e w2ondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_20 oth_nonadp 5
+# sbatch -J w4ondp -o w4ondp.out -e w4ondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_40 oth_nonadp 5
+# sbatch -J w8ondp -o w8ondp.out -e w8ondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_80 oth_nonadp 5
+sbatch -J ebondp -o ebondp.out -e ebondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye_block oth_nonadp 5
