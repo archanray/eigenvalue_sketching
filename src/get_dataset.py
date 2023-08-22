@@ -493,7 +493,7 @@ def get_data(name, eps=0.1, plot_mat=True, raise_eps=False):
         A = np.zeros((n,n))
         A[0:100, 0:100] = I
         rows = np.random.permutation(n)
-        A = A[rows, rows]
+        A = A[rows][:, rows]
 
         min_sample_size = 10
         max_sample_size = n
