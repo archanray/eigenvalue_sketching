@@ -128,7 +128,7 @@ def eigval_approx_ortho_nonadaptive_2(A, k=1, c=2, sr=[], mode=None):
     ATT = A @ T.T
     matvecs += k1+k2
 
-    Btilde = (np.linalg.inv(AST.T @ T.T @ T @ AST)) @ AST.T @ T.T @ ATT.T
+    Btilde = (np.linalg.pinv(AST.T @ T.T @ T @ AST)) @ AST.T @ T.T @ ATT.T
     Abar = AST @ Btilde
     Atilde = (Abar + Abar.T) / 2
 
