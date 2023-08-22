@@ -94,6 +94,12 @@ def plotErrorForAll(names, datasets=["random"], \
                     str(load_vars["outputs"]["true_spectrum"][plot_rank]))
             else:
                 plt.title("max eigval="+str(plot_vars["max_abs_eigval"]))
+            if "wishart" in dataset:
+                rank = int(dataset.split("_")[-1])
+                rank_x_axis_val = np.log(rank)
+                # plot a vertical line
+                plt.axvline(x=rank_x_axis_val, color="green")
+
 
             filename = "_".join(names)
             filename = filename+"_"+str(plot_rank)
