@@ -472,7 +472,7 @@ def get_data(name, eps=0.1, plot_mat=True, raise_eps=False):
         """
         create wishart ensemble
         """
-        n = 1000
+        n = 2500
         rank = int(name.split("_")[-1])
         sd = 1/np.sqrt(rank)
         X = np.random.normal(0, sd, (n, rank))
