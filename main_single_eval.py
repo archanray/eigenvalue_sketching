@@ -53,14 +53,20 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("Matvecs eval variables")
+    # parser.add_argument('--dataset', '-d',
+    #                     dest='dataset', 
+    #                     type=str, 
+    #                     default="random", 
+    #                     choices=["random", "facebook", "erdos", \
+    #                     "arxiv", "kong_ht", "kong_tps", "eye",\
+    #                     "wishart_10", "wishart_20", "wishart_40",\
+    #                     "wishart_80", "eye_block"],
+    #                     required=False,
+    #                     help="choose datasets here")
     parser.add_argument('--dataset', '-d',
                         dest='dataset', 
                         type=str, 
                         default="random", 
-                        choices=["random", "facebook", "erdos", \
-                        "arxiv", "kong_ht", "kong_tps", "eye",\
-                        "wishart_10", "wishart_20", "wishart_40",\
-                        "wishart_80", "eye_block"],
                         required=False,
                         help="choose datasets here")
     parser.add_argument('--method', '-m',
