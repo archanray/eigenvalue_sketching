@@ -56,6 +56,7 @@ def plotErrorForAll(names, datasets=["random"], \
     import colorcet as cc
 
     names.sort()
+    font_size = 16
 
     for dataset in datasets:
         dir_ = os.path.join(default_load_path, dataset)
@@ -66,6 +67,7 @@ def plotErrorForAll(names, datasets=["random"], \
             # added lines
             fig = plt.figure()
             ax = fig.add_subplot()
+            plt.rcParams.update({'font.size': font_size-5})
             color = iter(cc.cm.glasbey(np.linspace(0, 1, 10)))
             for name in names:
                 c = next(color)
@@ -86,9 +88,9 @@ def plotErrorForAll(names, datasets=["random"], \
                 # plt.fill_between(xvals, ylow, yhigh, alpha=0.2, color=c)
                 ax.plot(xvals, yvals, label=name, color=c)
                 ax.fill_between(xvals, ylow, yhigh, alpha=0.2, color=c)
-            plt.ylim([-10,4])
-            plt.xlabel("log matvecs")
-            plt.ylabel("mean log abs errors")
+            # plt.ylim([-7,0.5])
+            plt.xlabel("Log matvecs", fontsize=font_size)
+            plt.ylabel("Mean log abs errors", fontsize=font_size)
             if legend:
                 plt.legend()
             else:
@@ -96,10 +98,12 @@ def plotErrorForAll(names, datasets=["random"], \
                 handles,labels = ax.get_legend_handles_labels()
                 pass
             if plot_rank != "lie":
-                plt.title("eigval="+\
-                    str(load_vars["outputs"]["true_spectrum"][plot_rank]))
+                plt.title("Eigval="+\
+                    str(round(load_vars["outputs"]["true_spectrum"]\
+                        [plot_rank],3)), fontsize=font_size)
             else:
-                plt.title("max eigval="+str(plot_vars["max_abs_eigval"]))
+                plt.title("Maximum eigval="+str(round(\
+                    plot_vars["max_abs_eigval"],3)),fontsize=font_size)
             if "wishart" in dataset:
                 rank = int(dataset.split("_")[-1])
                 rank_x_axis_val = np.log(rank)
@@ -113,7 +117,7 @@ def plotErrorForAll(names, datasets=["random"], \
             if not os.path.isdir(dest_now):
                 os.makedirs(dest_now)
 
-            plt.savefig(dest_now+filename+".pdf")
+            plt.savefig(dest_now+dataset+"_"+filename+".pdf")
             
             plt.close()
             if not legend:
@@ -121,7 +125,7 @@ def plotErrorForAll(names, datasets=["random"], \
                 # print(handles)
                 # print(labels)
                 fig_legend = plt.figure()
-                fig_legend.legend(handles, labels, ncol=5)
+                fig_legend.legend(handles, labels, ncol=5, fontsize=font_size)
                 # axi.xaxis.set_visible(False)
                 # axi.yaxis.set_visible(False)
                 # fig_legend.canvas.draw()
