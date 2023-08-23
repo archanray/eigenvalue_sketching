@@ -63,6 +63,9 @@ def plotErrorForAll(names, datasets=["random"], \
         for plot_rank in plot_ranks:
             # n=len(names)
             plt.gcf().clf()
+            # added lines
+            fig = plt.figure()
+            ax = fig.add_subplot()
             color = iter(cc.cm.glasbey(np.linspace(0, 1, 10)))
             for name in names:
                 c = next(color)
@@ -79,8 +82,10 @@ def plotErrorForAll(names, datasets=["random"], \
                     yvals = plot_vars["mean_log_lies"]
                     ylow = plot_vars["p20_log_lies"]
                     yhigh = plot_vars["p80_log_lies"]
-                plt.plot(xvals, yvals, label=name, color=c)
-                plt.fill_between(xvals, ylow, yhigh, alpha=0.2, color=c)
+                # plt.plot(xvals, yvals, label=name, color=c)
+                # plt.fill_between(xvals, ylow, yhigh, alpha=0.2, color=c)
+                ax.plot(xvals, yvals, label=name, color=c)
+                ax.fill_between(xvals, ylow, yhigh, alpha=0.2, color=c)
             plt.ylim([-10,4])
             plt.xlabel("log matvecs")
             plt.ylabel("mean log abs errors")
@@ -88,6 +93,7 @@ def plotErrorForAll(names, datasets=["random"], \
                 plt.legend()
             else:
                 # code for separate legend plot
+                handles,labels = ax.get_legend_handles_labels()
                 pass
             if plot_rank != "lie":
                 plt.title("eigval="+\
@@ -100,7 +106,6 @@ def plotErrorForAll(names, datasets=["random"], \
                 # plot a vertical line
                 plt.axvline(x=rank_x_axis_val, color="green")
 
-
             filename = "_".join(names)
             filename = filename+"_"+str(plot_rank)
 
@@ -109,3 +114,15 @@ def plotErrorForAll(names, datasets=["random"], \
                 os.makedirs(dest_now)
 
             plt.savefig(dest_now+filename+".pdf")
+            
+            plt.close()
+            if not legend:
+                plt.gcf().clf()
+                # print(handles)
+                # print(labels)
+                fig_legend = plt.figure()
+                fig_legend.legend(handles, labels, ncol=5)
+                # axi.xaxis.set_visible(False)
+                # axi.yaxis.set_visible(False)
+                # fig_legend.canvas.draw()
+                fig_legend.savefig(dest_now+"legend.pdf", bbox_inches='tight')

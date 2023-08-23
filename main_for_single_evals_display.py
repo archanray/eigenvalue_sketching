@@ -36,8 +36,9 @@ if __name__ == "__main__":
                         help="eigenvalues to check performance; input as a,b,c")
     parser.add_argument('--legend', "-l",
                         dest='legend', 
-                        type=bool, 
-                        default=True, 
+                        type=int, 
+                        default=True,
+                        choices=[1,0],
                         required=False,
                         help="display legend within image; enter as 1 or 0")
     args = parser.parse_args()
