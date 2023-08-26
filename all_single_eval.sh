@@ -141,11 +141,11 @@
 # sbatch -J eblbki80 -o eblbki80.out -e eblbki80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block bki_adp_Q 5 80
 # sbatch -J eblbki12 -o eblbki12.out -e eblbki12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block bki_adp_Q 5 120
 
-sbatch -J eble310 -o eble310.out -e eble310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block e3 5 10
-sbatch -J eble320 -o eble320.out -e eble320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block e3 5 20
-sbatch -J eble340 -o eble340.out -e eble340.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block e3 5 40
-sbatch -J eble380 -o eble380.out -e eble380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block e3 5 80
-sbatch -J eble312 -o eble312.out -e eble312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block e3 5 120
+# sbatch -J eble310 -o eble310.out -e eble310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block e3 5 10
+# sbatch -J eble320 -o eble320.out -e eble320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block e3 5 20
+# sbatch -J eble340 -o eble340.out -e eble340.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block e3 5 40
+# sbatch -J eble380 -o eble380.out -e eble380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block e3 5 80
+# sbatch -J eble312 -o eble312.out -e eble312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block e3 5 120
 
 # sbatch -J fboadp -o fboadp.out -e fboadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh facebook oth_adp 5
 # sbatch -J rmoadp -o rmoadp.out -e rmoadp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh random oth_adp 5
@@ -195,50 +195,60 @@ sbatch -J eble312 -o eble312.out -e eble312.err --nodes 2 --cpus-per-task 12 -p 
 # sbatch -J w100ondp -o w100ondp.out -e w100ondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_1000 oth_nonadp 5
 
 
-sbatch -J fbe310 -o fbe310.out -e fbe310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e3 5 10
-sbatch -J fbe320 -o fbe320.out -e fbe320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e3 5 20
-sbatch -J fbe340 -o fbe340.out -e fbe340.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e3 5 40
-sbatch -J fbe380 -o fbe380.out -e fbe380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e3 5 80
-sbatch -J fbe312 -o fbe312.out -e fbe312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e3 5 120
+# sbatch -J fbe310 -o fbe310.out -e fbe310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e3 5 10
+# sbatch -J fbe320 -o fbe320.out -e fbe320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e3 5 20
+# sbatch -J fbe340 -o fbe340.out -e fbe340.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e3 5 40
+# sbatch -J fbe380 -o fbe380.out -e fbe380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e3 5 80
+# sbatch -J fbe312 -o fbe312.out -e fbe312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e3 5 120
 
-sbatch -J rde310 -o rde310.out -e rde310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e3 5 10
-sbatch -J rde320 -o rde320.out -e rde320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e3 5 20
-sbatch -J rde340 -o rde340.out -e rde340.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e3 5 40
-sbatch -J rde380 -o rde380.out -e rde380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e3 5 80
-sbatch -J rde312 -o rde312.out -e rde312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e3 5 120
+# sbatch -J rde310 -o rde310.out -e rde310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e3 5 10
+# sbatch -J rde320 -o rde320.out -e rde320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e3 5 20
+# sbatch -J rde340 -o rde340.out -e rde340.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e3 5 40
+# sbatch -J rde380 -o rde380.out -e rde380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e3 5 80
+# sbatch -J rde312 -o rde312.out -e rde312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e3 5 120
 
-sbatch -J rne310 -o rne310.out -e rne310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e3 5 10
-sbatch -J rne320 -o rne320.out -e rne320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e3 5 20
-sbatch -J rne340 -o rne340.out -e rne340.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e3 5 40
-sbatch -J rne380 -o rne380.out -e rne380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e3 5 80
-sbatch -J rne312 -o rne312.out -e rne312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e3 5 120
+# sbatch -J rne310 -o rne310.out -e rne310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e3 5 10
+# sbatch -J rne320 -o rne320.out -e rne320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e3 5 20
+# sbatch -J rne340 -o rne340.out -e rne340.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e3 5 40
+# sbatch -J rne380 -o rne380.out -e rne380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e3 5 80
+# sbatch -J rne312 -o rne312.out -e rne312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e3 5 120
 
-sbatch -J eye310 -o eye310.out -e eye310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e3 5 10
-sbatch -J eye320 -o eye320.out -e eye320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e3 5 20
-sbatch -J eye340 -o eye340.out -e eye340.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e3 5 40
-sbatch -J eye380 -o eye380.out -e eye380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e3 5 80
-sbatch -J eye312 -o eye312.out -e eye312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e3 5 120
+# sbatch -J eye310 -o eye310.out -e eye310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e3 5 10
+# sbatch -J eye320 -o eye320.out -e eye320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e3 5 20
+# sbatch -J eye340 -o eye340.out -e eye340.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e3 5 40
+# sbatch -J eye380 -o eye380.out -e eye380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e3 5 80
+# sbatch -J eye312 -o eye312.out -e eye312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e3 5 120
 
-sbatch -J w1e310 -o w1e310.out -e w1e310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_100 e3 5 10
-sbatch -J w1e320 -o w1e320.out -e w1e320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_100 e3 5 20
-sbatch -J w1e340 -o w1e340.out -e w1e340.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_100 e3 5 40
-sbatch -J w1e380 -o w1e380.out -e w1e380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_100 e3 5 80
-sbatch -J w1e312 -o w1e312.out -e w1e312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_100 e3 5 120
+# sbatch -J w1e310 -o w1e310.out -e w1e310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_100 e3 5 10
+# sbatch -J w1e320 -o w1e320.out -e w1e320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_100 e3 5 20
+# sbatch -J w1e340 -o w1e340.out -e w1e340.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_100 e3 5 40
+# sbatch -J w1e380 -o w1e380.out -e w1e380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_100 e3 5 80
+# sbatch -J w1e312 -o w1e312.out -e w1e312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_100 e3 5 120
 
-sbatch -J w2e310 -o w2e310.out -e w2e310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_200 e3 5 10
-sbatch -J w2e320 -o w2e320.out -e w2e320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_200 e3 5 20
-sbatch -J w2e340 -o w2e340.out -e w2e340.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_200 e3 5 40
-sbatch -J w2e380 -o w2e380.out -e w2e380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_200 e3 5 80
-sbatch -J w2e312 -o w2e312.out -e w2e312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_200 e3 5 120
+# sbatch -J w2e310 -o w2e310.out -e w2e310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_200 e3 5 10
+# sbatch -J w2e320 -o w2e320.out -e w2e320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_200 e3 5 20
+# sbatch -J w2e340 -o w2e340.out -e w2e340.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_200 e3 5 40
+# sbatch -J w2e380 -o w2e380.out -e w2e380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_200 e3 5 80
+# sbatch -J w2e312 -o w2e312.out -e w2e312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_200 e3 5 120
 
-sbatch -J w5e310 -o w5e310.out -e w1e310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_500 e3 5 10
-sbatch -J w5e320 -o w5e320.out -e w1e320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_500 e3 5 20
-sbatch -J w5e340 -o w5e340.out -e w1e340.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_500 e3 5 40
-sbatch -J w5e380 -o w5e380.out -e w1e380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_500 e3 5 80
-sbatch -J w5e312 -o w5e312.out -e w1e312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_500 e3 5 120
+# sbatch -J w5e310 -o w5e310.out -e w1e310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_500 e3 5 10
+# sbatch -J w5e320 -o w5e320.out -e w1e320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_500 e3 5 20
+# sbatch -J w5e340 -o w5e340.out -e w1e340.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_500 e3 5 40
+# sbatch -J w5e380 -o w5e380.out -e w1e380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_500 e3 5 80
+# sbatch -J w5e312 -o w5e312.out -e w1e312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_500 e3 5 120
 
-sbatch -J wCe310 -o wCe310.out -e wCe310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_1000 e3 5 10
-sbatch -J wCe320 -o wCe320.out -e wCe320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_1000 e3 5 20
-sbatch -J wCe340 -o wCe340.out -e wCe340.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_1000 e3 5 40
-sbatch -J wCe380 -o wCe380.out -e wCe380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_1000 e3 5 80
-sbatch -J wCe312 -o wCe312.out -e wCe312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_1000 e3 5 120
+# sbatch -J wCe310 -o wCe310.out -e wCe310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_1000 e3 5 10
+# sbatch -J wCe320 -o wCe320.out -e wCe320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_1000 e3 5 20
+# sbatch -J wCe340 -o wCe340.out -e wCe340.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_1000 e3 5 40
+# sbatch -J wCe380 -o wCe380.out -e wCe380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_1000 e3 5 80
+# sbatch -J wCe312 -o wCe312.out -e wCe312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_1000 e3 5 120
+
+sbatch -J fbbki1 -o fbbki1.out -e fbbki1.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook bki_adp_Q 5 1
+sbatch -J erbki1 -o fbbki1.out -e fbbki1.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos bki_adp_Q 5 1
+sbatch -J rnbki1 -o fbbki1.out -e fbbki1.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random bki_adp_Q 5 1
+sbatch -J w1bki1 -o fbbki1.out -e fbbki1.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_100 bki_adp_Q 5 1
+sbatch -J w2bki1 -o fbbki1.out -e fbbki1.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_200 bki_adp_Q 5 1
+sbatch -J w5bki1 -o fbbki1.out -e fbbki1.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_500 bki_adp_Q 5 1
+sbatch -J wcbki1 -o fbbki1.out -e fbbki1.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_1000 bki_adp_Q 5 1
+sbatch -J eybki1 -o fbbki1.out -e fbbki1.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye bki_adp_Q 5 1
+sbatch -J ebbki1 -o fbbki1.out -e fbbki1.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block bki_adp_Q 5 1

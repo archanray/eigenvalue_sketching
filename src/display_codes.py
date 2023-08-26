@@ -58,6 +58,7 @@ def plotErrorForAll(names, datasets=["random"], \
     names.sort()
     font_size = 16
 
+    markers = ["o", "*", "D", "^", "v", "1", "2", "3", "4", "x"]
     for dataset in datasets:
         dir_ = os.path.join(default_load_path, dataset)
         path_root = os.path.join(dir_,adder)
@@ -69,6 +70,7 @@ def plotErrorForAll(names, datasets=["random"], \
             ax = fig.add_subplot()
             plt.rcParams.update({'font.size': font_size-5})
             color = iter(cc.cm.glasbey(np.linspace(0, 1, 10)))
+            count=0
             for name in names:
                 c = next(color)
                 path = path_root+name+".pkl"
@@ -86,9 +88,14 @@ def plotErrorForAll(names, datasets=["random"], \
                     yhigh = plot_vars["p80_log_lies"]
                 # plt.plot(xvals, yvals, label=name, color=c)
                 # plt.fill_between(xvals, ylow, yhigh, alpha=0.2, color=c)
-                ax.plot(xvals, yvals, label=name, color=c)
+                ax.plot(xvals, yvals, label=name, color=c, \
+                    marker=markers[count])
+                count += 1
                 ax.fill_between(xvals, ylow, yhigh, alpha=0.2, color=c)
-            # plt.ylim([-7,0.5])
+            if plot_rank == "lie":
+                # plt.ylim([-9,3])
+                pass
+            plt.grid()
             plt.xlabel("Log matvecs", fontsize=font_size)
             plt.ylabel("Mean log abs errors", fontsize=font_size)
             if legend:
@@ -125,8 +132,13 @@ def plotErrorForAll(names, datasets=["random"], \
                 # print(handles)
                 # print(labels)
                 fig_legend = plt.figure()
-                fig_legend.legend(handles, labels, ncol=5, fontsize=font_size)
+                leg = fig_legend.legend(handles, labels, ncol=5, fontsize=font_size)
+                leg_lines = leg.get_lines()
+                plt.setp(leg_lines, linewidth=2)
+                # for line in leg.legendHandles:
+                #     leg.width(4.0)
                 # axi.xaxis.set_visible(False)
                 # axi.yaxis.set_visible(False)
                 # fig_legend.canvas.draw()
-                fig_legend.savefig(dest_now+"legend.pdf", bbox_inches='tight')
+                fig_legend.savefig(dest_now+"legend_"+\
+                    "_".join(names)+".pdf", bbox_inches='tight')
