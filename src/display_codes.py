@@ -34,7 +34,21 @@ def method2color(method):
         color = [0.788235,0.478431,0.866667,1.]
     if method == "true_spectrum":
         color = [0.223529,0.431373,0.392157,1.]
+    return color
 
+def sixColors(method):
+    if method == "bki_adp_Q_10":
+        color="red" 
+    if method == "bki_adp_Q_20":
+        color="blue" 
+    if method == "oth_adp_full":
+        color="green" 
+    if method == "oth_nonadp_full":
+        color="gold" 
+    if method == "sw_nonadp_full":
+        color="magenta" 
+    if method == "true_spectrum":
+        color="k"
     return color
 
 def display_image(image):
@@ -91,7 +105,7 @@ def plotEigvals(names, datasets=["random"],\
     font_size = 16
 
     markers = ["o", "*", "D", "^", "v", "1", "2", "3", "4", "x"]
-    break_rank = 100
+    break_rank = 600
     plot_ranks = list(range(break_rank))+list(range(-break_rank,0,1))
     for dataset in datasets:
         dir_ = os.path.join(default_load_path, dataset)
@@ -144,12 +158,12 @@ def plotEigvals(names, datasets=["random"],\
                                             matvecs_ID[0],\
                                             0,\
                                             plot_ranks]
-            ax1.scatter(xvals[plot_ranks], \
-                        approx_eigvals, color=method2color(name),\
-                        marker=markers[count], label=name)
-            ax2.scatter(xvals[plot_ranks], \
-                        approx_eigvals, color=method2color(name),\
-                        marker=markers[count], label=name)
+            ax1.plot(xvals[plot_ranks], \
+                        approx_eigvals, color=sixColors(name),\
+                        label=name)
+            ax2.plot(xvals[plot_ranks], \
+                        approx_eigvals, color=sixColors(name),\
+                        label=name)
             count += 1
             # print(matvecs_req[0,int(matvecs_ID[0])])
             # print(approx_eigvals.shape[-1])
@@ -159,14 +173,14 @@ def plotEigvals(names, datasets=["random"],\
     true_spectrum = load_vars["outputs"]["true_spectrum"]
     # with np.printoptions(threshold=np.inf):
     #     print(true_spectrum)
-    ax1.scatter(xvals[plot_ranks], \
+    ax1.plot(xvals[plot_ranks], \
                     true_spectrum[plot_ranks], \
-                    color=method2color("true_spectrum"),\
-                    marker=markers[count], label="true")
-    ax2.scatter(xvals[plot_ranks], \
+                    color=sixColors("true_spectrum"),\
+                    label="true")
+    ax2.plot(xvals[plot_ranks], \
                     true_spectrum[plot_ranks], \
-                    color=method2color("true_spectrum"),\
-                    marker=markers[count], label="true")
+                    color=sixColors("true_spectrum"),\
+                    label="true")
     # merge the plots
     ax1.set_xlim(0,break_rank)
     ax2.set_xlim(xvals[-break_rank],xvals[-1])
@@ -194,9 +208,10 @@ def plotEigvals(names, datasets=["random"],\
         handles,labels = ax1.get_legend_handles_labels()
         pass
     # compress y range
-    # plt.ylim([-50,50]) # facebook
+    # plt.ylim([-25,50]) # facebook
+    # plt.ylim(-10,20) # facebook full methods
     # plt.ylim([-200,200]) # erdos
-    plt.ylim([-100,100]) # erdos
+    plt.ylim([-100,100]) # random
     # save the plot first
     filename = "_".join(names)
     filename = filename+"_approx_eigvals_"+str(matvecs)
