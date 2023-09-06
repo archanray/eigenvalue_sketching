@@ -1,0 +1,3 @@
+facebook: 
+	blocksize: 10
+	LR: 1e3
