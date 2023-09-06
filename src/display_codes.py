@@ -91,18 +91,26 @@ def plotEigvals(names, datasets=["random"],\
     font_size = 16
 
     markers = ["o", "*", "D", "^", "v", "1", "2", "3", "4", "x"]
+    break_rank = 100
+    plot_ranks = list(range(break_rank))+list(range(-break_rank,0,1))
     for dataset in datasets:
         dir_ = os.path.join(default_load_path, dataset)
         path_root = os.path.join(dir_,adder)    
         # n=len(names)
         plt.gcf().clf()
         # added lines
-        fig = plt.figure()
-        ax = fig.add_subplot()
+        # fig = plt.figure()
+        # ax = fig.add_subplot()
+        fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, \
+                          facecolor='w')
+        fig.subplots_adjust(wspace=0.15)
         plt.grid()
-        ax.set_axisbelow(True)
-        ax.yaxis.grid(color='gray', linestyle='dashed')
-        ax.xaxis.grid(color='gray', linestyle='dashed')
+        ax1.set_axisbelow(True)
+        ax1.yaxis.grid(color='gray', linestyle='dashed')
+        ax1.xaxis.grid(color='gray', linestyle='dashed')
+        ax2.set_axisbelow(True)
+        ax2.yaxis.grid(color='gray', linestyle='dashed')
+        ax2.xaxis.grid(color='gray', linestyle='dashed')
         plt.rcParams.update({'font.size': font_size-5})
         # color = iter(cc.cm.glasbey(np.linspace(0, 1, 10)))
         count=0
@@ -115,6 +123,7 @@ def plotEigvals(names, datasets=["random"],\
             trial_ID = 0
             approx_eigvals = load_vars["outputs"]["approx_eigvals"]
             matvecs_req = load_vars["outputs"]["matvecs"]
+            xvals = np.array(list(range(approx_eigvals.shape[-1])))
             matvecs_ID = np.intersect1d(matvecs_req[np.where(matvecs_req \
                                                     <= matvecs+20)]\
                                         , \
@@ -129,14 +138,17 @@ def plotEigvals(names, datasets=["random"],\
                 approx_eigvals = approx_eigvals[trial_ID,\
                                             0,\
                                             matvecs_ID[0],\
-                                            :]
+                                            plot_ranks]
             if matvecs_req.shape[1] == 1:
                 approx_eigvals = approx_eigvals[trial_ID,\
                                             matvecs_ID[0],\
                                             0,\
-                                            :]
-            xvals = list(range(approx_eigvals.shape[-1]))
-            ax.scatter(xvals, approx_eigvals, color=method2color(name),\
+                                            plot_ranks]
+            ax1.scatter(xvals[plot_ranks], \
+                        approx_eigvals, color=method2color(name),\
+                        marker=markers[count], label=name)
+            ax2.scatter(xvals[plot_ranks], \
+                        approx_eigvals, color=method2color(name),\
                         marker=markers[count], label=name)
             count += 1
             # print(matvecs_req[0,int(matvecs_ID[0])])
@@ -147,18 +159,44 @@ def plotEigvals(names, datasets=["random"],\
     true_spectrum = load_vars["outputs"]["true_spectrum"]
     # with np.printoptions(threshold=np.inf):
     #     print(true_spectrum)
-    ax.scatter(xvals, true_spectrum, color=method2color("true_spectrum"),\
-                        marker=markers[count], label="true")
+    ax1.scatter(xvals[plot_ranks], \
+                    true_spectrum[plot_ranks], \
+                    color=method2color("true_spectrum"),\
+                    marker=markers[count], label="true")
+    ax2.scatter(xvals[plot_ranks], \
+                    true_spectrum[plot_ranks], \
+                    color=method2color("true_spectrum"),\
+                    marker=markers[count], label="true")
+    # merge the plots
+    ax1.set_xlim(0,break_rank)
+    ax2.set_xlim(xvals[-break_rank],xvals[-1])
+    ax1.spines['right'].set_visible(False)
+    ax2.spines['left'].set_visible(False)
+    ax1.yaxis.tick_left()
+    ax2.yaxis.tick_right()
+    d = .015  # how big to make the diagonal lines in axes coordinates
+    # arguments to pass plot, just so we don't keep repeating them
+    kwargs = dict(transform=ax1.transAxes, color='k', clip_on=False)
+    ax1.plot((1-d, 1+d), (-d, +d), **kwargs)
+    ax1.plot((1-d, 1+d), (1-d, 1+d), **kwargs)
 
+    kwargs.update(transform=ax2.transAxes)  # switch to the bottom axes
+    ax2.plot((-d, +d), (1-d, 1+d), **kwargs)
+    ax2.plot((-d, +d), (-d, +d), **kwargs)
     # beautification, naming axes, labels, etc.
-    plt.xlabel("Eigenvalue indices", fontsize=font_size)
-    plt.ylabel("Eigenvalues", fontsize=font_size)
+    # ax.set_xticks(xvals[plot_ranks])
+    fig.supxlabel("Eigenvalue indices", fontsize=font_size)
+    fig.supylabel("Eigenvalues", fontsize=font_size)
     if legend:
         plt.legend()
     else:
         # code for separate legend plot
-        handles,labels = ax.get_legend_handles_labels()
+        handles,labels = ax1.get_legend_handles_labels()
         pass
+    # compress y range
+    # plt.ylim([-50,50]) # facebook
+    # plt.ylim([-200,200]) # erdos
+    plt.ylim([-100,100]) # erdos
     # save the plot first
     filename = "_".join(names)
     filename = filename+"_approx_eigvals_"+str(matvecs)
