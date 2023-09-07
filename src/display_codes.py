@@ -44,7 +44,7 @@ def sixColors(method):
     if method == "oth_adp_full":
         color="green" 
     if method == "oth_nonadp_full":
-        color="gold" 
+        color="goldenrod" 
     if method == "sw_nonadp_full":
         color="magenta" 
     if method == "true_spectrum":
@@ -105,7 +105,7 @@ def plotEigvals(names, datasets=["random"],\
     font_size = 16
 
     markers = ["o", "*", "D", "^", "v", "1", "2", "3", "4", "x"]
-    break_rank = 600
+    break_rank = 700
     plot_ranks = list(range(break_rank))+list(range(-break_rank,0,1))
     for dataset in datasets:
         dir_ = os.path.join(default_load_path, dataset)
@@ -137,6 +137,9 @@ def plotEigvals(names, datasets=["random"],\
             trial_ID = 0
             approx_eigvals = load_vars["outputs"]["approx_eigvals"]
             matvecs_req = load_vars["outputs"]["matvecs"]
+            if name == "oth_adp_full":
+                matvecs_req = 2*matvecs_req
+                # print(matvecs_req)
             xvals = np.array(list(range(approx_eigvals.shape[-1])))
             matvecs_ID = np.intersect1d(matvecs_req[np.where(matvecs_req \
                                                     <= matvecs+20)]\
@@ -208,10 +211,10 @@ def plotEigvals(names, datasets=["random"],\
         handles,labels = ax1.get_legend_handles_labels()
         pass
     # compress y range
-    # plt.ylim([-25,50]) # facebook
+    plt.ylim([-25,50]) # facebook
     # plt.ylim(-10,20) # facebook full methods
-    # plt.ylim([-200,200]) # erdos
-    plt.ylim([-100,100]) # random
+    # plt.ylim([-75,100]) # erdos
+    # plt.ylim([-75,75]) # random
     # save the plot first
     filename = "_".join(names)
     filename = filename+"_approx_eigvals_"+str(matvecs)
@@ -270,6 +273,8 @@ def plotErrorForAll(names, datasets=["random"], \
                     load_vars = pickle.load(f)
                 plot_vars = load_vars["plt_vals"]
                 xvals = plot_vars["log_matvecs"]
+                if name == "oth_adp_full":
+                    xvals = np.log(2)+xvals
                 if plot_rank != "lie":
                     yvals = plot_vars["mean_log_errors"][:,plot_rank]
                     ylow = plot_vars["p20_log_errors"][:,plot_rank]
@@ -286,7 +291,24 @@ def plotErrorForAll(names, datasets=["random"], \
                 ax.fill_between(xvals, ylow, yhigh, alpha=0.2, 
                     color=method2color(name))
             if plot_rank == "lie":
-                plt.ylim([-9,2])
+                if dataset == "facebook":
+                    plt.ylim([-5,0])
+                if dataset == "erdos":
+                    plt.ylim([-4,-0.5])
+                if dataset == "random":
+                    plt.ylim([-10,-1])
+                if dataset == "eye":
+                    pass
+                if dataset == "eye_block":
+                    pass
+                if dataset == "wishart_100":
+                    plt.ylim([-10,2.5])
+                if dataset == "wishart_200":
+                    plt.ylim([-10,2.5])
+                if dataset == "wishart_500":
+                    plt.ylim([-10,2.5])
+                if dataset == "wishart_1000":
+                    plt.ylim([-10,2.5])
                 pass
             plt.grid()
             plt.xlabel("Log matvecs", fontsize=font_size)

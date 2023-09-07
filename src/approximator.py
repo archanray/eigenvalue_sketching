@@ -73,7 +73,7 @@ def eigval_approx_othro_adaptive(A, k=1, sr=[], mode=None):
     matvecs += G.shape[1]
 
     Atilde = Q.T @ (A @ Q)
-    #matvecs += V.shape[1]
+    matvecs += V.shape[1]
 
     alpha = compute_alpha(Atilde, A.shape[1])
     if sr !=[]:
@@ -93,11 +93,12 @@ def eigval_approx_ortho_nonadaptive(A, k=1, sr=[], mode=None):
     """
 
     matvecs = 0
+    mult = 2
     S = np.random.normal(0,1/np.sqrt(k), (A.shape[0], k))
-    T = np.random.normal(0,1/np.sqrt(10*k), (A.shape[0], 10*k))
+    T = np.random.normal(0,1/np.sqrt(mult*k), (A.shape[0], mult*k))
     AS = A @ S
     AT = A @ T
-    matvecs += 2 * k
+    matvecs += (mult+1) * k
 
     Btilde = (np.linalg.inv(AS.T @ T @ T.T @ AS)) @ AS.T @ T @ AT.T
     Abar = AS.T @ Btilde.T

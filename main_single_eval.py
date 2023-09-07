@@ -16,6 +16,8 @@ def main(args):
     # set up the parameters
     if args.block_size == "full":
         block_sizes = list(range(10,n+10,50))
+        if args.method == "oth_nonadp":
+            block_sizes= list(range(1,int(n/3),20))
     else:
         block_sizes = [int(args.block_size)]
     if args.method in ["egu_d", "egu_f", "e2", "e3"]:
