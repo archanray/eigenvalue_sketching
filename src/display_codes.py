@@ -253,7 +253,7 @@ def plotErrorForAll(names, datasets=["random"], \
     names.sort()
     font_size = 16
 
-    markers = ["o", "*", "D", "^", "v", "1", "2", "3", "4", "x"]
+    #markers = ["o", "*", "D", "^", "v", "1", "2", "3", "4", "x"]
     for dataset in datasets:
         dir_ = os.path.join(default_load_path, dataset)
         path_root = os.path.join(dir_,adder)
@@ -285,18 +285,18 @@ def plotErrorForAll(names, datasets=["random"], \
                     yhigh = plot_vars["p80_log_lies"]
                 # plt.plot(xvals, yvals, label=name, color=c)
                 # plt.fill_between(xvals, ylow, yhigh, alpha=0.2, color=c)
-                ax.plot(xvals, yvals, label=name, color=method2color(name), \
-                    marker=markers[count])
+                ax.plot(xvals, yvals, label=name, color=method2color(name))#, \
+                    #marker=markers[count])
                 count += 1
                 ax.fill_between(xvals, ylow, yhigh, alpha=0.2, 
                     color=method2color(name))
             if plot_rank == "lie":
                 if dataset == "facebook":
-                    plt.ylim([-5,0])
+                    plt.ylim([-6,0])
                 if dataset == "erdos":
-                    plt.ylim([-4,-0.5])
+                    plt.ylim([-6,0])
                 if dataset == "random":
-                    plt.ylim([-10,-1])
+                    plt.ylim([-10,-0.5])
                 if dataset == "eye":
                     pass
                 if dataset == "eye_block":
