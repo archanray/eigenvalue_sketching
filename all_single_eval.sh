@@ -219,8 +219,8 @@ sbatch -J eye320 -o eye320.out -e eye320.err --nodes 2 --cpus-per-task 12 -p lon
 # sbatch -J eye380 -o eye380.out -e eye380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e3 5 80
 # sbatch -J eye312 -o eye312.out -e eye312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e3 5 120
 
-sbatch -J eye310 -o eybe310.out -e eybe310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block e3 5 10
-sbatch -J eye320 -o eybe320.out -e eybe320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block e3 5 20
+sbatch -J eybe310 -o eybe310.out -e eybe310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block e3 5 10
+sbatch -J eybe320 -o eybe320.out -e eybe320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block e3 5 20
 
 sbatch -J w1e310 -o w1e310.out -e w1e310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_100 e3 5 10
 sbatch -J w1e320 -o w1e320.out -e w1e320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh wishart_100 e3 5 20
