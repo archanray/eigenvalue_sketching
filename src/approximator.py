@@ -258,7 +258,7 @@ def EigenGameUnloaded(M, k=2, iters=100, eta=1e3, sr=[], mode=None):
         alpha = alpha[sr]
     return alpha, matvecs
 
-def EigenGameFeats(X, k=1, iters=100, eta=1e4, sr=[], mode=None):
+def EigenGameFeats(X, k=1, iters=100, eta=1e-1, sr=[], mode=None):
     n = X.shape[0]
     V = np.random.randn(X.shape[0], k)
     # V = np.random.normal(0,1/np.sqrt(k), (X.shape[0], k))
