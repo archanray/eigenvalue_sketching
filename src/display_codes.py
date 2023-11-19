@@ -161,11 +161,17 @@ def plotEigvals(names, datasets=["random"],\
                                             matvecs_ID[0],\
                                             0,\
                                             plot_ranks]
+            # ax1.plot(xvals[plot_ranks], \
+            #             approx_eigvals, color=sixColors(name),\
+            #             label=name)
+            # ax2.plot(xvals[plot_ranks], \
+            #             approx_eigvals, color=sixColors(name),\
+            #             label=name)
             ax1.plot(xvals[plot_ranks], \
-                        approx_eigvals, color=sixColors(name),\
+                        approx_eigvals, color=method2color(name),\
                         label=name)
             ax2.plot(xvals[plot_ranks], \
-                        approx_eigvals, color=sixColors(name),\
+                        approx_eigvals, color=method2color(name),\
                         label=name)
             count += 1
             # print(matvecs_req[0,int(matvecs_ID[0])])
@@ -176,13 +182,21 @@ def plotEigvals(names, datasets=["random"],\
     true_spectrum = load_vars["outputs"]["true_spectrum"]
     # with np.printoptions(threshold=np.inf):
     #     print(true_spectrum)
+    # ax1.plot(xvals[plot_ranks], \
+    #                 true_spectrum[plot_ranks], \
+    #                 color=sixColors("true_spectrum"),\
+    #                 label="true")
+    # ax2.plot(xvals[plot_ranks], \
+    #                 true_spectrum[plot_ranks], \
+    #                 color=sixColors("true_spectrum"),\
+    #                 label="true")
     ax1.plot(xvals[plot_ranks], \
                     true_spectrum[plot_ranks], \
-                    color=sixColors("true_spectrum"),\
+                    color=method2color("true_spectrum"),\
                     label="true")
     ax2.plot(xvals[plot_ranks], \
                     true_spectrum[plot_ranks], \
-                    color=sixColors("true_spectrum"),\
+                    color=method2color("true_spectrum"),\
                     label="true")
     # merge the plots
     ax1.set_xlim(0,break_rank)
@@ -347,7 +361,7 @@ def plotErrorForAll(names, datasets=["random"], \
                 # print(handles)
                 # print(labels)
                 fig_legend = plt.figure()
-                leg = fig_legend.legend(handles, labels, ncol=5, fontsize=font_size)
+                leg = fig_legend.legend(handles, labels, ncol=4, fontsize=font_size)
                 leg_lines = leg.get_lines()
                 plt.setp(leg_lines, linewidth=2)
                 # for line in leg.legendHandles:
