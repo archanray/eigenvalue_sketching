@@ -3,25 +3,25 @@
 # sbatch -J fbed10 -o fbed10.out -e fbed10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook eigengame_deflate 5 10
 # sbatch -J fbed20 -o fbed20.out -e fbed20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook eigengame_deflate 5 20
 # sbatch -J fbed40 -o fbed40.out -e fbed40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook eigengame_deflate 5 40
-sbatch -J fbed80 -o fbed80.out -e fbed80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook eigengame_deflate 5 80
+# sbatch -J fbed80 -o fbed80.out -e fbed80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook eigengame_deflate 5 80
 # sbatch -J fbed12 -o fbed12.out -e fbed12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook eigengame_deflate 5 120
 # sbatch -J fbef10 -o fbef10.out -e fbef10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook eigengame_flip 5 10
 # sbatch -J fbef20 -o fbef20.out -e fbef20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook eigengame_flip 5 20
 # sbatch -J fbef40 -o fbef40.out -e fbef40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook eigengame_flip 5 40
 # sbatch -J fbef80 -o fbef80.out -e fbef80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook eigengame_flip 5 80
-sbatch -J fbef12 -o fbef12.out -e fbef12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook eigengame_flip 5 120
+# sbatch -J fbef12 -o fbef12.out -e fbef12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook eigengame_flip 5 120
 # sbatch -J fbbki10 -o fbbki10.out -e fbbki10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook bki_adp_Q 5 10
 # sbatch -J fbbki20 -o fbbki20.out -e fbbki20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook bki_adp_Q 5 20
 # sbatch -J fbbki40 -o fbbki40.out -e fbbki40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook bki_adp_Q 5 40
 # sbatch -J fbbki80 -o fbbki80.out -e fbbki80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook bki_adp_Q 5 80
 # sbatch -J fbbki12 -o fbbki12.out -e fbbki12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook bki_adp_Q 5 120
-sbatch -J fboad -o fboad.out -e fboad.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook oth_adp 5 full
+# sbatch -J fboad -o fboad.out -e fboad.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook oth_adp 5 full
 # sbatch -J fbona -o fbona.out -e fbona.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook oth_nonadp 5 full
 # sbatch -J fbsna -o fbsna.out -e fbsna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh facebook sw_nonadp 5 full
 
 # sbatch -J rnded10 -o rnded10.out -e rnded10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random eigengame_deflate 5 10
 # sbatch -J rnded20 -o rnded20.out -e rnded20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random eigengame_deflate 5 20
-sbatch -J rnded40 -o rnded40.out -e rnded40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random eigengame_deflate 5 40
+# sbatch -J rnded40 -o rnded40.out -e rnded40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random eigengame_deflate 5 40
 # sbatch -J rnded80 -o rnded80.out -e rnded80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random eigengame_deflate 5 80
 # sbatch -J rnded12 -o rnded12.out -e rnded12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random eigengame_deflate 5 120
 # sbatch -J rndef10 -o rndef10.out -e rndef10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random eigengame_flip 5 10
@@ -30,19 +30,19 @@ sbatch -J rnded40 -o rnded40.out -e rnded40.err --nodes 2 --cpus-per-task 12 -p 
 # sbatch -J rndef80 -o rndef80.out -e rndef80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random eigengame_flip 5 80
 # sbatch -J rndef12 -o rndef12.out -e rndef12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random eigengame_flip 5 120
 # sbatch -J rndbki10 -o rndbki10.out -e rndbki10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random bki_adp_Q 5 10
-sbatch -J rndbki20 -o rndbki20.out -e rndbki20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random bki_adp_Q 5 20
-sbatch -J rndbki40 -o rndbki40.out -e rndbki40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random bki_adp_Q 5 40
+# sbatch -J rndbki20 -o rndbki20.out -e rndbki20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random bki_adp_Q 5 20
+# sbatch -J rndbki40 -o rndbki40.out -e rndbki40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random bki_adp_Q 5 40
 # sbatch -J rndbki80 -o rndbki80.out -e rndbki80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random bki_adp_Q 5 80
 # sbatch -J rndbki12 -o rndbki12.out -e rndbki12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random bki_adp_Q 5 120
 # sbatch -J rndoad -o rndoad.out -e rndoad.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random oth_adp 5 full
 # sbatch -J rndona -o rndona.out -e rndona.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random oth_nonadp 5 full
-sbatch -J rndsna -o rndsna.out -e rndsna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random sw_nonadp 5 full
+# sbatch -J rndsna -o rndsna.out -e rndsna.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh random sw_nonadp 5 full
 
 # sbatch -J rdsed10 -o rdsed10.out -e rdsed10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh erdos eigengame_deflate 5 10
 # sbatch -J rdsed20 -o rdsed20.out -e rdsed20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh erdos eigengame_deflate 5 20
 # sbatch -J rdsed40 -o rdsed40.out -e rdsed40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh erdos eigengame_deflate 5 40
 # sbatch -J rdsed80 -o rdsed80.out -e rdsed80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh erdos eigengame_deflate 5 80
-sbatch -J rdsed12 -o rdsed12.out -e rdsed12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh erdos eigengame_deflate 5 120
+# sbatch -J rdsed12 -o rdsed12.out -e rdsed12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh erdos eigengame_deflate 5 120
 # sbatch -J rdsef10 -o rdsef10.out -e rdsef10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh erdos eigengame_flip 5 10
 # sbatch -J rdsef20 -o rdsef20.out -e rdsef20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh erdos eigengame_flip 5 20
 # sbatch -J rdsef40 -o rdsef40.out -e rdsef40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_eval.sh erdos eigengame_flip 5 40
