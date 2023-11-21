@@ -359,6 +359,11 @@ def plotErrorForAll(names, datasets=["random"], \
                 rank_x_axis_val = np.log(rank)
                 # plot a vertical line
                 plt.axvline(x=rank_x_axis_val, color="cyan")
+            if "eye_block" in dataset:
+                rank = 100
+                rank_x_axis_val = np.log(rank)
+                # plot a vertical line
+                plt.axvline(x=rank_x_axis_val, color="cyan")
 
             filename = "_".join(names)
             filename = filename+"_"+str(plot_rank)
