@@ -49,6 +49,8 @@ def sixColors(method):
         color="magenta" 
     if method == "true_spectrum":
         color="k"
+    if method == "bki_adp_Q_40":
+        color = "brown"
     return color
 
 def display_image(image):
@@ -161,18 +163,18 @@ def plotEigvals(names, datasets=["random"],\
                                             matvecs_ID[0],\
                                             0,\
                                             plot_ranks]
-            # ax1.plot(xvals[plot_ranks], \
-            #             approx_eigvals, color=sixColors(name),\
-            #             label=name)
-            # ax2.plot(xvals[plot_ranks], \
-            #             approx_eigvals, color=sixColors(name),\
-            #             label=name)
             ax1.plot(xvals[plot_ranks], \
-                        approx_eigvals, color=method2color(name),\
+                        approx_eigvals, color=sixColors(name),\
                         label=name)
             ax2.plot(xvals[plot_ranks], \
-                        approx_eigvals, color=method2color(name),\
+                        approx_eigvals, color=sixColors(name),\
                         label=name)
+            # ax1.plot(xvals[plot_ranks], \
+            #             approx_eigvals, color=method2color(name),\
+            #             label=name)
+            # ax2.plot(xvals[plot_ranks], \
+            #             approx_eigvals, color=method2color(name),\
+            #             label=name)
             count += 1
             # print(matvecs_req[0,int(matvecs_ID[0])])
             # print(approx_eigvals.shape[-1])
@@ -182,22 +184,22 @@ def plotEigvals(names, datasets=["random"],\
     true_spectrum = load_vars["outputs"]["true_spectrum"]
     # with np.printoptions(threshold=np.inf):
     #     print(true_spectrum)
-    # ax1.plot(xvals[plot_ranks], \
-    #                 true_spectrum[plot_ranks], \
-    #                 color=sixColors("true_spectrum"),\
-    #                 label="true")
-    # ax2.plot(xvals[plot_ranks], \
-    #                 true_spectrum[plot_ranks], \
-    #                 color=sixColors("true_spectrum"),\
-    #                 label="true")
     ax1.plot(xvals[plot_ranks], \
                     true_spectrum[plot_ranks], \
-                    color=method2color("true_spectrum"),\
+                    color=sixColors("true_spectrum"),\
                     label="true")
     ax2.plot(xvals[plot_ranks], \
                     true_spectrum[plot_ranks], \
-                    color=method2color("true_spectrum"),\
+                    color=sixColors("true_spectrum"),\
                     label="true")
+    # ax1.plot(xvals[plot_ranks], \
+    #                 true_spectrum[plot_ranks], \
+    #                 color=method2color("true_spectrum"),\
+    #                 label="true")
+    # ax2.plot(xvals[plot_ranks], \
+    #                 true_spectrum[plot_ranks], \
+    #                 color=method2color("true_spectrum"),\
+    #                 label="true")
     # merge the plots
     ax1.set_xlim(0,break_rank)
     ax2.set_xlim(xvals[-break_rank],xvals[-1])
@@ -242,7 +244,7 @@ def plotEigvals(names, datasets=["random"],\
         # print(handles)
         # print(labels)
         fig_legend = plt.figure()
-        leg = fig_legend.legend(handles, labels, ncol=6, fontsize=font_size)
+        leg = fig_legend.legend(handles, labels, ncol=3, fontsize=font_size)
         leg_lines = leg.get_lines()
         plt.setp(leg_lines, linewidth=2)
         # for line in leg.legendHandles:
@@ -299,24 +301,36 @@ def plotErrorForAll(names, datasets=["random"], \
                     yhigh = plot_vars["p80_log_lies"]
                 # plt.plot(xvals, yvals, label=name, color=c)
                 # plt.fill_between(xvals, ylow, yhigh, alpha=0.2, color=c)
-                ax.plot(xvals, yvals, label=name, color=method2color(name))#, \
+                ax.plot(xvals, yvals, label=name, color=sixColors(name))#, \
                     #marker=markers[count])
                 count += 1
                 ax.fill_between(xvals, ylow, yhigh, alpha=0.2, 
-                    color=method2color(name))
+                    color=sixColors(name))
             if plot_rank == "lie":
                 if dataset == "facebook":
                     plt.ylim([-6,0])
+                    # # for adaptive
+                    # plt.ylim([-4.5,-0.5])
+                    # # # for nonadaptive
+                    # plt.ylim([-5.0,0])
                 if dataset == "erdos":
                     plt.ylim([-6,0])
+                    # # for adaptive
+                    # plt.ylim([-4.2,0])
+                    # # for nonadaptive
+                    # plt.ylim([-4.0,0])
                 if dataset == "random":
-                    plt.ylim([-10,-0.5])
+                    # plt.ylim([-10,-0.5])
+                    # # for adaptive
+                    # plt.ylim([-6,-3.5])
+                    # for nonadaptive
+                    plt.ylim([-6,-0.5])
                 if dataset == "eye":
                     pass
                 if dataset == "eye_block":
                     pass
                 if dataset == "wishart_100":
-                    plt.ylim([-10,2.5])
+                    plt.ylim([-10,2.0])
                 if dataset == "wishart_200":
                     plt.ylim([-10,2.5])
                 if dataset == "wishart_500":
@@ -344,7 +358,7 @@ def plotErrorForAll(names, datasets=["random"], \
                 rank = int(dataset.split("_")[-1])
                 rank_x_axis_val = np.log(rank)
                 # plot a vertical line
-                plt.axvline(x=rank_x_axis_val, color="green")
+                plt.axvline(x=rank_x_axis_val, color="cyan")
 
             filename = "_".join(names)
             filename = filename+"_"+str(plot_rank)
