@@ -10,3 +10,6 @@
 ### Entry Codes:
 1. To run approximations on a single dataset use: `main_single_eval.py`. The outputs are stored in the directory: `results`.
 2. To plot errors and eigenvalues use: `main_for_single_evals_display.py`. The outputs are stored in the directory: `figures`.
+
+### TODO:
+1. Create a python package. Adding various sampling methods.
