@@ -51,6 +51,10 @@ def sixColors(method):
         color="k"
     if method == "bki_adp_Q_40":
         color = "brown"
+    if method == "e4_10":
+        color = "darkturquoise"
+    if method == "e4_20":
+        color = "chocolate"
     return color
 
 def display_image(image):
@@ -314,7 +318,8 @@ def plotErrorForAll(names, datasets=["random"], \
                     # # # for nonadaptive
                     # plt.ylim([-5.0,0])
                 if dataset == "erdos":
-                    plt.ylim([-6,0])
+                    pass
+                    # plt.ylim([-6,0])
                     # # for adaptive
                     # plt.ylim([-4.2,0])
                     # # for nonadaptive
