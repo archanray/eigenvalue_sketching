@@ -7,6 +7,7 @@ from src.approximator import eigval_approx_SW_nonadaptive as sw_nonadp
 from src.approximator import EigenGameUnloaded as egu
 from src.approximator import EigenGameUnloaded2 as egu2
 from src.approximator import EigenGameFeats as egf
+from src.approximator import EigenGameQR as egq
 from src.approximator import eigval_approx_random_sample as ears
 
 def StrToFunc(name: str):
@@ -19,6 +20,7 @@ def StrToFunc(name: str):
                     "rand_samp": ears,
                     "e2": egu2,
                     "e3": egf,
+                    "e4": egq,
                     }
 
     if "bki" in name:

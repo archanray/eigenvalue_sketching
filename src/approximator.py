@@ -292,6 +292,45 @@ def EigenGameFeats(X, k=1, iters=100, eta=5e3, sr=[], mode=None):
         alpha = alpha[sr]
     return alpha, matvecs
 
+def EigenGameQR(X, k=1, iters=100, eta=5e3, sr=[], mode=None):
+    n = X.shape[0]
+    V = np.random.randn(X.shape[0], k)
+    # V = np.random.normal(0,1/np.sqrt(k), (X.shape[0], k))
+    V /= np.linalg.norm(V, axis=0, keepdims=True)
+
+    matvecs = 0
+    mask = np.tril(np.ones((k,k)), k=-1)
+
+    # additional data structure to store the updates at each step
+    K = np.empty_like(V)
+
+    for _ in range(iters):
+        XV = np.dot(X, V)
+        matvecs += k
+        VTMV = np.dot(XV.T, XV)
+        penalties = np.dot(V, (VTMV*mask).T)
+        ojas = np.dot(X.T, XV)
+        matvecs += k
+        grad = ojas-penalties
+        V+= eta * grad
+        V /= np.linalg.norm(V, axis=0)
+
+        # add the update to a the lib    
+        K = np.concatenate((K, V), axis = 1)
+
+    # QR of the lib to get the top-k subspace
+    Q, R = qr(K)
+
+    # actual approximation
+    VTMV = np.dot(Q.T, X.dot(Q))
+    matvecs += k
+
+    alpha = compute_alpha(VTMV, n)
+    
+    if sr !=[]:
+        alpha = alpha[sr]
+    return alpha, matvecs
+
 def EigenGameUnloaded2(M, k=2, iters=100, eta=1e3, sr=[], mode=None):
   n = M.shape[1]
   vtop = np.random.randn(M.shape[0])
