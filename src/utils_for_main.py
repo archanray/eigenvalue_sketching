@@ -27,6 +27,10 @@ def StrToFunc(name: str):
         return dict_of_funcs["bki"], name.split("_")[-1]
     elif "egu" in name:
         return dict_of_funcs["egu"], name.split("_")[-1]
+    elif "e4" in name:
+        return dict_of_funcs["e4"], name.split("_")[-1]
+    elif "e3" in name:
+        return dict_of_funcs["e3"], name.split("_")[-1]
     else:
         return dict_of_funcs[name], None
 
@@ -59,7 +63,7 @@ def computer(args, params, true_mat, method, mode, m1, m2):
             k = params["block_sizes"][i]
             for j in tqdm(range(len(params["iters"]))):
                 if args.method in ["egu_d", "egu_f", "e2", "e3"] or\
-                                "bki" in args.method:
+                                "bki" in args.method or "e4" in args.method:
                     ite = params["iters"][j]
                     eigvals, matvecs = method(true_mat, \
                                               k=k, iters=ite,\

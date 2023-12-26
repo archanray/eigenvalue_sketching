@@ -20,13 +20,14 @@ def main(args):
             block_sizes= list(range(1,int(n/3),20))
     else:
         block_sizes = [int(args.block_size)]
-    if args.method in ["egu_d", "egu_f", "e2", "e3", "e4"]:
+    if args.method in ["egu_d", "egu_f", "e2"]:
         iters = list(range( 0, mapper(int(args.block_size),n,1), 5 ))
     elif "bki" in args.method or "e3" in args.method or "e4" in args.method:
-        iters = list(range( 0, mapper(int(args.block_size),n,2), 50 ))
+        iters = list(range( 0, mapper(int(args.block_size),n,2), 10 ))
     else:
         iters = [0]
     params = {"block_sizes": block_sizes, "iters": iters, "mode": mode}
+    print(params)
 
     # grab the true spectrum
     true_spectrum = get_eigs(true_mat, args.search_ranks)
