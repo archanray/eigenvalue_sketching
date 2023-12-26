@@ -52,9 +52,9 @@ def sixColors(method):
     if method == "bki_adp_Q_40":
         color = "brown"
     if method == "e4_10":
-        color = "darkturquoise"
+        color = "darkslateblue"
     if method == "e4_20":
-        color = "chocolate"
+        color = "slateblue"
     if method == "e3_10":
         color = "darkturquoise"
     if method == "e3_20":
@@ -269,7 +269,7 @@ def plotErrorForAll(names, datasets=["random"], \
                     adder="single_eval_method_",
                     plot_ranks=["lie"],
                     dest_="figures/",
-                    legend=True,SVD=True):
+                    legend=True,SVD=False):
     import pickle
     from matplotlib.pyplot import cm
     # import colorcet as cc
@@ -332,21 +332,20 @@ def plotErrorForAll(names, datasets=["random"], \
                     color=sixColors(name))
             if plot_rank == "lie":
                 if dataset == "facebook":
-                    # plt.ylim([-6,0])
+                    plt.ylim([-6,0])
                     # # for adaptive
                     # plt.ylim([-4.5,-0.5])
                     # # # for nonadaptive
                     # plt.ylim([-5.0,0])
                     pass
                 if dataset == "erdos":
-                    pass
-                    # plt.ylim([-6,0])
+                    plt.ylim([-6,0])
                     # # for adaptive
                     # plt.ylim([-4.2,0])
                     # # for nonadaptive
                     # plt.ylim([-4.0,0])
                 if dataset == "random":
-                    # plt.ylim([-10,-0.5])
+                    plt.ylim([-10,-0.5])
                     # # for adaptive
                     # plt.ylim([-6,-3.5])
                     # for nonadaptive
