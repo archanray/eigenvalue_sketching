@@ -55,6 +55,10 @@ def sixColors(method):
         color = "darkturquoise"
     if method == "e4_20":
         color = "chocolate"
+    if method == "e3_10":
+        color = "darkturquoise"
+    if method == "e3_20":
+        color = "chocolate"
     return color
 
 def display_image(image):
@@ -265,7 +269,7 @@ def plotErrorForAll(names, datasets=["random"], \
                     adder="single_eval_method_",
                     plot_ranks=["lie"],
                     dest_="figures/",
-                    legend=True):
+                    legend=True,SVD=True):
     import pickle
     from matplotlib.pyplot import cm
     # import colorcet as cc
@@ -277,6 +281,22 @@ def plotErrorForAll(names, datasets=["random"], \
     for dataset in datasets:
         dir_ = os.path.join(default_load_path, dataset)
         path_root = os.path.join(dir_,adder)
+        if SVD == True:
+            print("computing SVD")
+            # load matrix
+            from src.get_dataset import get_data
+            from src.utils import sort_descending as sd
+            true_mat, _, _, _ = get_data(dataset)
+            # compute SVD
+            U,S,V = np.linalg.svd(true_mat)
+            Atilde = U @ true_mat @ U.T
+            # compute eigs
+            alpha, _ = np.linalg.eig(Atilde)
+            alpha = sd(np.real(alpha))
+            eigs,_ = np.linalg.eig(true_mat)
+            eigs = sd(np.real(eigs))
+            svd_errors = np.log((np.abs(alpha - eigs)+1e-32) / (np.max(np.abs(eigs)+1e-32)))
+            pass
         for plot_rank in plot_ranks:
             # n=len(names)
             plt.gcf().clf()
@@ -312,11 +332,12 @@ def plotErrorForAll(names, datasets=["random"], \
                     color=sixColors(name))
             if plot_rank == "lie":
                 if dataset == "facebook":
-                    plt.ylim([-6,0])
+                    # plt.ylim([-6,0])
                     # # for adaptive
                     # plt.ylim([-4.5,-0.5])
                     # # # for nonadaptive
                     # plt.ylim([-5.0,0])
+                    pass
                 if dataset == "erdos":
                     pass
                     # plt.ylim([-6,0])
@@ -329,7 +350,8 @@ def plotErrorForAll(names, datasets=["random"], \
                     # # for adaptive
                     # plt.ylim([-6,-3.5])
                     # for nonadaptive
-                    plt.ylim([-6,-0.5])
+                    # plt.ylim([-6,-0.5])
+                    pass
                 if dataset == "eye":
                     pass
                 if dataset == "eye_block":
@@ -359,6 +381,7 @@ def plotErrorForAll(names, datasets=["random"], \
             else:
                 plt.title("Maximum eigval="+str(round(\
                     plot_vars["max_abs_eigval"],3)),fontsize=font_size)
+            # horizontal line for ranks
             if "wishart" in dataset:
                 rank = int(dataset.split("_")[-1])
                 rank_x_axis_val = np.log(rank)
@@ -369,7 +392,15 @@ def plotErrorForAll(names, datasets=["random"], \
                 rank_x_axis_val = np.log(rank)
                 # plot a vertical line
                 plt.axvline(x=rank_x_axis_val, color="cyan")
-
+            # vertical line for svd results
+            if SVD == True:
+                if plot_rank == "lie":
+                    max_error = np.max(svd_errors)
+                    plt.axhline(y=max_error, color="darkorange")
+                else:
+                    error = svd_errors[plot_rank]
+                    plt.axhline(y=error, color="darkorange")
+                pass
             filename = "_".join(names)
             filename = filename+"_"+str(plot_rank)
 
