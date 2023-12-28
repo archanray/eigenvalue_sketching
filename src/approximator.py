@@ -190,71 +190,67 @@ def eigval_approx_random_sample(A, k=1, sr=[], method=None):
     #print("checks:", SAS.shape, A.shape)
     return alpha, matvecs
 
-def EigenGameUnloaded(M, k=2, iters=100, eta=1e3, sr=[], mode=None):
-    n = M.shape[1]
-    k = k//2
+def EigenGameUnloaded(M, k=2, iters=100, eta=2e3, sr=[], mode="EGN"):
+    """
+    This function implements several variations of eigengames
+    1. Eigengames naive (EGN) -- this is the base eigengames function on 
+    input matrix M
+    2. Eigengames + subspace approximation (EGQR) -- this requires saving 
+    the subspace at each iteration and then computing a QR of this is the
+    approximate subspace
+    3. Sketch eigengames (SEG) -- compute a sketch of the input matrix and
+    then run eigengames. Notably, only one MV query is required
+    4. Sketch eigengames + subspace approximation (SEGQR) -- compute a 
+    sketch of the input matrix and then run EGQR. Notably, only one MV 
+    query is required
+    """
+    if mode not in ["EGUN", "EGQR", "SEG", "SEGQR"]:
+        print("mode not set correctly")
+        return None
+    if mode in ["SEG", "SEGQR"]:
+        V = np.random.randn(M.shape[0], k)
+        V /= np.sqrt(k)
+        M = np.dot(V.T, M.dot(V)) # first compute a sketch of the input matrix
+        matvecs = k
+        n = M.shape[1]
+    else:
+        n = M.shape[1]    
     V = np.random.randn(M.shape[0], k)
     V /= np.linalg.norm(V, axis=0, keepdims=True)
-    k = V.shape[1]
 
-    matvecs = 0
+    if mode in ["EGUN", "EGQR"]:
+        # initialize matvecs for eigengames-naive or eigengames-QR
+        matvecs = 0
+    if "QR" in mode:
+        K = np.empty_like(V)
     mask = np.tril(np.ones((k, k)), k=-1)
-    for _ in range(iters//2):
-        VTMV = np.dot(V.T, M.dot(V))
-        matvecs += k
+    for _ in range(iters):
+        MV = np.dot(M, V)
+        VTMV = np.dot(V.T, MV)
         penalties = np.dot(V, (VTMV * mask).T)
-        ojas = np.dot(M, V)
+        ojas = MV
         grad = ojas - penalties
         V += eta * grad
         V /= np.linalg.norm(V, axis=0)
+        if mode in ["EGUN", "EGQR"]:
+            # increase matvecs for eigengames-naive or eigengames-QR
+            # one k for MV. The ojas step is free since MV is computed in VTMV
+            matvecs += k
+        if "QR" in mode:
+            # if we need to do QR, we save the subspace first
+            # this is a free MV step
+            K = np.concatenate((K, V), axis = 1)    
 
+    if "QR" in mode:
+        # compute QR decomposition of K
+        Q, R = qr(K)
+        V = Q
     VTMV = np.dot(V.T, M.dot(V))
-    if mode == "d":
-        a1 = compute_alpha(VTMV, n//2)
-        pass
-    if mode == "f":
-        a1 = compute_alpha(VTMV, n//2)
-        # a1 = np.diag(VTMV)
-    matvecs += k
-
-    if mode == "d":
-        # deflate
-        Mbar = V @ (((V.T @ M) @ V) @ V.T) - M
-    if mode == "f":
-        # flip with max eigval
-        lambs = np.max(np.diag(VTMV))
-        Mbar = 1.05 * lambs*np.eye(M.shape[1]) - M
-
-    V = np.random.randn(M.shape[0], k)
-    V /= np.linalg.norm(V, axis=0, keepdims=True)
-
-    # eg_def = np.real(np.linalg.eig(Mbar)[0])
-    # print("mix max eigvals after deflation:", min(eg_def), max(eg_def))
-
-    for _ in range(iters//2):
-        VTMV = np.dot(V.T, Mbar.dot(V))
+    if mode in ["EGUN", "EGQR"]:
+        # then VTMV requires matvecs, else M is a sketch of the input M
         matvecs += k
-        penalties = np.dot(V, (VTMV * mask).T)
-        ojas = np.dot(Mbar, V)
-        grad = ojas - penalties
-        V += eta * grad
-        V /= np.linalg.norm(V, axis=0)
-    
-    VTMV = np.dot(V.T, M.dot(V))
-    if mode == "d":
-        a2 = compute_alpha(VTMV, n//2)
-    if mode == "f":
-        a2 = compute_alpha(VTMV, n//2)
-        # a2 = np.diag(VTMV)
-    matvecs += k
-
-    alpha = np.concatenate((a1, a2), axis=0)
-    if len(alpha) != n:
-        alpha = np.pad(alpha, pad_width=(0,n-len(alpha)), \
-                        mode="constant", constant_values=0)
-    alpha = sd(alpha)
-
-    if sr !=[]:
+    alpha = compute_alpha(VTMV, n)
+    if sr != []:
         alpha = alpha[sr]
     return alpha, matvecs
 
@@ -280,14 +276,6 @@ def EigenGameFeats(X, k=1, iters=100, eta=5e3, sr=[], mode=None):
     VTMV = np.dot(V.T, X.dot(V))
     matvecs += k
     alpha = compute_alpha(VTMV, n)
-    # Q, R = qr(X @ V)
-    # matvecs += k
-    # Atilde = Q.T @ (X @ Q)
-    # matvecs += k
-    # alpha = compute_alpha(Atilde, n)
-    # import matplotlib.pyplot as plt
-    # plt.scatter(list(range(n)), alpha)
-    # plt.show()
     if sr !=[]:
         alpha = alpha[sr]
     return alpha, matvecs
@@ -315,7 +303,7 @@ def EigenGameQR(X, k=1, iters=100, eta=5e3, sr=[], mode=None):
         V+= eta * grad
         V /= np.linalg.norm(V, axis=0)
 
-        # add the update to a the lib    
+        # add the update to the lib    
         K = np.concatenate((K, V), axis = 1)
 
     # QR of the lib to get the top-k subspace
