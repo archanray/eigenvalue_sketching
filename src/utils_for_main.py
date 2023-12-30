@@ -9,6 +9,8 @@ from src.approximator import EigenGameUnloaded2 as egu2
 from src.approximator import EigenGameFeats as egf
 from src.approximator import EigenGameQR as egq
 from src.approximator import eigval_approx_random_sample as ears
+from src.approximator import EigenGameUnloadedOptions as eguo
+from src.approximator import EigenGameFeatsOptions as egfuo
 
 def StrToFunc(name: str):
     dict_of_funcs = {
@@ -21,6 +23,14 @@ def StrToFunc(name: str):
                     "e2": egu2,
                     "e3": egf,
                     "e4": egq,
+                    "egun": eguo,
+                    "segun": eguo,
+                    "egqr": eguo,
+                    "segqr": eguo,
+                    "egfun": egfuo,
+                    "segfun": egfuo,
+                    "egfqr": egfuo,
+                    "segfqr": egfuo
                     }
 
     if "bki" in name:
@@ -31,6 +41,16 @@ def StrToFunc(name: str):
         return dict_of_funcs["e4"], name.split("_")[-1]
     elif "e3" in name:
         return dict_of_funcs["e3"], name.split("_")[-1]
+    elif "egun" in name or "egqr" in name or "egfun" in name or "egfqr" in name:
+        return dict_of_funcs[name.split("_")[0]], name.split("_")[-1]
+    elif "segun" in name or "segqr" in name or "segfun" in name or "segfqr" in name:
+        return dict_of_funcs[name.split("_")[0]], None
+    elif "segqr" in name:
+        return dict_of_funcs["segqr"], None
+    elif "egfun" in name:
+        return dict_of_funcs["segfun"], None
+    elif "egfqr" in name:
+        return dict_of_funcs["segfqr"], None
     else:
         return dict_of_funcs[name], None
 
@@ -68,6 +88,17 @@ def computer(args, params, true_mat, method, mode, m1, m2):
                     eigvals, matvecs = method(true_mat, \
                                               k=k, iters=ite,\
                                               sr=args.search_ranks, mode=mode)
+                elif args.method in ["egun", "egqr", "egfun", "egfqr"]:
+                    # all variations of eigengames naive are in here
+                    ite = params["iters"][j]
+                    eigvals, matvecs = method(true_mat, \
+                                              k=k, iters=ite,\
+                                              sr=args.search_ranks, mode=args.method.upper())
+                elif args.method in ["segun", "segqr", "segfun", "segfqr"]:
+                    # all variations of sketch eigengames are in here
+                    eigvals, matvecs = method(true_mat, \
+                                              k=k,\
+                                              sr=args.search_ranks, mode=args.method.upper())
                 else:
                     eigvals, matvecs = method(true_mat, \
                                               k=k,\
