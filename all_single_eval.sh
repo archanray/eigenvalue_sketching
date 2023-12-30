@@ -188,6 +188,49 @@
 # sbatch -J w8ondp -o w8ondp.out -e w8ondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_80 oth_nonadp 5
 # sbatch -J ebondp -o ebondp.out -e ebondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye_block oth_nonadp 5
 
+sbatch -J fbsegun -o fbsegun.out -e fbsegun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh facebook segun 5
+sbatch -J rmsegun -o rmsegun.out -e rmsegun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh random segun 5
+sbatch -J rssegun -o rssegun.out -e rssegun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh erdos segun 5
+sbatch -J eysegun -o eysegun.out -e eysegun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye segun 5
+sbatch -J rxsegun -o rxsegun.out -e rxsegun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh arxiv segun 5
+sbatch -J w1segun -o w1segun.out -e w1segun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_10 segun 5
+sbatch -J w2segun -o w2segun.out -e w2segun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_20 segun 5
+sbatch -J w4segun -o w4segun.out -e w4segun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_40 segun 5
+sbatch -J w8segun -o w8segun.out -e w8segun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_80 segun 5
+sbatch -J ebsegun -o ebsegun.out -e ebsegun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye_block segun 5
+
+sbatch -J fbsegfun -o fbsegfun.out -e fbsegfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh facebook segfun 5
+sbatch -J rmsegfun -o rmsegfun.out -e rmsegfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh random segfun 5
+sbatch -J rssegfun -o rssegfun.out -e rssegfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh erdos segfun 5
+sbatch -J eysegfun -o eysegfun.out -e eysegfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye segfun 5
+sbatch -J rxsegfun -o rxsegfun.out -e rxsegfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh arxiv segfun 5
+sbatch -J w1segfun -o w1segfun.out -e w1segfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_10 segfun 5
+sbatch -J w2segfun -o w2segfun.out -e w2segfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_20 segfun 5
+sbatch -J w4segfun -o w4segfun.out -e w4segfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_40 segfun 5
+sbatch -J w8segfun -o w8segfun.out -e w8segfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_80 segfun 5
+sbatch -J ebsegfun -o ebsegfun.out -e ebsegfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye_block segfun 5
+
+sbatch -J fbsegqr -o fbsegqr.out -e fbsegqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh facebook segqr 5
+sbatch -J rmsegqr -o rmsegqr.out -e rmsegqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh random segqr 5
+sbatch -J rssegqr -o rssegqr.out -e rssegqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh erdos segqr 5
+sbatch -J eysegqr -o eysegqr.out -e eysegqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye segqr 5
+sbatch -J rxsegqr -o rxsegqr.out -e rxsegqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh arxiv segqr 5
+sbatch -J w1segqr -o w1segqr.out -e w1segqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_10 segqr 5
+sbatch -J w2segqr -o w2segqr.out -e w2segqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_20 segqr 5
+sbatch -J w4segqr -o w4segqr.out -e w4segqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_40 segqr 5
+sbatch -J w8segqr -o w8segqr.out -e w8segqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_80 segqr 5
+sbatch -J ebsegqr -o ebsegqr.out -e ebsegqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye_block segqr 5
+
+sbatch -J fbsegfqr -o fbsegfqr.out -e fbsegfqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh facebook segfqr 5
+sbatch -J rmsegfqr -o rmsegfqr.out -e rmsegfqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh random segfqr 5
+sbatch -J rssegfqr -o rssegfqr.out -e rssegfqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh erdos segfqr 5
+sbatch -J eysegfqr -o eysegfqr.out -e eysegfqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye segfqr 5
+sbatch -J rxsegfqr -o rxsegfqr.out -e rxsegfqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh arxiv segfqr 5
+sbatch -J w1segfqr -o w1segfqr.out -e w1segfqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_10 segfqr 5
+sbatch -J w2segfqr -o w2segfqr.out -e w2segfqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_20 segfqr 5
+sbatch -J w4segfqr -o w4segfqr.out -e w4segfqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_40 segfqr 5
+sbatch -J w8segfqr -o w8segfqr.out -e w8segfqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_80 segfqr 5
+sbatch -J ebsegfqr -o ebsegfqr.out -e ebsegfqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye_block segfqr 5
 
 # sbatch -J w10ondp -o w10ondp.out -e w10ondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_100 oth_nonadp 5
 # sbatch -J w20ondp -o w20ondp.out -e w20ondp.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_200 oth_nonadp 5
@@ -201,11 +244,35 @@
 # sbatch -J fbe380 -o fbe380.out -e fbe380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e3 5 80
 # sbatch -J fbe312 -o fbe312.out -e fbe312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e3 5 120
 
-sbatch -J fbe410 -o fbe410.out -e fbe410.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e4 5 10
-sbatch -J fbe420 -o fbe420.out -e fbe420.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e4 5 20
-sbatch -J fbe440 -o fbe440.out -e fbe440.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e4 5 40
-sbatch -J fbe480 -o fbe480.out -e fbe480.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e4 5 80
-sbatch -J fbe412 -o fbe412.out -e fbe412.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e4 5 120
+# sbatch -J fbe410 -o fbe410.out -e fbe410.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e4 5 10
+# sbatch -J fbe420 -o fbe420.out -e fbe420.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e4 5 20
+# sbatch -J fbe440 -o fbe440.out -e fbe440.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e4 5 40
+# sbatch -J fbe480 -o fbe480.out -e fbe480.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e4 5 80
+# sbatch -J fbe412 -o fbe412.out -e fbe412.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook e4 5 120
+
+sbatch -J fbegun10 -o fbegun10.out -e fbegun10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egun 5 10
+sbatch -J fbegun20 -o fbegun20.out -e fbegun20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egun 5 20
+sbatch -J fbegun40 -o fbegun40.out -e fbegun40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egun 5 40
+sbatch -J fbegun80 -o fbegun80.out -e fbegun80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egun 5 80
+sbatch -J fbegun12 -o fbegun12.out -e fbegun12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egun 5 120
+
+sbatch -J fbegfun10 -o fbegfun10.out -e fbegfun10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egfun 5 10
+sbatch -J fbegfun20 -o fbegfun20.out -e fbegfun20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egfun 5 20
+sbatch -J fbegfun40 -o fbegfun40.out -e fbegfun40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egfun 5 40
+sbatch -J fbegfun80 -o fbegfun80.out -e fbegfun80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egfun 5 80
+sbatch -J fbegfun12 -o fbegfun12.out -e fbegfun12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egfun 5 120
+
+sbatch -J fbegqr10 -o fbegqr10.out -e fbegqr10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egqr 5 10
+sbatch -J fbegqr20 -o fbegqr20.out -e fbegqr20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egqr 5 20
+sbatch -J fbegqr40 -o fbegqr40.out -e fbegqr40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egqr 5 40
+sbatch -J fbegqr80 -o fbegqr80.out -e fbegqr80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egqr 5 80
+sbatch -J fbegqr12 -o fbegqr12.out -e fbegqr12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egqr 5 120
+
+sbatch -J fbegfqr10 -o fbegfqr10.out -e fbegfqr10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egfqr 5 10
+sbatch -J fbegfqr20 -o fbegfqr20.out -e fbegfqr20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egfqr 5 20
+sbatch -J fbegfqr40 -o fbegfqr40.out -e fbegfqr40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egfqr 5 40
+sbatch -J fbegfqr80 -o fbegfqr80.out -e fbegfqr80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egfqr 5 80
+sbatch -J fbegfqr12 -o fbegfqr12.out -e fbegfqr12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh facebook egfqr 5 120
 
 # sbatch -J rde310 -o rde310.out -e rde310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e3 5 10
 # sbatch -J rde320 -o rde320.out -e rde320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e3 5 20
@@ -213,11 +280,35 @@ sbatch -J fbe412 -o fbe412.out -e fbe412.err --nodes 2 --cpus-per-task 12 -p lon
 # sbatch -J rde380 -o rde380.out -e rde380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e3 5 80
 # sbatch -J rde312 -o rde312.out -e rde312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e3 5 120
 
-sbatch -J rde410 -o rde410.out -e rde410.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e4 5 10
-sbatch -J rde420 -o rde420.out -e rde420.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e4 5 20
-sbatch -J rde440 -o rde440.out -e rde440.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e4 5 40
-sbatch -J rde480 -o rde480.out -e rde480.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e4 5 80
-sbatch -J rde412 -o rde412.out -e rde412.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e4 5 120
+# sbatch -J rde410 -o rde410.out -e rde410.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e4 5 10
+# sbatch -J rde420 -o rde420.out -e rde420.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e4 5 20
+# sbatch -J rde440 -o rde440.out -e rde440.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e4 5 40
+# sbatch -J rde480 -o rde480.out -e rde480.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e4 5 80
+# sbatch -J rde412 -o rde412.out -e rde412.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos e4 5 120
+
+sbatch -J rdegun10 -o rdegun10.out -e rdegun10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egun 5 10
+sbatch -J rdegun20 -o rdegun20.out -e rdegun20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egun 5 20
+sbatch -J rdegun40 -o rdegun40.out -e rdegun40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egun 5 40
+sbatch -J rdegun80 -o rdegun80.out -e rdegun80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egun 5 80
+sbatch -J rdegun12 -o rdegun12.out -e rdegun12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egun 5 120
+
+sbatch -J rdegfun10 -o rdegfun10.out -e rdegfun10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egfun 5 10
+sbatch -J rdegfun20 -o rdegfun20.out -e rdegfun20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egfun 5 20
+sbatch -J rdegfun40 -o rdegfun40.out -e rdegfun40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egfun 5 40
+sbatch -J rdegfun80 -o rdegfun80.out -e rdegfun80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egfun 5 80
+sbatch -J rdegfun12 -o rdegfun12.out -e rdegfun12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egfun 5 120
+
+sbatch -J rdegqr10 -o rdegqr10.out -e rdegqr10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egqr 5 10
+sbatch -J rdegqr20 -o rdegqr20.out -e rdegqr20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egqr 5 20
+sbatch -J rdegqr40 -o rdegqr40.out -e rdegqr40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egqr 5 40
+sbatch -J rdegqr80 -o rdegqr80.out -e rdegqr80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egqr 5 80
+sbatch -J rdegqr12 -o rdegqr12.out -e rdegqr12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egqr 5 120
+
+sbatch -J rdegfqr10 -o rdegfqr10.out -e rdegfqr10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egfqr 5 10
+sbatch -J rdegfqr20 -o rdegfqr20.out -e rdegfqr20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egfqr 5 20
+sbatch -J rdegfqr40 -o rdegfqr40.out -e rdegfqr40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egfqr 5 40
+sbatch -J rdegfqr80 -o rdegfqr80.out -e rdegfqr80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egfqr 5 80
+sbatch -J rdegfqr12 -o rdegfqr12.out -e rdegfqr12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh erdos egfqr 5 120
 
 # sbatch -J rne310 -o rne310.out -e rne310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e3 5 10
 # sbatch -J rne320 -o rne320.out -e rne320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e3 5 20
@@ -225,11 +316,35 @@ sbatch -J rde412 -o rde412.out -e rde412.err --nodes 2 --cpus-per-task 12 -p lon
 # sbatch -J rne380 -o rne380.out -e rne380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e3 5 80
 # sbatch -J rne312 -o rne312.out -e rne312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e3 5 120
 
-sbatch -J rne410 -o rne410.out -e rne410.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e4 5 10
-sbatch -J rne420 -o rne420.out -e rne420.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e4 5 20
-sbatch -J rne440 -o rne440.out -e rne440.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e4 5 40
-sbatch -J rne480 -o rne480.out -e rne480.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e4 5 80
-sbatch -J rne412 -o rne412.out -e rne412.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e4 5 120
+# sbatch -J rne410 -o rne410.out -e rne410.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e4 5 10
+# sbatch -J rne420 -o rne420.out -e rne420.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e4 5 20
+# sbatch -J rne440 -o rne440.out -e rne440.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e4 5 40
+# sbatch -J rne480 -o rne480.out -e rne480.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e4 5 80
+# sbatch -J rne412 -o rne412.out -e rne412.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random e4 5 120
+
+sbatch -J rnegun10 -o rnegun10.out -e rnegun10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egun 5 10
+sbatch -J rnegun20 -o rnegun20.out -e rnegun20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egun 5 20
+sbatch -J rnegun40 -o rnegun40.out -e rnegun40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egun 5 40
+sbatch -J rnegun80 -o rnegun80.out -e rnegun80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egun 5 80
+sbatch -J rnegun12 -o rnegun12.out -e rnegun12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egun 5 120
+
+sbatch -J rnegfun10 -o rnegfun10.out -e rnegfun10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egfun 5 10
+sbatch -J rnegfun20 -o rnegfun20.out -e rnegfun20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egfun 5 20
+sbatch -J rnegfun40 -o rnegfun40.out -e rnegfun40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egfun 5 40
+sbatch -J rnegfun80 -o rnegfun80.out -e rnegfun80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egfun 5 80
+sbatch -J rnegfun12 -o rnegfun12.out -e rnegfun12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egfun 5 120
+
+sbatch -J rnegqr10 -o rnegqr10.out -e rnegqr10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egqr 5 10
+sbatch -J rnegqr20 -o rnegqr20.out -e rnegqr20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egqr 5 20
+sbatch -J rnegqr40 -o rnegqr40.out -e rnegqr40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egqr 5 40
+sbatch -J rnegqr80 -o rnegqr80.out -e rnegqr80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egqr 5 80
+sbatch -J rnegqr12 -o rnegqr12.out -e rnegqr12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egqr 5 120
+
+sbatch -J rnegfqr10 -o rnegfqr10.out -e rnegfqr10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egfqr 5 10
+sbatch -J rnegfqr20 -o rnegfqr20.out -e rnegfqr20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egfqr 5 20
+sbatch -J rnegfqr40 -o rnegfqr40.out -e rnegfqr40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egfqr 5 40
+sbatch -J rnegfqr80 -o rnegfqr80.out -e rnegfqr80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egfqr 5 80
+sbatch -J rnegfqr12 -o rnegfqr12.out -e rnegfqr12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh random egfqr 5 120
 
 # sbatch -J eye310 -o eye310.out -e eye310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e3 5 10
 # sbatch -J eye320 -o eye320.out -e eye320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e3 5 20
@@ -237,11 +352,35 @@ sbatch -J rne412 -o rne412.out -e rne412.err --nodes 2 --cpus-per-task 12 -p lon
 # sbatch -J eye380 -o eye380.out -e eye380.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e3 5 80
 # sbatch -J eye312 -o eye312.out -e eye312.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e3 5 120
 
-sbatch -J eye410 -o eye410.out -e eye410.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e4 5 10
-sbatch -J eye420 -o eye420.out -e eye420.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e4 5 20
-sbatch -J eye440 -o eye440.out -e eye440.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e4 5 40
-sbatch -J eye480 -o eye480.out -e eye480.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e4 5 80
-sbatch -J eye412 -o eye412.out -e eye412.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e4 5 120
+# sbatch -J eye410 -o eye410.out -e eye410.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e4 5 10
+# sbatch -J eye420 -o eye420.out -e eye420.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e4 5 20
+# sbatch -J eye440 -o eye440.out -e eye440.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e4 5 40
+# sbatch -J eye480 -o eye480.out -e eye480.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e4 5 80
+# sbatch -J eye412 -o eye412.out -e eye412.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye e4 5 120
+
+sbatch -J eyegun10 -o eyegun10.out -e eyegun10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egun 5 10
+sbatch -J eyegun20 -o eyegun20.out -e eyegun20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egun 5 20
+sbatch -J eyegun40 -o eyegun40.out -e eyegun40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egun 5 40
+sbatch -J eyegun80 -o eyegun80.out -e eyegun80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egun 5 80
+sbatch -J eyegun12 -o eyegun12.out -e eyegun12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egun 5 120
+
+sbatch -J eyegfun10 -o eyegfun10.out -e eyegfun10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egfun 5 10
+sbatch -J eyegfun20 -o eyegfun20.out -e eyegfun20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egfun 5 20
+sbatch -J eyegfun40 -o eyegfun40.out -e eyegfun40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egfun 5 40
+sbatch -J eyegfun80 -o eyegfun80.out -e eyegfun80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egfun 5 80
+sbatch -J eyegfun12 -o eyegfun12.out -e eyegfun12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egfun 5 120
+
+sbatch -J eyegqr10 -o eyegqr10.out -e eyegqr10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egqr 5 10
+sbatch -J eyegqr20 -o eyegqr20.out -e eyegqr20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egqr 5 20
+sbatch -J eyegqr40 -o eyegqr40.out -e eyegqr40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egqr 5 40
+sbatch -J eyegqr80 -o eyegqr80.out -e eyegqr80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egqr 5 80
+sbatch -J eyegqr12 -o eyegqr12.out -e eyegqr12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egqr 5 120
+
+sbatch -J eyegfqr10 -o eyegfqr10.out -e eyegfqr10.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egfqr 5 10
+sbatch -J eyegfqr20 -o eyegfqr20.out -e eyegfqr20.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egfqr 5 20
+sbatch -J eyegfqr40 -o eyegfqr40.out -e eyegfqr40.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egfqr 5 40
+sbatch -J eyegfqr80 -o eyegfqr80.out -e eyegfqr80.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egfqr 5 80
+sbatch -J eyegfqr12 -o eyegfqr12.out -e eyegfqr12.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye egfqr 5 120
 
 # sbatch -J eybe310 -o eybe310.out -e eybe310.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block e3 5 10
 # sbatch -J eybe320 -o eybe320.out -e eybe320.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals_3.sh eye_block e3 5 20

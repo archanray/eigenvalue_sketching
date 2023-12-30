@@ -18,10 +18,14 @@ def main(args):
         block_sizes = list(range(10,n+10,50))
         if args.method == "oth_nonadp":
             block_sizes= list(range(1,int(n/3),20))
+        if args.method in ["seg", "segqr", "segf", "segfqr"]:
+            block_sizes = list(range(1,int(n/3),20))
     else:
         block_sizes = [int(args.block_size)]
     if args.method in ["egu_d", "egu_f", "e2"]:
         iters = list(range( 0, mapper(int(args.block_size),n,1), 5 ))
+    elif args.method in ["egun", "egqr", "egfun", "egfqr"]:
+        iters = list(range( 0, mapper(int(args.block_size),n,2), 10))
     elif "bki" in args.method or "e3" in args.method or "e4" in args.method:
         iters = list(range( 0, mapper(int(args.block_size),n,2), 10 ))
     else:
@@ -78,7 +82,8 @@ if __name__ == "__main__":
                         default="bki_Q", 
                         choices=["bki_adp_Q", "bki_adp_Z", "oth_adp", \
                         "oth_nonadp", "sw_nonadp", "egu_d",\
-                        "egu_f", "e2", "e3", "e4"],
+                        "egu_f", "e2", "e3", "e4", "egun", "egqr", "segun", "segqr",\
+                        "egfun", "egfqr", "segfun", "segfqr"],
                         required=False, 
                         help="choose matvec method")
     parser.add_argument('--trials', '-t',
