@@ -4,7 +4,7 @@ from src.approximator import eigval_approx_bki_adaptive as bki_adp
 from src.approximator import eigval_approx_othro_adaptive as oth_adp
 from src.approximator import eigval_approx_ortho_nonadaptive_2 as oth_nonadp
 from src.approximator import eigval_approx_SW_nonadaptive as sw_nonadp
-from src.approximator import EigenGameUnloaded as egu
+# from src.approximator import EigenGameUnloaded as egu
 from src.approximator import EigenGameUnloaded2 as egu2
 from src.approximator import EigenGameFeats as egf
 from src.approximator import EigenGameQR as egq
@@ -18,7 +18,6 @@ def StrToFunc(name: str):
                     "oth_adp": oth_adp,
                     "oth_nonadp": oth_nonadp,
                     "sw_nonadp": sw_nonadp, 
-                    "egu": egu,
                     "rand_samp": ears,
                     "e2": egu2,
                     "e3": egf,
@@ -35,8 +34,6 @@ def StrToFunc(name: str):
 
     if "bki" in name:
         return dict_of_funcs["bki"], name.split("_")[-1]
-    elif "egu" in name:
-        return dict_of_funcs["egu"], name.split("_")[-1]
     elif "e4" in name:
         return dict_of_funcs["e4"], name.split("_")[-1]
     elif "e3" in name:
@@ -45,12 +42,6 @@ def StrToFunc(name: str):
         return dict_of_funcs[name.split("_")[0]], name.split("_")[-1]
     elif "segun" in name or "segqr" in name or "segfun" in name or "segfqr" in name:
         return dict_of_funcs[name.split("_")[0]], None
-    elif "segqr" in name:
-        return dict_of_funcs["segqr"], None
-    elif "egfun" in name:
-        return dict_of_funcs["segfun"], None
-    elif "egfqr" in name:
-        return dict_of_funcs["segfqr"], None
     else:
         return dict_of_funcs[name], None
 
