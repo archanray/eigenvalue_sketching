@@ -181,10 +181,10 @@ def EigenGameUnloadedOptions(M, k=2, iters=500, eta=2e3, sr=[], mode="EGUN"):
     # create and store a copy of input
     inputM = copy(M)
     
-    if mode not in ["EGUN", "EGQR", "SEG", "SEGQR"]:
+    if mode not in ["EGUN", "EGQR", "SEGUN", "SEGQR"]:
         print("mode not set correctly")
         sys.exit(1)
-    if mode in ["SEG", "SEGQR"]:
+    if mode in ["SEGUN", "SEGQR"]:
         # skethcing matrix
         V = np.random.normal(0, 1/np.sqrt(k), (M.shape[1], k))
         # first compute a sketch of the input matrix
@@ -252,10 +252,10 @@ def EigenGameFeatsOptions(X, k=1, iters=500, eta=5e3, sr=[], mode="EGFUN"):
     # create a store a copy of input
     inputX = copy(X)
     
-    if mode not in ["EGFUN", "EGFQR", "SEGF", "SEGFQR"]:
+    if mode not in ["EGFUN", "EGFQR", "SEGFUN", "SEGFQR"]:
         print("mode not set correctly")
         sys.exit(1)
-    if mode in ["SEGF", "SEGFQR"]:
+    if mode in ["SEGFUN", "SEGFQR"]:
         # sketching matrix
         V = np.random.normal(0, 1/np.sqrt(k), (X.shape[1], k))
         # compute a sketch of the input matrix
