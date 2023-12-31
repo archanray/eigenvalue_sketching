@@ -188,10 +188,10 @@ def EigenGameUnloadedOptions(M, k=2, iters=500, eta=2e3, sr=[], mode="EGUN"):
         # skethcing matrix
         V = np.random.normal(0, 1/np.sqrt(k), (M.shape[1], k))
         # first compute a sketch of the input matrix
-        # so M become n\times k
-        M = np.dot(M, V) 
+        # so M become k\times k
+        M = np.dot(V.T, M.dot(V))
         matvecs = k
-    n = M.shape[0]
+    n = inputM.shape[0]
     V = np.random.randn(M.shape[1], k)
     V /= np.linalg.norm(V, axis=0, keepdims=True)
 

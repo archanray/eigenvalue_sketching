@@ -199,16 +199,16 @@ sbatch -J w4segun -o w4segun.out -e w4segun.err --nodes 2 --cpus-per-task 12 -p 
 sbatch -J w8segun -o w8segun.out -e w8segun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_80 segun 5
 sbatch -J ebsegun -o ebsegun.out -e ebsegun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye_block segun 5
 
-sbatch -J fbsegfun -o fbsegfun.out -e fbsegfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh facebook segfun 5
-sbatch -J rmsegfun -o rmsegfun.out -e rmsegfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh random segfun 5
-sbatch -J rssegfun -o rssegfun.out -e rssegfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh erdos segfun 5
-sbatch -J eysegfun -o eysegfun.out -e eysegfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye segfun 5
-sbatch -J rxsegfun -o rxsegfun.out -e rxsegfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh arxiv segfun 5
-sbatch -J w1segfun -o w1segfun.out -e w1segfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_10 segfun 5
-sbatch -J w2segfun -o w2segfun.out -e w2segfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_20 segfun 5
-sbatch -J w4segfun -o w4segfun.out -e w4segfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_40 segfun 5
-sbatch -J w8segfun -o w8segfun.out -e w8segfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_80 segfun 5
-sbatch -J ebsegfun -o ebsegfun.out -e ebsegfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye_block segfun 5
+# sbatch -J fbsegfun -o fbsegfun.out -e fbsegfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh facebook segfun 5
+# sbatch -J rmsegfun -o rmsegfun.out -e rmsegfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh random segfun 5
+# sbatch -J rssegfun -o rssegfun.out -e rssegfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh erdos segfun 5
+# sbatch -J eysegfun -o eysegfun.out -e eysegfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye segfun 5
+# sbatch -J rxsegfun -o rxsegfun.out -e rxsegfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh arxiv segfun 5
+# sbatch -J w1segfun -o w1segfun.out -e w1segfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_10 segfun 5
+# sbatch -J w2segfun -o w2segfun.out -e w2segfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_20 segfun 5
+# sbatch -J w4segfun -o w4segfun.out -e w4segfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_40 segfun 5
+# sbatch -J w8segfun -o w8segfun.out -e w8segfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh wishart_80 segfun 5
+# sbatch -J ebsegfun -o ebsegfun.out -e ebsegfun.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh eye_block segfun 5
 
 # sbatch -J fbsegqr -o fbsegqr.out -e fbsegqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh facebook segqr 5
 # sbatch -J rmsegqr -o rmsegqr.out -e rmsegqr.err --nodes 2 --cpus-per-task 12 -p longq --mem 32000 --time 07-07:00:00 single_evals.sh random segqr 5
