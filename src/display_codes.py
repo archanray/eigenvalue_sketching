@@ -59,6 +59,23 @@ def sixColors(method):
         color = "darkturquoise"
     if method == "e3_20":
         color = "chocolate"
+        
+    if method == "egun_10":
+        color = "darkslateblue"
+    if method == "egfun_10":
+        color = "slateblue"
+    if method == "egqr_10":
+        color = "darkturquoise"
+    if method == "egfqr_10":
+        color = "chocolate"
+    if method == "segun_full":
+        color = "crimson"
+    if method == "segfun_full":
+        color = "indigo"
+    if method == "segqr_full":
+        color = "khaki"
+    if method == "segfqr_full":
+        color = "orangered"
     return color
 
 def display_image(image):
