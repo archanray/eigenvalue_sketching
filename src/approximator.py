@@ -301,7 +301,7 @@ def EigenGameFeatsOptions(X, k=1, iters=500, eta=5e3, sr=[], mode="EGFUN"):
         # by the V's computed using eigengames
         V = np.dot(Vtilde, V.dot(V.T))
         # now V is n \times k
-    VTMV = np.dot(V.T, inputX.dot(V))
+    VTMV = np.dot(V.T, X.dot(V))
     matvecs += k
     alpha = compute_alpha(VTMV, n)
     if sr !=[]:
