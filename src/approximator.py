@@ -260,6 +260,7 @@ def EigenGameFeatsOptions(X, k=1, iters=500, eta=5e3, sr=[], mode="EGFUN"):
         V = np.random.normal(0, 1/np.sqrt(k), (X.shape[1], k))
         # compute a sketch of the input matrix
         # so X becomes n\times k
+        Vtilde = copy(V)
         X = np.dot(X, V)
         matvecs = k
     n = X.shape[0]
@@ -295,7 +296,10 @@ def EigenGameFeatsOptions(X, k=1, iters=500, eta=5e3, sr=[], mode="EGFUN"):
     if "S" in mode:
         # in sketch mode the matrix is not of the right size!
         # V is now k\times k
-        V, R = qr(np.dot(X,V))
+        # V, R = qr(np.dot(X,V))
+        # instead of the QR above, project Vtilde on the subspace spanned
+        # by the V's computed using eigengames
+        V = np.dot(Vtilde, V.dot(V.T))
         # now V is n \times k
     VTMV = np.dot(V.T, inputX.dot(V))
     matvecs += k
