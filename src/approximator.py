@@ -28,7 +28,7 @@ def compute_alpha(A, n, sub_trace=False):
     alpha = sd(alpha) # sort alphas descending
     return alpha
 
-def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=True, iters=3, q_given=True, sr=[]):
+def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=True, iters=3, q_given=True, sr=[], return_type="eigenvalues"):
     """
     Inputs:
     A -- n times n matrix
@@ -48,7 +48,14 @@ def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=
     else:
         Z, matvecs = bki(A, eps=epsilon, k=k, c=c2, return_var=mode, q=iters, q_given=q_given)
 
-    Atilde = Z.T @ (A @ Z)
+    if return_type == "full matrix":
+        Atilde = A @ Z @ Z.T
+        Atilde = (Atilde + Atilde.T) / 2
+        matvecs += Z.shape[1]
+        return Atilde, matvecs
+    else:
+        Atilde = Z.T @ (A @ Z)
+    
     if mode == "Q":
         matvecs += Z.shape[1]
 
@@ -59,7 +66,7 @@ def eigval_approx_bki_adaptive(A, epsilon=1, c1=1, c2=1, k=1, mode="Q", k_given=
 
     return alpha, matvecs
 
-def eigval_approx_othro_adaptive(A, k=1, sr=[], mode=None):
+def eigval_approx_othro_adaptive(A, k=1, sr=[], mode=None, return_type="eigenvalues"):
     """
     Inputs:
     A -- n times n matrix
@@ -74,8 +81,13 @@ def eigval_approx_othro_adaptive(A, k=1, sr=[], mode=None):
     Q, R = qr(A @ G)
     matvecs += G.shape[1]
 
-    Atilde = Q.T @ (A @ Q)
-    matvecs += Q.shape[1]
+    if return_type == "full matrix":
+        Atilde = Q.T @ (A @ Q)
+        matvecs += Q.shape[1]
+        return Atilde, matvecs
+    else:
+        Atilde = Q.T @ (A @ Q)
+        matvecs += Q.shape[1]
 
     alpha = compute_alpha(Atilde, A.shape[1])
     if sr !=[]:
@@ -84,7 +96,7 @@ def eigval_approx_othro_adaptive(A, k=1, sr=[], mode=None):
     # print(alpha)
     return alpha, matvecs
 
-def eigval_approx_ortho_nonadaptive_2(A, k=1, c=2, sr=[], mode=None):
+def eigval_approx_ortho_nonadaptive_2(A, k=1, c=2, sr=[], mode=None, return_type="eigenvalues"):
     """
     Inputs:
     A -- n times n matrix
@@ -107,13 +119,16 @@ def eigval_approx_ortho_nonadaptive_2(A, k=1, c=2, sr=[], mode=None):
     Abar = AST @ Btilde
     Atilde = (Abar + Abar.T) / 2
 
+    if return_type == "full matrix":
+        return Atilde, matvecs
+    
     alpha = compute_alpha(Atilde, n)
     if sr !=[]:
         alpha = alpha[sr]
     
     return alpha, matvecs    
 
-def eigval_approx_SW_nonadaptive(A, k=1, sr=[], mode=None):
+def eigval_approx_SW_nonadaptive(A, k=1, sr=[], mode=None, return_type="eigenvalues"):
     """
     Inputs:
     A -- n times n matrix
@@ -124,8 +139,13 @@ def eigval_approx_SW_nonadaptive(A, k=1, sr=[], mode=None):
     """
     G = np.random.normal(0,1/np.sqrt(k), (k, A.shape[0]))
     matvecs = 0
-    S = G @ (A @ G.T)
-    matvecs += G.shape[0]
+    if return_type == "full matrix":
+        S = A @ G.T @ G
+        matvecs += G.shape[0]
+        return S, matvecs
+    else:
+        S = G @ (A @ G.T)
+        matvecs += G.shape[0]
 
     alpha = compute_alpha(S, A.shape[1], sub_trace=True)
 
@@ -374,66 +394,66 @@ def EigenGameQR(X, k=1, iters=100, eta=5e3, sr=[], mode=None):
     return alpha, matvecs
 
 def EigenGameUnloaded2(M, k=2, iters=100, eta=1e3, sr=[], mode=None):
-  n = M.shape[1]
-  vtop = np.random.randn(M.shape[0])
-  matvecs = 0
-  for _ in range(iters):
-    ojas = M.dot(vtop)
+    n = M.shape[1]
+    vtop = np.random.randn(M.shape[0])
+    matvecs = 0
+    for _ in range(iters):
+        ojas = M.dot(vtop)
+        matvecs += 1
+        grad = ojas
+        vtop += eta * grad
+        vtop /= np.linalg.norm(vtop)
+    
+    lam_top = np.dot(vtop, M.dot(vtop))
     matvecs += 1
-    grad = ojas
-    vtop += eta * grad
-    vtop /= np.linalg.norm(vtop)
-  
-  lam_top = np.dot(vtop, M.dot(vtop))
-  matvecs += 1
 
-  # print('lam_top', lam_top)
+    # print('lam_top', lam_top)
 
-  Mbar = M + abs(lam_top) * np.eye(M.shape[0])
+    Mbar = M + abs(lam_top) * np.eye(M.shape[0])
 
-  k = k // 2
+    k = k // 2
 
-  V = np.random.randn(M.shape[0], k)
-  V /= np.linalg.norm(V, axis=1, keepdims=True)
+    V = np.random.randn(M.shape[0], k)
+    V /= np.linalg.norm(V, axis=1, keepdims=True)
 
-  k = V.shape[1]
-  mask = np.tril(np.ones((k, k)), k=-1)
-  for _ in range(iters // 2):
-    VTMV = np.dot(V.T, Mbar.dot(V))
+    k = V.shape[1]
+    mask = np.tril(np.ones((k, k)), k=-1)
+    for _ in range(iters // 2):
+        VTMV = np.dot(V.T, Mbar.dot(V))
+        matvecs += k
+        penalties = np.dot(V, (VTMV * mask).T)
+        ojas = Mbar.dot(V)
+        grad = ojas - penalties
+        V += eta * grad
+        V /= np.linalg.norm(V, axis=0)
+
+    VTMV = np.dot(V.T, M.dot(V))
     matvecs += k
-    penalties = np.dot(V, (VTMV * mask).T)
-    ojas = Mbar.dot(V)
-    grad = ojas - penalties
-    V += eta * grad
-    V /= np.linalg.norm(V, axis=0)
+    lams_pos = np.diag(VTMV)
+    lam_max = lams_pos.max()
+    Mbar = 1.05 * (lam_max + lam_top) * np.eye(M.shape[0]) - Mbar
 
-  VTMV = np.dot(V.T, M.dot(V))
-  matvecs += k
-  lams_pos = np.diag(VTMV)
-  lam_max = lams_pos.max()
-  Mbar = 1.05 * (lam_max + lam_top) * np.eye(M.shape[0]) - Mbar
+    V = np.random.randn(M.shape[0], k)
+    V /= np.linalg.norm(V, axis=1, keepdims=True)
 
-  V = np.random.randn(M.shape[0], k)
-  V /= np.linalg.norm(V, axis=1, keepdims=True)
+    for _ in range(iters // 2):
+        VTMV = np.dot(V.T, Mbar.dot(V))
+        matvecs += k
+        penalties = np.dot(V, (VTMV * mask).T)
+        ojas = Mbar.dot(V)
+        grad = ojas - penalties
+        V += eta * grad
+        V /= np.linalg.norm(V, axis=0)
 
-  for _ in range(iters // 2):
-    VTMV = np.dot(V.T, Mbar.dot(V))
+    VTMV = np.dot(V.T, M.dot(V))
     matvecs += k
-    penalties = np.dot(V, (VTMV * mask).T)
-    ojas = Mbar.dot(V)
-    grad = ojas - penalties
-    V += eta * grad
-    V /= np.linalg.norm(V, axis=0)
+    lams_neg = np.diag(VTMV)
 
-  VTMV = np.dot(V.T, M.dot(V))
-  matvecs += k
-  lams_neg = np.diag(VTMV)
-
-  lams = np.concatenate((lams_pos, lams_neg), axis=0)
-  if len(lams) != n:
-    lams = np.pad(lams, pad_width=(0,n-len(lams)), \
-                        mode="constant", constant_values=0)
-  lams = sd(lams)
-  if sr !=[]:
-    lams = lams[sr]
-  return lams, matvecs
+    lams = np.concatenate((lams_pos, lams_neg), axis=0)
+    if len(lams) != n:
+        lams = np.pad(lams, pad_width=(0,n-len(lams)), \
+                            mode="constant", constant_values=0)
+    lams = sd(lams)
+    if sr !=[]:
+        lams = lams[sr]
+    return lams, matvecs
