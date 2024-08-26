@@ -2,12 +2,34 @@ import numpy as np
 import argparse
 from src.get_dataset import get_data
 from src.approximator import *
+from tqdm import tqdm
+
+def run_methods(method, method_args):
+    for t in tqdm(range(args.trials)):
+        pass
+    return None
 
 def main(args):
     true_mat, n, _, _ = get_data(args.dataset)
+    block_sizes_for_krylov = [10,20]
     
     max_matvecs = n // 2
-    for t in range(args.trials):
+    
+    for method in args.methods:
+        print("current method:", method)
+        if method == "bki_adp_Q":
+            for blk_size in block_sizes_for_krylov:
+                run_methods(method)
+            pass
+        if method == "oth_adp":
+            run_methods(method)
+            pass
+        if method == "oth_nonadp":
+            run_methods(method)
+            pass
+        if method == "sw_nonadp":
+            run_methods(method)
+            pass
         pass
     
     return None
