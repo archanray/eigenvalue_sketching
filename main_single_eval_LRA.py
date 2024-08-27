@@ -29,7 +29,7 @@ def main(args):
             errors_FroNorm = np.zeros((args.trials, len(qs)))
             matvecs = np.zeros((args.trials, len(qs)))
             for i in tqdm(range(len(qs))):
-                for t in args.trials:
+                for t in range(args.trials):
                     approx_matrix, matvecs[t, i] = eigval_approx_bki_adaptive(true_mat, k=block_size, iters=qs[i], return_type="full matrix")
                     errors_2Norm[t, i], errors_FroNorm[t, i] = get_error(approx_matrix, true_mat)
         if method == "oth_adp":
@@ -39,7 +39,7 @@ def main(args):
             errors_FroNorm = np.zeros((args.trials, len(block_sizes)))
             matvecs = np.zeros((args.trials, len(block_sizes)))
             for i in tqdm(range(len(block_sizes))):
-                for t in args.trials:
+                for t in range(args.trials):
                     approx_matrix, matvecs[t, i] = eigval_approx_othro_adaptive(true_mat, k=block_sizes[i], return_type="full matrix")
                     errors_2Norm[t, i], errors_FroNorm[t, i] = get_error(approx_matrix, true_mat)
         if method == "oth_nonadp":
@@ -48,7 +48,7 @@ def main(args):
             errors_FroNorm = np.zeros((args.trials, len(block_sizes)))
             matvecs = np.zeros((args.trials, len(block_sizes)))
             for i in tqdm(range(len(block_sizes))):
-                for t in args.trials:
+                for t in range(args.trials):
                     approx_matrix, matvecs[t, i] = eigval_approx_ortho_nonadaptive_2(true_mat, k=block_sizes[i], return_type="full matrix")
                     errors_2Norm[t, i], errors_FroNorm[t, i] = get_error(approx_matrix, true_mat)
         if method == "sw_nonadp":
@@ -57,7 +57,7 @@ def main(args):
             errors_FroNorm = np.zeros((args.trials, len(block_sizes)))
             matvecs = np.zeros((args.trials, len(block_sizes)))
             for i in tqdm(range(len(block_sizes))):
-                for t in args.trials:
+                for t in range(args.trials):
                     approx_matrix, matvecs[t, i] = eigval_approx_SW_nonadaptive(true_mat, k=block_sizes[i], return_type="full matrix")
                     errors_2Norm[t, i], errors_FroNorm[t, i] = get_error(approx_matrix, true_mat)
         ############# Store the values computed above ######################

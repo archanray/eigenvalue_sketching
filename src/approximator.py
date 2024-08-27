@@ -82,8 +82,9 @@ def eigval_approx_othro_adaptive(A, k=1, sr=[], mode=None, return_type="eigenval
     matvecs += G.shape[1]
 
     if return_type == "full matrix":
-        Atilde = Q.T @ (A @ Q)
+        Atilde = (A @ Q @ Q.T)
         matvecs += Q.shape[1]
+        Atilde = (Atilde + Atilde.T) / 2
         return Atilde, matvecs
     else:
         Atilde = Q.T @ (A @ Q)
@@ -141,6 +142,7 @@ def eigval_approx_SW_nonadaptive(A, k=1, sr=[], mode=None, return_type="eigenval
     matvecs = 0
     if return_type == "full matrix":
         S = A @ G.T @ G
+        S = (S+S.T) / 2
         matvecs += G.shape[0]
         return S, matvecs
     else:
