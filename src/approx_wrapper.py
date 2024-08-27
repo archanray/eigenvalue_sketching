@@ -59,10 +59,10 @@ def approx_unified(A, params, algos, algo_params):
     for a in algos:
         if a == "bki_adp_Q":
             algo = bki_adp
-            return_mode = Q
+            return_mode = "Q"
         if a == "bki_adp_Z":
             algo = bki_adp
-            return_mode = Z
+            return_mode = "Z"
         if a == "oth_adp":
             algo = oth_adp
         if a == "oth_nonadp":
