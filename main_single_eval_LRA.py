@@ -18,9 +18,10 @@ def main(args):
     save_vals = {}
     
     eigvals = np.linalg.eigvals(true_mat)
-    save_vals["eigvals"] = eigvals
     
     for method in args.methods:
+        save_vals = {}
+        save_vals["eigvals"] = eigvals
         print("current method:", method)
         if "bki_adp_Q" in method:
             block_size = int(method.rsplit("_")[-1])
@@ -67,13 +68,14 @@ def main(args):
         save_vals[method]["matvecs"] = matvecs
         ####################################################################
     
-    save_folder = "./results/"+args.dataset
-    if not os.path.isdir(save_folder):
-        os.makedirs(save_folder)
-    savefilename = "LRA"+"_".join(args.methods)+".pkl"
-    file_handler = open(savefilename, "wb")
-    pickle.dump(save_vals)
-    file_handler.close()
+        save_folder = "./results/"+args.dataset
+        if not os.path.isdir(save_folder):
+            os.makedirs(save_folder)
+        savefilename = "LRA"+"_"+method+".pkl"
+        file_handler = open(savefilename, "wb")
+        pickle.dump(save_vals)
+        file_handler.close()
+        
     
     return None
 
