@@ -141,7 +141,7 @@ def eigval_approx_SW_nonadaptive(A, k=1, sr=[], mode=None, return_type="eigenval
     G = np.random.normal(0,1/np.sqrt(k), (k, A.shape[0]))
     matvecs = 0
     if return_type == "full matrix":
-        S = A @ G.T @ G
+        S = (A @ G.T) @ G
         S = (S+S.T) / 2
         matvecs += G.shape[0]
         return S, matvecs

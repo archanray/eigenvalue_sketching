@@ -13,6 +13,7 @@ def get_error(A, B):
 def main(args):
     true_mat, n, _, _ = get_data(args.dataset)
     
+    step_size = 20
     max_matvecs = n // 2
     
     save_vals = {}
@@ -25,7 +26,7 @@ def main(args):
         print("current method:", method)
         if "bki_adp_Q" in method:
             block_size = int(method.rsplit("_")[-1])
-            qs = [1, max_matvecs//block_size]
+            qs = np.arange(1, (max_matvecs//block_size)+1, step_size//2).astype(int)
             errors_2Norm = np.zeros((args.trials, len(qs)))
             errors_FroNorm = np.zeros((args.trials, len(qs)))
             matvecs = np.zeros((args.trials, len(qs)))
@@ -35,7 +36,7 @@ def main(args):
                     errors_2Norm[t, i], errors_FroNorm[t, i] = get_error(approx_matrix, true_mat)
         if method == "oth_adp":
             # max matvecs is divided by 2 since total matvecs used here is 2k
-            block_sizes = np.arange(args.smallest_block_size, max_matvecs/2, 10).astype(int)
+            block_sizes = np.arange(args.smallest_block_size, (max_matvecs/2)+1, step_size).astype(int)
             errors_2Norm = np.zeros((args.trials, len(block_sizes)))
             errors_FroNorm = np.zeros((args.trials, len(block_sizes)))
             matvecs = np.zeros((args.trials, len(block_sizes)))
@@ -44,7 +45,7 @@ def main(args):
                     approx_matrix, matvecs[t, i] = eigval_approx_othro_adaptive(true_mat, k=block_sizes[i], return_type="full matrix")
                     errors_2Norm[t, i], errors_FroNorm[t, i] = get_error(approx_matrix, true_mat)
         if method == "oth_nonadp":
-            block_sizes = np.arange(args.smallest_block_size, max_matvecs/3, 10).astype(int)
+            block_sizes = np.arange(args.smallest_block_size, (max_matvecs/3)+1, step_size).astype(int)
             errors_2Norm = np.zeros((args.trials, len(block_sizes)))
             errors_FroNorm = np.zeros((args.trials, len(block_sizes)))
             matvecs = np.zeros((args.trials, len(block_sizes)))
@@ -53,7 +54,7 @@ def main(args):
                     approx_matrix, matvecs[t, i] = eigval_approx_ortho_nonadaptive_2(true_mat, k=block_sizes[i], return_type="full matrix")
                     errors_2Norm[t, i], errors_FroNorm[t, i] = get_error(approx_matrix, true_mat)
         if method == "sw_nonadp":
-            block_sizes = np.arange(args.smallest_block_size, max_matvecs, 10).astype(int)
+            block_sizes = np.arange(args.smallest_block_size, max_matvecs+1, step_size).astype(int)
             errors_2Norm = np.zeros((args.trials, len(block_sizes)))
             errors_FroNorm = np.zeros((args.trials, len(block_sizes)))
             matvecs = np.zeros((args.trials, len(block_sizes)))
@@ -71,9 +72,9 @@ def main(args):
         save_folder = "./results/"+args.dataset
         if not os.path.isdir(save_folder):
             os.makedirs(save_folder)
-        savefilename = "LRA"+"_"+method+".pkl"
+        savefilename = os.path.join(save_folder, "LRA"+"_"+method+".pkl")
         file_handler = open(savefilename, "wb")
-        pickle.dump(save_vals)
+        pickle.dump(save_vals, file_handler)
         file_handler.close()
         
     
@@ -91,8 +92,9 @@ if __name__ == "__main__":
                         type=list, default=["bki_adp_Q_10", "bki_adp_Q_20", "oth_adp", "oth_nonadp", "sw_nonadp"], 
                         required=False,
                         help="list of algorithms to compare")
-    parser.add_argument('--smallest_block_size', '-sb', dest='block_size', 
+    parser.add_argument('--smallest_block_size', '-sb', dest='smallest_block_size', 
                         type=int, default=10, required=False,
                         help="size of the largest block all algorithms")
     args = parser.parse_args()
+    print(args)
     main(args)
