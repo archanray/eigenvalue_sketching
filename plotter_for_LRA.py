@@ -17,10 +17,19 @@ def plotter(results_dict, args, error_mode="2-norm"):
                             results_dict[key]["p10_"+error_mode+"_error"], \
                             results_dict[key]["p90_"+error_mode+"_error"], \
                             alpha=0.2, color=plot_color)
+        
+    if "wishart" in args.dataset:
+        wishart_rank = np.log(int(args.dataset.split("_")[-1]))
+        plt.axvline(x=wishart_rank, color="cyan")
     
-    plt.xlim([-5.7,-0.4])
-    plt.xlabel("log relative matvecs", fontsize=16)
-    plt.ylabel("relative log "+ error_mode+" error", fontsize=16)
+    # plt.xlim([-5.7,-0.4]) # for log relative matvecs
+    plt.xlim([4,8]) # for log matvecs
+    plt.xlabel("Log matvecs", fontsize=16)
+    if error_mode == "2-norm":
+        plt.ylabel(r'$\log(\|\mathbf{A} - \mathbf{\tilde{A}}\|_2 / \|\mathbf{A}\|_2)$')
+    if error_mode == "F-norm":
+        plt.ylabel(r'$\log(\|\mathbf{A} - \mathbf{\tilde{A}}\|_2 / \|\mathbf{A}\|_F)$')
+    # plt.ylabel("relative log "+ error_mode+" error", fontsize=16)
     # plt.legend()
     plt.grid()
     # plt.title(args.dataset, fontsize=16)
@@ -63,7 +72,7 @@ def main(args):
         summaries["p10_F-norm_error"] = np.percentile(np.log(save_vals[method_name]["fro_norm_error"] / true_f_norm), q = 10, axis=0) # p10 of columns
         summaries["p90_F-norm_error"] = np.percentile(np.log(save_vals[method_name]["fro_norm_error"] / true_f_norm), q = 90, axis=0) # p90 of columns
         
-        summaries["mean_matvecs"] = np.mean(np.log(save_vals[method_name]["matvecs"] / len(save_vals["eigvals"])), axis=0) # mean of columns
+        summaries["mean_matvecs"] = np.mean(np.log(save_vals[method_name]["matvecs"]), axis=0) # mean of columns, use => for relative matvecs "/ len(save_vals["eigvals"]"
         
         results_dict[method_name] = summaries
     
