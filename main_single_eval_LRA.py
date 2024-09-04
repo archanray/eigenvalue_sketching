@@ -26,7 +26,7 @@ def main(args):
         print("current method:", method)
         if "bki_adp_Q" in method:
             block_size = int(method.rsplit("_")[-1])
-            qs = np.arange(1, (max_matvecs//block_size)+1, step_size//2).astype(int)
+            qs = np.arange(1, (max_matvecs//(2*block_size))+1, step_size//4).astype(int)
             errors_2Norm = np.zeros((args.trials, len(qs)))
             errors_FroNorm = np.zeros((args.trials, len(qs)))
             matvecs = np.zeros((args.trials, len(qs)))
@@ -89,7 +89,7 @@ if __name__ == "__main__":
                         default=3, required=False,
                         help="number of trials to average out performance")
     parser.add_argument('--methods', '-m', dest='methods', 
-                        type=list, default=["bki_adp_Q_10", "bki_adp_Q_20", "oth_adp", "oth_nonadp", "sw_nonadp"], 
+                        type=list, default=["sw_nonadp"], #["bki_adp_Q_10", "bki_adp_Q_20", "oth_adp", "oth_nonadp", "sw_nonadp"], 
                         required=False,
                         help="list of algorithms to compare")
     parser.add_argument('--smallest_block_size', '-sb', dest='smallest_block_size', 
